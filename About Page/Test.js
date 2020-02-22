@@ -1,5 +1,4 @@
 var temp_left = 0, temp_top = 0;
-/* document.getElementById("Aniket_info").innerHTML = "huun na mai chutiya"; */
 setInterval(function(){
   var elem = document.getElementById("test_player");
   document.onkeydown = function(event){
@@ -20,7 +19,6 @@ setInterval(function(){
   top = (top + temp_top) % (100 - height);
   if(top < 0)
     top = 100 - height - 1;
-/*   document.getElementById("Aniket_info").innerHTML = temp_left + " " + temp_top + " " + left + " " + top; */
   elem.style.left = left + "%";
   elem.style.top = top + "%";
 }, 50);
