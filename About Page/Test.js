@@ -11,11 +11,11 @@ elem.push(document.getElementById("test_player"));
 function insert_elem(){
   if(elem_to_add > 0){
     elem_to_add--;
-    document.getElementById("Sahil_info").innerHTML = "Hye " + elem.length;
+    // document.getElementById("Sahil_info").innerHTML = "Hye " + elem.length;
     elem.push(document.createElement("DIV"));
     document.body.appendChild(elem[elem.length - 1]);
     elem[elem.length - 1].classList.add("player");
-    document.getElementById("Sahil_info").innerHTML = "Hye " + elem.length;
+    // document.getElementById("Sahil_info").innerHTML = "Hye " + elem.length;
   }
 }
 function process_elem(){
@@ -58,7 +58,7 @@ setInterval(function(){
     for(var i = 0; i < 4; i++){
       if(i == event.keyCode - 37 && ((lastKeyCode - 37) % 2) != (i % 2) && nextInterval == true){
         nextInterval = false;
-        document.getElementById("Sahil_info").innerHTML = ((lastKeyCode - 37) % 2) + " " + i;
+        // document.getElementById("Sahil_info").innerHTML = ((lastKeyCode - 37) % 2) + " " + i;
         lastKeyCode = event.keyCode;
         temp_left = (1 - (i % 2))*(i + -1);
         temp_top = (i % 2)*(2 * i - 4);
