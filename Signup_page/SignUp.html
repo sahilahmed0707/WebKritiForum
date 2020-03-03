@@ -22,13 +22,13 @@
   <style type="text/css">
     html, body {
       width: 100%;
-      height: 100%;
+      height: 110%;
       margin: 0px;
     }
     body {
       background-color: transparent;
     }
-    .SignUPSpan {
+    .SignUPlabel {
       position: absolute;
       border-color: transparent;
       font-weight: bold;
@@ -40,40 +40,41 @@
     }
     .ContainerDiv {
       position: absolute;
-      height: 100%;
       width: 75%;
       border-color: black;
       border-width: 2px;
       left: 13%;
       top: 25%;
       border-style: solid;
+      border-radius: 1%;
+      height: 90%;
     }
-    .UsernameSpan {
+    .UsernameLabel {
       position: absolute;
-      text-align: center;
-      left: 20%;
       top: 35%;
-      font-size: 150%;
-      height: 10%;
       width: 20%;
+      text-align: left;
+      left: 22%;
+      font-size: 150%;
+      height: 5%;
     }
     .UsernameInput {
       position: absolute;
-      top: 50%;
       width: 32%;
-      height: 10%;
       left: 20%;
+      height: 5%;
+      font-size: 150%;
+      top: 45%;
     }
-    #password_span {
-      top: 70%;
+    #password_label {
+      top: 55%;
     }
     #password_input {
-      top: 85%;
+      top: 65%;
     }
     .ButtonSubmit {
       position: absolute;
       left: 20%;
-      top: 100%;
       height: 15%;
       width: 15%;
       text-align: center;
@@ -83,19 +84,36 @@
       background-color: rgb(232, 138, 138);
       border: none;
       cursor: pointer;
+      top: 95%;
+    }
+    #repass_label {
+      width: 35%;
+      top: 75%;
+    }
+    #password_input_1 {
+      top: 85%;
+    }
+    #error_label {
+      top: 30%;
+      font-size: 100%;
     }
   </style>
 </head>
 
 <body class="htmlNoPages">
-  <span class="SignUPSpan" id="sign_up_span" align="center">Sign Up</span>
+  <label class="SignUPlabel" id="sign_up_label" align="center">Sign Up</label>
   <div class="ContainerDiv" id="container_div" align="center"></div>
-  <span class="UsernameSpan" id="username_span">Username:</span>
-  <input class="UsernameInput" id="username_input" type="text" required>
-  <span class="UsernameSpan" id="password_span">Password:</span>
-  <input class="UsernameInput" id="password_input" type="password" required>
-  <button class="ButtonSubmit" id="button-submit" onclick="submit()">Submit</button>
-  <script src="SignUp.js"></script>
+  <form action="" method="post" id="input_form">
+    <label class="UsernameLabel" id="username_label">Username:</label>
+    <input class="UsernameInput" id="username_input" type="text" name="user" required>
+    <label class="UsernameLabel" id="password_label">Password:</label>
+    <label class="UsernameLabel" id="repass_label">ReType Password:</label>
+    <input class="UsernameInput" id="password_input" type="password" name="pass" required>
+    <input class="UsernameInput" id="password_input_1" type="password" name="repass" required>
+    <label class="UsernameLabel" id="error_label">start</label>
+    <script src="SignUp.js"></script>
+    <input class="ButtonSubmit" id="button-submit" type="submit" value="submit">
+  </form>
 </body>
 
 </html>
