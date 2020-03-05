@@ -8,7 +8,7 @@
     @import url('https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap');
 
     body {
-        background-color: black;
+        background-color: rgb(20, 20, 20);
     }
 
     body a {
@@ -20,12 +20,27 @@
         width: 100%;
         background-color: rgb(34, 34, 34);
         position: sticky;
-
         top: 0;
+        z-index: 1000;
+
     }
 
-    nav ul li header {
-        padding: 0%
+    .logo {
+        padding: 0%;
+        width: 10vw;
+
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        padding-top: 1vw;
+        justify-content: space-around;
+
+    }
+
+    buttons div {
+        padding-left: 0px;
     }
 
     nav ul li {
@@ -52,10 +67,12 @@
 
     }
 
+
+
     nav ul {
         display: flex;
         padding: 0%;
-        justify-content: space-around;
+        justify-content: space-between;
 
     }
 
@@ -96,212 +113,111 @@
         border-color: rgb(71, 71, 71);
 
     }
+
+    .user_details {
+        color: rgb(133, 133, 133);
+        display: flex;
+        flex-direction: column;
+        width: 70vw;
+        margin: 0 auto;
+
+    }
+
+    .user_details div {
+        display: flex;
+        justify-content: space-between;
+    }
 </style>
 
 <body>
 
     <nav>
         <ul>
-            <l1>
-                <header><img src="./logo.png" alt="Dark Forums Logo" height="4%" width="12%"></header>
-            </l1>
-            <li>
-                <a href="#">Dashboard</a>
-            </li>
-            <li><a href="#">Logout</a></li>
+            <div class="logo">
+                <li>
+                    <header><img src="./logo.gif" alt="Leaf Forums Logo" height="40%" width="40%"></header>
+                </li>
+            </div>
+            <div class="buttons">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li><a href="#">Logout</a></li>
+            </div>
         </ul>
     </nav>
     <br>
     <div class="container">
         <div class="main">
             <div class="cicle1">
-                <!-- <div class="heading"> -->
-                <p><strong> Discussions <br>Started:</strong></p>
-                <!-- </div> -->
 
-                <!-- <div class="value"> -->
+                <p><strong> Discussions <br>Started:</strong></p>
                 <p>15</p>
-                <!-- </div> -->
+
             </div>
             <div class="cicle2">
-                <!-- <div class="heading"> -->
-                <p><strong> Thanks <br>Recieved: </strong>
-                    <!-- </div> -->
 
-                    <!-- <div class="value"> -->
+                <p><strong> Thanks <br>Recieved: </strong>
                     <p>15</p>
-                    <!-- </div> -->
+
             </div>
             <div class="cicle3">
-                <!-- <div class="heading"> -->
-                <p><strong>Comments:<br>
 
-                    </strong></p>
-                <!-- </div> -->
-                <!-- <div class="value"> -->
+                <p><strong>Comments:<br></strong></p>
                 <p>15</p>
-                <!-- </div> -->
+
             </div>
         </div>
-        <br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here to open the
-            Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
+        <br>
+        <hr>
+        <hr>
+        <div class="user_details">
+            <div class="username">
+                <h1 style="font-size: 2vw;">Username:</h1>
+                <p
+                    style="font-size: 2vw;border: 0.1vw solid rgb(85, 85, 85);background-color: rgb(53, 53, 53);width: 30vw;text-align: center;">
+                    value28387</p>
+            </div>
+            <div class="email">
+                <h1 style="font-size: 2vw;">Email Address:</h1>
+                <p
+                    style="font-size: 2vw;border: 0.1vw solid rgb(85, 85, 85);background-color: rgb(53, 53, 53);width: 30vw;text-align: center;">
+                    lahnofk897@ialh.afih</p>
+            </div>
+            <div class="name">
+                <h1 style="font-size: 2vw;">Full Name:</h1>
+                <p
+                    style="font-size: 2vw;border: 0.1vw solid rgb(85, 85, 85);background-color: rgb(53, 53, 53);width: 30vw;text-align: center;">
+                    Aasdfasf
+                    Haffjk</p>
+            </div>
+            <div class="dob">
+                <h1 style="font-size: 2vw;">Date of Birth:</h1>
+                <p
+                    style="font-size: 2vw;border: 0.1vw solid rgb(85, 85, 85);background-color: rgb(53, 53, 53);width: 30vw;text-align: center;">
+                    07/07/2000</p>
+            </div>
+            <br>
+            <a href="./edit_profile.html" style="background-color: rgb(20, 20, 20);">
+                <h1 style="font-size: 2vw;">Edit Profile</h1>
+        </div>
+
+        <a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
             to
             open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
+            page</a>
+        <a href="./home.html">Click here to open the Home page</a>
+        <a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
             to
             open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
+            page</a>
+        <a href="./home.html">Click here to open the Home page</a><a href="./home.html">Click here to open the Home
+            page</a><br><a href="./home.html">Click here
             to
             open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
-            to
-            open the Home
-            page</a><br><a href="./home.html">Click here to open the Home page</a><br><a href="./home.html">Click here
+            page</a>
+        <a href="./home.html">Click here to open the Home page</a><a href="./home.html">Click here to open the Home
+            page</a><br><a href="./home.html">Click here
             to
             open the Home
             page</a>
