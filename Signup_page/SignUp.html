@@ -47,7 +47,7 @@
       top: 25%;
       border-style: solid;
       border-radius: 1%;
-      height: 90%;
+      height: 170%;
     }
     .UsernameLabel {
       position: absolute;
@@ -84,7 +84,7 @@
       background-color: rgb(232, 138, 138);
       border: none;
       cursor: pointer;
-      top: 95%;
+      top: 175%;
     }
     #repass_label {
       width: 35%;
@@ -105,12 +105,21 @@
   <div class="ContainerDiv" id="container_div" align="center"></div>
   <form action="http://localhost:8080/signup" method="post" id="input_form">
     <label class="UsernameLabel" id="username_label">Username:</label>
-    <input class="UsernameInput" id="username_input" type="text" name="user" required>
+    <input class="UsernameInput" id="username_input" type="text" name="user" required="">
     <label class="UsernameLabel" id="password_label">Password:</label>
     <label class="UsernameLabel" id="repass_label">ReType Password:</label>
-    <input class="UsernameInput" id="password_input" type="password" name="pass" required>
-    <input class="UsernameInput" id="password_input_1" type="password" name="repass" required>
+    <label class="UsernameLabel" id="repass_label_1" style="top: 75%; width: 35%;">ReType Password:</label>
+    <label class="UsernameLabel" id="squestion_label" style="width: 35%; top: 135%;">Sequrity Question:</label>
+    <label class="UsernameLabel" id="name_label" style="top: 115%;">Full Name:</label>
+    <label class="UsernameLabel" id="answer_label" style="top: 155%;">Answer:</label>
+    <input class="UsernameInput" id="password_input" type="password" name="pass" required="">
+    <input class="UsernameInput" id="password_input_1" type="password" name="repass" required="">
+    <input class="UsernameInput" id="email_input" type="text" name="email" required="" style="top: 105%;">
+    <input class="UsernameInput" id="name_input" type="text" name="name" required="" style="top: 125%;">
+    <input class="UsernameInput" id="ques_input" type="text" name="ques" required="" style="top: 145%; width: 50%;">
+    <input class="UsernameInput" id="answer_input" type="text" name="ans" required="" style="width: 50%; top: 165%;">
     <label class="UsernameLabel" id="error_label">start</label>
+    <label class="UsernameLabel" id="email_label" style="top: 95%;">Email:</label>
     <script src="SignUp.js"></script>
     <input class="ButtonSubmit" id="button-submit" type="submit" value="submit">
   </form>
