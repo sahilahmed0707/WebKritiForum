@@ -1,8 +1,10 @@
-var http = require("http");
 var mysql = require("mysql");
 var url = require("url");
 var data = require("fs");
-const { parse } = require('querystring');
+var express = require("express");
+var app = express();
+var bodyParser = require("body-parser");
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 var con = mysql.createConnection({
     host: "localhost",
     user: "vishnu",
@@ -12,67 +14,55 @@ var con = mysql.createConnection({
 con.connect(function (err){
     if (err) throw err;
     console.log("connected");
-    
 });
 
-http.createServer(function(req, res){
-    console.log("8080");
-    if(req.method === "POST"){
-        var body = "";
-        console.log("hey");
-        req.on("data", function(chunk){
-            body += chunk.toString();
-        });
-        req.on("end", function(){
-            var qdata = parse(body);
-            console.log(qdata);
-            var sql = "select * from players where username = '" + qdata.user + "' and password = '" + qdata.pass + "';";
-            con.query(sql, function(err, result){
-                if(err) throw err;
-                res.writeHead(200, {"Content-type": "text/html"});
-                if(result.length > 0)
-                    res.write("Hello World");
-                else
-                    res.write("invalid Username or password");
-                res.end();
-            });
-            console.log("Hye");
-        });
-    }
-}).listen(8080);
+app.post("/login", urlencodedParser, function(req, res) {
+    var qdata = {
+        user:req.body.user,
+        pass:req.body.pass
+    };
+    var sql = "select * from players where username = '" + qdata.user + "' and password = '" + qdata.pass + "';";
+    con.query(sql, function(err, result){
+        if(err) throw err;
+        if(result.length > 0)
+            res.send("Hello World");
+        else
+            res.send("invalid Username or password");
+    });
+});
 
-http.createServer(function(req, res){
-    console.log("hey");
-    if (req.method === 'POST') {
-        var body = '';
-        req.on('data', chunk => {
-            body += chunk.toString();
-        });
-        req.on('end', () => {
-            var qdata = parse(body);
-            if(qdata.pass != qdata.repass){
-                res.writeHead(400, {"Content-type" : "text/html"});
-                res.write("password and re-password not matched");
-                res.end(); 
-                return;                                
-            }
-            var sql = "select * from players where username = '" + qdata.user +"';"; 
-            console.log(qdata);
-            con.query(sql, function(err, result){
-                if(err) throw err;
-                res.writeHead(200, {"Content-type" : "text/html"});
-                if(result.length > 0)
-                    res.write("username already used");
-                else{
-                    console.log("here");
-                    var query = "insert into players value ('" + qdata.user + "', '" + qdata.pass + "');";
-                    con.query(query, function(err, result){
-                        if(err) throw err;
-                        console.log("added data successfully");
-                    });
-                }
-                res.end();
-            });
-        });
+app.post("/signup", urlencodedParser, function(req, res) {
+    var qdata = {
+        user: req.body.user,
+        pass: req.body.pass,
+        repass: req.body.repass
+    };
+    if(qdata.pass != qdata.repass){
+        res.send("password and re-password not matched");
+        res.end(); 
+        return;                                
     }
-}).listen(8000);
+    var sql = "select * from players where username = '" + qdata.user +"';"; 
+    console.log(qdata);
+    con.query(sql, function(err, result){
+        if(err) throw err;
+        if(result.length > 0)
+            res.send("username already used");
+        else{
+            console.log("here");
+            var query = "insert into players value ('" + qdata.user + "', '" + qdata.pass + "');";
+            con.query(query, function(err, result){
+                if(err) throw err;
+                console.log("added data successfully");
+                res.send("added data successfully");
+            });
+        }
+    });
+});
+
+var server = app.listen(8080, function () {
+    var host = server.address().address
+    var port = server.address().port
+    
+    console.log("Example app listening at http://%s:%s", host, port)
+ });
