@@ -7,7 +7,7 @@ app.use(express.static(__dirname+'/public'));
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "bhch@1507",
   database: 'Forum',
 //   port: "3306",
 //   insecureAuterh : true,
