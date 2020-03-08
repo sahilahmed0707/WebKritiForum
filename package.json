@@ -1,17 +1,18 @@
 {
-  "name": "webkriti",
+  "name": "webforum",
   "version": "1.0.0",
-  "description": "Webkriti project",
-  "main": "index.js",
+  "description": "Webforum",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Vishnu Agarwal",
+  "author": "Bharat Chandwani",
   "license": "ISC",
   "dependencies": {
-    "fs": "0.0.1-security",
-    "http": "0.0.0",
-    "mysql": "^2.18.1",
-    "url": "^0.11.0"
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "mysql": "^2.18.1"
   }
 }
