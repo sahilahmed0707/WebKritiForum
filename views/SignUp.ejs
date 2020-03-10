@@ -8,7 +8,7 @@
   <style type="text/css">
     html, body {
       width: 100%;
-      height: 140%;
+      height: 130%;
       margin: 0px;
     }
     body {
@@ -22,7 +22,7 @@
       color: rgb(137, 0, 250);
       height: 10.15%;
       width: 20%;
-      top: 10%;
+      top: 30%;
       left: 40%;
       font-size: 2.5vw;
     }
@@ -30,89 +30,91 @@
       position: absolute;
       width: 75%;
       background-color: rgb(49, 49, 49);
-      left: 13%;
+      left: 12.5%;
       top: 25%;
       border-style: solid;
-      height: 135%;
+      height: 115%;
     }
     .UsernameLabel {
       position: absolute;
-      top: 35%;
+      top: 50%;
       width: 20%;
       color: rgb(137, 0, 250);
       text-align: left;
       font-weight: bold;
       font-family: "Arial Black";
-      left: 20%;
-      font-size: 1.5vw;
-      height: 5%;
+      left: 25%;
+      font-size: 1vw;
+      height: 3%;
     }
     .UsernameInput {
       position: absolute;
-      width: 32%;
-      left: 20%;
-      height: 5%;
-      font-size: 150%;
-      top: 40%;
+      width: 50%;
+      left: 25%;
+      height: 4%;
+      top: 53%;
     }
     #password_label {
-      top: 50%;
+      top: 60%;
     }
     #password_input {
-      top: 55%;
+      top: 63%;
     }
     .ButtonSubmit {
       position: absolute;
-      left: 20%;
-      height: 15%;
-      width: 15%;
+      left: 25%;
+      height: 6%;
+      width: 10%;
+      border-radius: 10%;
       text-align: center;
       font-weight: bold;
-      font-size: 100%;
+      font-family: "Arial Black";
+      font-size: 1vw;
       outline: none;
       background-color: rgb(137, 0, 250);
       border: none;
       cursor: pointer;
       color: white;
-      top: 140%;
+      top: 125%;
     }
     .ButtonSubmit:hover {
-      background-color: rgb(150, 98, 241);
+      background-color: rgb(98, 41, 196);
     }
     #repass_label {
       width: 35%;
-      top: 75%;
-    }
-    #password_input_1 {
       top: 70%;
     }
+    #password_input_1 {
+      top: 73%;
+    }
     #error_label {
-      top: 30%;
+      top: 45%;
       font-size: 100%;
+      display: none;
     }
   </style>
 </head>
 
 <body class="htmlNoPages">
-  <label class="SignUPlabel" id="sign_up_label" align="center">Sign Up</label>
   <div class="ContainerDiv" id="container_div" align="center"></div>
+  <label class="SignUPlabel" id="sign_up_label" align="center">Sign Up</label>
   <form action="http://localhost:8080/signup" method="post" id="input_form">
-    <label class="UsernameLabel" id="username_label">Username:</label>
-    <input class="UsernameInput" id="username_input" type="text" name="user" required="">
-    <label class="UsernameLabel" id="password_label">Password:</label>
-    <label class="UsernameLabel" id="repass_label_1" style="top: 65%; width: 35%;">ReType Password:</label>
-    <label class="UsernameLabel" id="squestion_label" style="width: 35%; top: 110%;">Sequrity Question:</label>
-    <label class="UsernameLabel" id="name_label" style="top: 95%;">Full Name:</label>
-    <label class="UsernameLabel" id="answer_label" style="top: 125%;">Answer:</label>
-    <input class="UsernameInput" id="password_input" type="password" name="pass" required="">
-    <input class="UsernameInput" id="password_input_1" type="password" name="repass" required="">
-    <input class="UsernameInput" id="email_input" type="text" name="email" required="" style="top: 85%;">
-    <input class="UsernameInput" id="name_input" type="text" name="name" required="" style="top: 100%;">
-    <input class="UsernameInput" id="ques_input" type="text" name="ques" required="" style="top: 115%; width: 50%;">
-    <input class="UsernameInput" id="answer_input" type="text" name="ans" required="" style="width: 50%; top: 130%;">
+    <label class="UsernameLabel" id="username_label">USERNAME:</label>
+    <input class="UsernameInput" id="username_input" placeholder="Your Username" type="text" name="user" required="">
+    <label class="UsernameLabel" id="password_label">PASSWORD:</label>
+    <label class="UsernameLabel" id="repass_label_1" style="top: 70%; width: 35%;">RETYPE PASSWORD:</label>
+    <label class="UsernameLabel" id="squestion_label" style="width: 35%; top: 100%;">SECURITY QUESTION:</label>
+    <label class="UsernameLabel" id="name_label" style="top: 90%;">FULL NAME:</label>
+    <label class="UsernameLabel" id="answer_label" style="top: 110%;">ANSWER:</label>
+    <input class="UsernameInput" id="password_input" placeholder="Your Password" type="password" name="pass" required="">
+    <input class="UsernameInput" id="password_input_1" placeholder="Retype Your Password" type="password" name="repass" required="">
+    <input class="UsernameInput" id="email_input" type="text" placeholder="Your Email" name="email" required="" style="top: 83%;">
+    <input class="UsernameInput" id="name_input" type="text" name="name" placeholder="Your Full Name" required="" style="top: 93%;">
+    <input class="UsernameInput" id="ques_input" type="text" name="ques" placeholder="Your Security Question" required="" style="top: 103%; width: 50%;">
+    <input class="UsernameInput" id="answer_input" type="text" name="ans" placeholder="Your Answer" required="" style="width: 50%; top: 113%;">
     <label class="UsernameLabel" id="error_label">start</label>
-    <label class="UsernameLabel" id="email_label" style="top: 80%;">Email:</label>
-    <input class="ButtonSubmit" id="button-submit" type="submit" value="submit">
+    <label class="UsernameLabel" id="email_label" style="top: 80%;">EMAIL:</label>
+    <input class="ButtonSubmit" id="button-submit" type="submit" value="SUBMIT">
   </form>
 </body>
 
