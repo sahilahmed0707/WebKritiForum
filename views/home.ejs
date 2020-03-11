@@ -1,12 +1,135 @@
 
 <%- include("partials/header"); -%>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <style>
+        body {
+            font-family: "Arial Black";
+        }
 
+        .Heading {
+            text-align: center;
+            font-size: 2.5vw;
+            font-weight: bold;
+            color: rgb(137, 0, 250);
+        }
+
+        .Container {
+            min-height: 1%;
+            width: 50%;
+            overflow: hidden;
+            margin: auto auto;
+            padding: 1.5vw 2vw;
+            margin-bottom: 1vw;
+            background-color: rgb(49, 49, 49);
+        }
+
+        .SubHeadingContainer {
+            margin: 0 auto;
+            margin-bottom: 0.5vw;
+        }
+
+        .SubHeading {
+            text-align: left;
+            text-decoration: none;
+            font-size: 2vw;
+            background-color: transparent;
+            color: white;
+            font-weight: bold;
+        }
+
+        .SubHeading:hover {
+            text-decoration: underline;
+        }
+
+        .ProfileContainer {
+            display: flex;
+            margin-bottom: 0.5vw;
+        }
+
+        .ImgDiv {
+            border-radius: 100%;
+            margin-right: 0.5vw;
+            height: 4vw;
+            width: 4vw;
+            background-color:rgb(137, 0, 250);
+            flex: 0 0 auto;
+            cursor: pointer;
+        }
+
+        .ProfileImg {
+            height: 4vw;
+            width: 4vw;
+            border-radius: 100%;
+        }
+
+        .ProfileInfoDiv {
+            flex: 1 0 auto;
+        }
+
+        .ProfileNameDiv {
+            margin-bottom: 0.4vw;
+            height: 1.75vw;
+            padding: auto 0;
+            background-color: transparent;
+        }
+
+        .ProfileNameA {
+            font-size: 1vw;
+            text-align: left;
+            text-decoration: none;
+            color: white;
+            font-family: "Roboto";
+            background-color: transparent;
+        }
+
+        .ProfileNameA:hover {
+            text-decoration: underline;
+        }
+
+        #date_div {
+            margin-bottom: 0px;
+        }
+
+        #date_a {
+            color : rgb(113, 112, 114);
+            cursor: pointer;
+        }
+
+        .BodySpan {
+            color: white;
+            font-size: 1vw;
+            font-family: "Roboto";
+            cursor: pointer;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
 <body>
-    <h1>Recent Discussions</h1>
-    <hr>
-    <div>
-        
-    </div>
+    <h1 class="Heading">RECENT DISCUSSIONS</h1>
+    <script src="home.js"></script>
+    <% for(var i = posts.length - 1; i >= 0; i--) { %>
+        <div class="Container">
+            <div class="SubHeadingContainer">
+                <a class="SubHeading" href=""><%= posts[i].title %></a>
+            </div>
+            <div class="ProfileContainer">
+                <div class="ImgDiv" overflow="hidden">
+                    <img class="ProfileImg" src="assets/default_profile_pic.jpg">
+                </div>
+                <div class="ProfileInfoDiv">
+                    <div class="ProfileNameDiv">
+                        <a class="ProfileNameA" id="profile_name_a" href=""><%= posts[i].user %></a>
+                    </div>
+                    <div class="ProfileNameDiv" id="date_div">
+                        <span class = "ProfileNameA" id="date_a"><%= posts[i].date %></span>
+                    </div>
+                </div>
+            </div>
+            <span class="BodySpan"><%= posts[i].body %></span>
+        </div>
+    <% } %>
 </body>
 
 <%- include("partials/footer"); -%>
