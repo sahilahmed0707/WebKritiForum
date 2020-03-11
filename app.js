@@ -28,6 +28,17 @@ con.connect(function (err){
     console.log("connected");
 });
 
+conn.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = "CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(450) NULL, `post time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE)"
+  //   var comments="CREATE TABLE IF NOT EXISTS `forum`.`Comments` ( `idComments` INT NOT NULL, `usr_id` VARCHAR(45) NULL, `dsc_id` INT NULL, `cmt` VARCHAR(150) NULL, `post time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`idComments`), UNIQUE INDEX `idComments_UNIQUE` (`idComments` ASC) VISIBLE)";
+    conn.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Table created");
+    });
+  });
+
 app.get("/forgot-password", function(req, res){
     res.render("ForgotPassword", {
         "heading": "FORGOT PASSWORD",
@@ -181,20 +192,28 @@ app.get("/login", function(req, res) {
 app.get("/signup", function(req, res) {
   res.render("SignUp");
 });
-
-
-conn.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  var sql = "CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(450) NULL, `post time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE)"
-//   var comments="CREATE TABLE IF NOT EXISTS `forum`.`Comments` ( `idComments` INT NOT NULL, `usr_id` VARCHAR(45) NULL, `dsc_id` INT NULL, `cmt` VARCHAR(150) NULL, `post time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`idComments`), UNIQUE INDEX `idComments_UNIQUE` (`idComments` ASC) VISIBLE)";
-  conn.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("Table created");
-  });
-});
   
 var posts=[]
+
+var test={
+    title: "Faltu Title",
+    body: "A 32 years old woman named Milo Moiré introduced “Mirror Box”; a public art performance. In the act complete strangers — both men and women — were invited to touch her breasts and lady bits through the opening in the boxes for maximum of 30 seconds — not a second more. More interesting thing is whole touchy-touchy act was being recorded every second by cameras within the boxes. Yes, really!",
+    img: "",
+    user: "my useless name",
+    date: "Jan 12",
+    disc_id: 12
+};
+posts.push(test);
+
+test={
+    title: "Next Faltu Title",
+    body: "A variety of objects — roses, feather, chains, scissors and even a gun with bullets loaded — were placed on the table. In the beginning, people were gentle, kissing her, placing rose in her hand and feeding cakes. But soon, the act started turning wild. People took the scissors off the table and cut off all her clothes, one man tried to rape her, another loaded the pistol with the bullet and pointed it at her head. Another still cut her skin around the neck and drank her blood.",
+    img: "",
+    user: "Varun",
+    date: "Feb 23",
+    disc_id: 13
+}
+posts.push(test);
 
 app.set('view engine', 'ejs');
 
@@ -206,7 +225,9 @@ app.get("/about", function(req, res){
 });
 
 app.get("/", function(req, res){
-    res.render("home");
+    res.render("home",{
+        posts: posts
+    });
 });
 
 app.get("/dashboard", function(req, res){
@@ -217,11 +238,12 @@ app.get("/compose", function(req, res){
     res.render("compose");
 });
 
-
 app.post("/compose", function(req, res){
     const post={
         title: req.body.postTitle,
-        body: req.body.postBody
+        body: req.body.postBody,
+        img: "",
+        disc_id: 12
     };
     posts.push(post);
     res.redirect();
