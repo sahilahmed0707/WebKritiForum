@@ -1,6 +1,6 @@
 
 <%- include("partials/header"); -%>
-<head>
+<!-- <head> -->
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <style>
         body {
@@ -16,7 +16,7 @@
 
         .Container {
             min-height: 1%;
-            width: 50%;
+            width: 70%;
             overflow: hidden;
             margin: auto auto;
             padding: 1.5vw 2vw;
@@ -107,29 +107,29 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-    <h1 class="Heading"></h1>
-    <script src="home.js"></script>
-    <% for(var i = posts.length - 1; i >= 0; i--) { %>
+  
+    <!-- <script src="home.js"></script> -->
+  
         <div class="Container">
             <div class="SubHeadingContainer">
-                <a class="SubHeading" href=""><%= posts[i].title %></a>
+                <a class="SubHeading" href=""><%= title %></a>
             </div>
             <div class="ProfileContainer">
                 <div class="ImgDiv" overflow="hidden">
-                    <img class="ProfileImg" src="assets/default_profile_pic.jpg">
+                    <img class="ProfileImg" src="../assets/default_profile_pic.jpg">
                 </div>
                 <div class="ProfileInfoDiv">
                     <div class="ProfileNameDiv">
-                        <a class="ProfileNameA" id="profile_name_a" href=""><%= posts[i].user %></a>
+                        <a class="ProfileNameA" id="profile_name_a" href=""><%= user %></a>
                     </div>
                     <div class="ProfileNameDiv" id="date_div">
-                        <span class = "ProfileNameA" id="date_a"><%= posts[i].date %></span>
+                        <span class = "ProfileNameA" id="date_a"><%= date %></span>
                     </div>
                 </div>
             </div>
-            <span class="BodySpan"><%= posts[i].body %></span>
+            <span class="BodySpan"><%= body %></span>
         </div>
-    <% } %>
+    
 </body>
 
 <%- include("partials/footer"); -%>
