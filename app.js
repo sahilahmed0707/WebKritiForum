@@ -256,7 +256,6 @@ app.get("/post/:title", function (req, res) {
     const requestedTitle = _.kebabCase(req.params.title);
     console.log(req.params.title);
     for ( j = 0; j < posts.length; j++) {
-        console.log(_.kebabCase(posts[j].title));
         console.log(requestedTitle);
         if (requestedTitle === _.kebabCase(posts[j].title)) {
             res.render("discussion", {
