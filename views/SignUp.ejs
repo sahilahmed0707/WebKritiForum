@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
-
+<link href="objects.css" rel="stylesheet" type="text/css">
 <head>
   <meta charset="utf-8">
   <title>SignUp</title>
+  <meta name="generator" content="Google Web Designer 7.1.1.1210">
   <style type="text/css">
     html, body {
       width: 100%;
@@ -59,26 +60,13 @@
     #password_input {
       top: 63%;
     }
-    .ButtonSubmit {
+
+    #button_submit {
       position: absolute;
       left: 25%;
-      height: 6%;
-      width: 10%;
-      border-radius: 10%;
-      text-align: center;
-      font-weight: bold;
-      font-family: "Arial Black";
-      font-size: 1vw;
-      outline: none;
-      background-color: rgb(137, 0, 250);
-      border: none;
-      cursor: pointer;
-      color: white;
       top: 125%;
     }
-    .ButtonSubmit:hover {
-      background-color: rgb(98, 41, 196);
-    }
+
     #repass_label {
       width: 35%;
       top: 70%;
@@ -113,7 +101,7 @@
     <input class="UsernameInput" id="answer_input" type="text" name="ans" placeholder="Your Answer" required="" style="width: 50%; top: 113%;">
     <label class="UsernameLabel" id="error_label">start</label>
     <label class="UsernameLabel" id="email_label" style="top: 80%;">EMAIL:</label>
-    <input class="ButtonSubmit" id="button-submit" type="submit" value="SUBMIT">
+    <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
   </form>
 </body>
 
