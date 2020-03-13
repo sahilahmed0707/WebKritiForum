@@ -1,0 +1,28 @@
+<%- include("partials/header"); -%>
+<link href="objects.css" rel="stylesheet" type="text/css">
+
+<head>
+    <style>
+        .PostBody {
+            margin-bottom: 1vw;
+        }
+
+        .TitleInput {
+            margin-bottom: 1vw;
+            height: 2vw;
+            font-size: 1.5vw;
+        }
+    </style>
+</head>
+<h1 class="Heading">Compose</h1>
+<form action="http://localhost:8080/compose" method="post">
+    <div class="Container" id="container_div">
+        <label class="SubHeading">Title</label>
+        <input class="TitleInput" type="text" name="postTitle" required="">
+        <label class="SubHeading">Post</label>
+        <textarea class="PostBody" name="postBody" cols="30" rows="10" required=""></textarea>
+        <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
+    </div>
+</form>
+
+<%- include("partials/footer"); -%>

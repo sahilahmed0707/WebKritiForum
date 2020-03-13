@@ -1,0 +1,121 @@
+body {
+    font-family: "Arial Black";
+}
+
+.Heading {
+    text-align: center;
+    font-size: 2.5vw;
+    font-weight: bold;
+    color: rgb(137, 0, 250);
+}
+
+.Container {
+    min-height: 1%;
+    width: 50%;
+    overflow: hidden;
+    margin: auto auto;
+    padding: 1.5vw 2vw;
+    margin-bottom: 1vw;
+    display: grid;
+    background-color: rgb(49, 49, 49);
+}
+
+.SubHeadingContainer {
+    margin: 0 auto;
+    margin-bottom: 0.5vw;
+}
+
+.SubHeading {
+    text-align: left;
+    text-decoration: none;
+    font-size: 2vw;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+}
+
+.SubHeading:hover {
+    text-decoration: underline;
+}
+
+.ProfileContainer {
+    display: flex;
+    margin-bottom: 0.5vw;
+}
+
+.ImgDiv {
+    border-radius: 100%;
+    margin-right: 0.5vw;
+    height: 4vw;
+    width: 4vw;
+    background-color:rgb(137, 0, 250);
+    flex: 0 0 auto;
+    cursor: pointer;
+}
+
+.ButtonSubmit {
+    height: 3.2vw;
+    width: 8vw;
+    border-radius: 10%;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Arial Black";
+    font-size: 1vw;
+    outline: none;
+    background-color: rgb(137, 0, 250);
+    border: none;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .ButtonSubmit:hover {
+    background-color: rgb(98, 41, 196);
+  }
+
+.ProfileImg {
+    height: 4vw;
+    width: 4vw;
+    border-radius: 100%;
+}
+
+.ProfileInfoDiv {
+    flex: 1 0 auto;
+}
+
+.ProfileNameDiv {
+    margin-bottom: 0.4vw;
+    height: 1.75vw;
+    padding: auto 0;
+    background-color: transparent;
+}
+
+.ProfileNameA {
+    font-size: 1vw;
+    text-align: left;
+    text-decoration: none;
+    color: white;
+    font-family: "Roboto";
+    background-color: transparent;
+}
+
+.ProfileNameA:hover {
+    text-decoration: underline;
+}
+
+#date_div {
+    margin-bottom: 0px;
+}
+
+#date_a {
+    color : rgb(113, 112, 114);
+    cursor: pointer;
+}
+
+.BodySpan {
+    color: white;
+    font-size: 1vw;
+    font-family: "Roboto";
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}

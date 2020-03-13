@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>Welcome to the Dark Forums - First forum</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap');
+
+    body {
+        background-color: rgb(20, 20, 20);
+    }
+
+    body a {
+        background: rgb(133, 133, 133);
+        font-size: 3vw;
+    }
+
+    nav {
+        width: 100%;
+        background-color: rgb(34, 34, 34);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+
+    }
+
+    .logo {
+        padding: 0%;
+        width: 10vw;
+
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        padding-top: 1vw;
+        justify-content: space-around;
+
+    }
+
+    buttons div {
+        padding-left: 0px;
+    }
+
+    nav ul li {
+        list-style: none;
+        padding-top: 0%;
+    }
+
+    nav ul li a:hover {
+        background: rgb(53, 53, 53);
+    }
+
+    nav ul li a:focus {
+        background: rgb(85, 85, 85);
+    }
+
+
+    nav ul li a {
+        padding: 0px 1vw;
+        display: block;
+        color: rgb(133, 133, 133);
+        text-decoration: none;
+        background: rgb(44, 44, 44);
+        font-size: 2vw;
+
+    }
+
+
+
+    nav ul {
+        display: flex;
+        padding: 0%;
+        justify-content: space-between;
+
+    }
+
+    .main {
+        display: flex;
+        margin-left: 10vw;
+        margin-right: 5vw;
+    }
+
+    .main div {
+        color: rgb(133, 133, 133);
+        display: flex;
+        width: 25vw;
+        height: 25vw;
+        /* letter-spacing: 2px; */
+        border: 0.1vw solid rgb(80, 80, 80);
+        /* border-radius: 10%; */
+        background-color: rgb(71, 71, 71);
+        padding: 0%;
+        font-size: 3vw;
+        font-family: 'Open Sans', ;
+        position: relative;
+        margin-left: 1vw;
+        margin-right: 1vw;
+
+
+
+    }
+
+    .cicle1,
+    .cicle2,
+    .cicle3 {
+        border-radius: 50%;
+
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        border-color: rgb(71, 71, 71);
+
+    }
+
+    .user_details {
+        color: rgb(133, 133, 133);
+        display: flex;
+        flex-direction: column;
+        width: 70vw;
+        margin: 0 auto;
+
+    }
+
+    .user_details div {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+<body>
+
+    <nav>
+        <ul>
+            <div class="logo">
+                <li>
+                    <header><img src="./logo.gif" alt="Leaf Forums Logo" height="40%" width="40%"></header>
+                </li>
+            </div>
+            <div class="buttons">
+                <li>
+                    <a href="/dashboard">Dashboard</a>
+                </li>
+                <li><a href="http://localhost:8080/logout">Logout</a></li>
+            </div>
+        </ul>
+    </nav>

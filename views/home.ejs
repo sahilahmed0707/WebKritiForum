@@ -1,0 +1,43 @@
+
+<%- include("partials/header"); -%>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href="objects.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1 class="Heading">RECENT DISCUSSIONS</h1>
+    <script src="home.js"></script>
+    <% for(var i = posts.length - 1; i >= 0; i--) { %>
+        <div class="Container">
+            <div class="SubHeadingContainer">
+                <a class="SubHeading" href=""><%= posts[i].title %></a>
+            </div>
+            <div class="ProfileContainer">
+                <div class="ImgDiv" overflow="hidden">
+                    <img class="ProfileImg" src="assets/default_profile_pic.jpg">
+                </div>
+                <div class="ProfileInfoDiv">
+                    <div class="ProfileNameDiv">
+                        <a class="ProfileNameA" id="profile_name_a" href=""><%= posts[i].user %></a>
+                    </div>
+                    <div class="ProfileNameDiv" id="date_div">
+                        <span class = "ProfileNameA" id="date_a"><%= posts[i].date %></span>
+                    </div>
+                </div>
+            </div>
+            <p class="BodySpan"  ><%= posts[i].body %></p>
+            
+        </div>
+    <% } %>
+    <script>
+        var elem = document.getElementsByClassName("BodySpan");
+        for(var i = 0; i <= elem.length; i++){
+            var str = elem[i].innerHTML;
+            str = str.replace(/char10/g, "<br>")
+            elem[i].innerHTML = str;
+        }
+    </script>
+</body>
+
+<%- include("partials/footer"); -%>
