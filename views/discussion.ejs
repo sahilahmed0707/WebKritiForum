@@ -2,6 +2,7 @@
 <%- include("partials/header"); -%>
 <!-- <head> -->
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href="objects.css" rel="stylesheet" type="text/css">
     <style>
         body {
             font-family: "Arial Black";
@@ -102,7 +103,19 @@
             font-family: "Roboto";
             cursor: pointer;
         }
+       
 
+        .PostBody {
+            margin-bottom: 1vw;
+        }
+
+        .TitleInput {
+            margin-bottom: 1vw;
+            height: 2vw;
+            font-size: 1.5vw;
+        }
+    </style>
+</head>
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
@@ -130,6 +143,18 @@
             <span class="BodySpan"><%= body %></span>
         </div>
     
+
+
+
+        
+<h1 class="Heading"><%=title%></h1>
+<form action="" method="post">
+    <div class="Container" id="container_div">
+        <label class="SubHeading">Post</label>
+        <textarea class="PostBody" name="postBody" cols="30" rows="10" required=""></textarea>
+        <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
+    </div>
+</form>
 </body>
 
 <%- include("partials/footer"); -%>

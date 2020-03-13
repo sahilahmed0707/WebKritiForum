@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const moment = require("moment");
 const app = express();
 const cookieParser = require("cookie-parser");
 var mysql = require('mysql');
@@ -25,6 +26,19 @@ var conn = mysql.createConnection({
   //   port: "3306",
   //   insecureAuterh : true,
   });
+
+  var conco = mysql.createConnection({
+    host: "localhost",
+    user: "webkriti",
+    password: "12345",
+    database: 'Forum',
+  //   port: "3306",
+  //   insecureAuterh : true,
+  });
+
+
+//   OBJjavascript = JSON.parse(JSON.stringify(objNullPrototype));
+
 con.connect(function (err){
     if (err) throw err;
     console.log("connected");
@@ -32,15 +46,26 @@ con.connect(function (err){
 
 conn.connect(function(err) {
     if (err) throw err;
-    console.log("Connected!");
+    console.log("Discussion Table Connected!");
     var sql = "CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL auto_increment, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(450) NULL, `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, `total_posts` INT NOT NULL DEFAULT 0, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE);"
-  //   var comments="CREATE TABLE IF NOT EXISTS `forum`.`Comments` ( `idComments` INT NOT NULL, `usr_id` VARCHAR(45) NULL, `dsc_id` INT NULL, `cmt` VARCHAR(150) NULL, `post time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`idComments`), UNIQUE INDEX `idComments_UNIQUE` (`idComments` ASC) VISIBLE)";
     conn.query(sql, function (err, result) {
       if (err) throw err;
       if(result.length > 0)
-        console.log("Table created");
+        console.log("Discussion Table created");
     });
   });
+
+  conco.connect(function(err) {
+    if (err) throw err;
+    console.log("Comments Table Connected!");
+    var sql="CREATE TABLE IF NOT EXISTS `forum`.`Comments` ( `idComments` INT NOT NULL, `usr_id` VARCHAR(45) NULL, `dsc_id` INT NULL, `cmt` VARCHAR(150) NULL, `post time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`idComments`), UNIQUE INDEX `idComments_UNIQUE` (`idComments` ASC) VISIBLE)";
+    conco.query(sql, function (err, result) {
+      if (err) throw err;
+      if(result.length > 0)
+        console.log("Comments Table created");
+    });
+  });
+
 
 app.get("/forgot-password", function(req, res){
     res.render("ForgotPassword", {
@@ -229,11 +254,6 @@ app.get("/about", function(req, res){
     res.render("About Page");
 });
 
-function monthToString(n){
-    var arr = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return arr[n];
-}
-
 app.get("/", function(req, res){
     res.cookie("dummy", {});
     var sql = "select * from discussion order by dsc_id desc limit 10;";
@@ -249,7 +269,7 @@ app.get("/", function(req, res){
                     body: result[i].data,
                     img: "",
                     user: result[i].usr_id,
-                    date: result[i].post_time.getFullYear() + " " + monthToString(result[i].post_time.getMonth()) + " " + result[i].post_time.getDate(),
+                    date: moment(result[i]).format('YYYY MMMM DD'),
                     disc_id: result[i].dsc_id
                 };
                 posts.push(post);
@@ -287,7 +307,8 @@ app.post("/compose", function(req, res){
         user: req.cookies.userData.user
     };
     console.log(post);
-    var sql = 'insert into discussion (dsc_name, usr_id, thanks, data, post_time) values("' + post.title + '", "' + post.user + '", 0, "' + post.body + '", current_timestamp);';
+    var currTime=moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+    var sql = 'insert into discussion (dsc_name, usr_id, thanks, data, post_time) values("' + post.title + '", "' + post.user + '", 0, "' + post.body + '", current_timestamp)';
     conn.query(sql, function(err, result) {
         if(err) throw err;
         console.log("discussion added successfully");
@@ -304,5 +325,5 @@ var server = app.listen(8080, function () {
   var host = server.address().address
   var port = server.address().port
   
-  console.log("Example app listening at http://%s:%s", host, port)
+  console.log("Example app listening at", host, port)
 });
