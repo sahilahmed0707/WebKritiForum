@@ -18,6 +18,7 @@ body {
     margin-bottom: 1vw;
     display: grid;
     background-color: rgb(49, 49, 49);
+    border-radius: 0.2em;
 }
 
 .SubHeadingContainer {
@@ -143,12 +144,12 @@ body {
     padding-top: 0.25vw;
     padding-bottom: 0.25vw;
     overflow: hidden;
-    border-radius: 35%;
+    border-radius: 1em;
 }
 
 .UpvoteDiv:hover {
     cursor: pointer;
-    background-color: rgb(113, 112, 114);
+    background-color: rgb(33, 33, 33);
 }
 
 .NumberOfUpvoteDiv {
@@ -170,12 +171,12 @@ body {
     min-height: 2.25vw;
     padding: 0.25vw 0.5vw;
     display: flex;
-    border-radius: 35%;
+    border-radius: 1em;
 }
 
 .CommentsDiv:hover {
     cursor: pointer;
-    background-color: rgb(113, 112, 114);
+    background-color: rgb(33, 33, 33);
 }
 
 .TotalCommentsDiv {
