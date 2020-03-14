@@ -11,6 +11,11 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.set("view engine", "ejs");
 app.use(express.static(__dirname+'/public'));
 app.use(cookieParser());
+
+String.prototype.replaceAt = function(index, replacement){
+    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+
 var con = mysql.createConnection({
     host: "localhost",
     user: "webkriti",
@@ -264,8 +269,12 @@ app.get("/", function(req, res){
         if(result.length > 0){
             posts = [];
             for(var i = 0; i < result.length; i++){
+                var tempTitle = result[i].dsc_name;
+                var first_letter = "";
+                first_letter = tempTitle.charAt(0);
+                first_letter = first_letter.toUpperCase();
                 var post = {
-                    title: result[i].dsc_name,
+                    title: tempTitle.replaceAt(0, first_letter),
                     body: result[i].data,
                     img: "",
                     user: result[i].usr_id,
