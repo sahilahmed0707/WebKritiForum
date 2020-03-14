@@ -256,7 +256,7 @@ app.get("/about", function(req, res){
 
 app.get("/", function(req, res){
     res.cookie("dummy", {});
-    var sql = "select * from discussion order by dsc_id desc limit 10;";
+    var sql = "select * from discussion limit 10;";
     var posts = [];
     conn.query(sql, function(err, result) {
         if(err) throw err;
@@ -270,7 +270,9 @@ app.get("/", function(req, res){
                     img: "",
                     user: result[i].usr_id,
                     date: moment(result[i]).format('YYYY MMMM DD'),
-                    disc_id: result[i].dsc_id
+                    disc_id: result[i].dsc_id,
+                    numberOfUpvotes: result[i].thanks,
+                    total_posts: result[i].total_posts
                 };
                 posts.push(post);
             }
@@ -280,8 +282,11 @@ app.get("/", function(req, res){
                 posts: posts
             });
         }
-        else
-            console.log("result = []");
+        else {
+            res.render("home", {
+                posts: posts
+            });
+        }
     });
 });
 
