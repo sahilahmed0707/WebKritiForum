@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const moment = require("moment");
+const moment = require("momment");
 const app = express();
 const cookieParser = require("cookie-parser");
 var mysql = require('mysql');
@@ -11,11 +11,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.set("view engine", "ejs");
 app.use(express.static(__dirname+'/public'));
 app.use(cookieParser());
-
-String.prototype.replaceAt = function(index, replacement){
-    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
-}
-
 var con = mysql.createConnection({
     host: "localhost",
     user: "webkriti",
@@ -261,7 +256,7 @@ app.get("/about", function(req, res){
 
 app.get("/", function(req, res){
     res.cookie("dummy", {});
-    var sql = "select * from discussion limit 10;";
+    var sql = "select * from discussion order by dsc_id desc limit 10;";
     var posts = [];
     conn.query(sql, function(err, result) {
         if(err) throw err;
@@ -269,19 +264,13 @@ app.get("/", function(req, res){
         if(result.length > 0){
             posts = [];
             for(var i = 0; i < result.length; i++){
-                var tempTitle = result[i].dsc_name;
-                var first_letter = "";
-                first_letter = tempTitle.charAt(0);
-                first_letter = first_letter.toUpperCase();
                 var post = {
-                    title: tempTitle.replaceAt(0, first_letter),
+                    title: result[i].dsc_name,
                     body: result[i].data,
                     img: "",
                     user: result[i].usr_id,
                     date: moment(result[i]).format('YYYY MMMM DD'),
-                    disc_id: result[i].dsc_id,
-                    numberOfUpvotes: result[i].thanks,
-                    total_posts: result[i].total_posts
+                    disc_id: result[i].dsc_id
                 };
                 posts.push(post);
             }
