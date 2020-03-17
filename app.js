@@ -167,7 +167,7 @@ app.post("/login", urlencodedParser, function(req, res) {
             });
             res.render("ForgotPassword", {
                 "heading": "nothing",
-                "subheading": "LOGED IN SUCCESSFULLY",
+                "subheading": "LOGGED IN SUCCESSFULLY",
                 "input": "nothing",
                 "display": "none"
             });
