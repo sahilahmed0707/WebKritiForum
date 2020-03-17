@@ -10,7 +10,10 @@ var data = require("fs");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.set("view engine", "ejs");
 app.use(express.static(__dirname+'/public'));
+<<<<<<< HEAD
 app.use(cookieParser());
+=======
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
 var con = mysql.createConnection({
     host: "localhost",
     user: "webkriti",
@@ -26,6 +29,7 @@ var conn = mysql.createConnection({
   //   port: "3306",
   //   insecureAuterh : true,
   });
+<<<<<<< HEAD
 
   var conco = mysql.createConnection({
     host: "localhost",
@@ -39,6 +43,8 @@ var conn = mysql.createConnection({
 
 //   OBJjavascript = JSON.parse(JSON.stringify(objNullPrototype));
 
+=======
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
 con.connect(function (err){
     if (err) throw err;
     console.log("connected");
@@ -46,6 +52,7 @@ con.connect(function (err){
 
 conn.connect(function(err) {
     if (err) throw err;
+<<<<<<< HEAD
     console.log("Discussion Table Connected!");
     var sql = "CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL auto_increment, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(450) NULL, `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, `total_posts` INT NOT NULL DEFAULT 0, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE);"
     conn.query(sql, function (err, result) {
@@ -67,6 +74,17 @@ conn.connect(function(err) {
   });
 
 
+=======
+    console.log("Connected!");
+    var sql = "CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(450) NULL, `post time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE)"
+  //   var comments="CREATE TABLE IF NOT EXISTS `forum`.`Comments` ( `idComments` INT NOT NULL, `usr_id` VARCHAR(45) NULL, `dsc_id` INT NULL, `cmt` VARCHAR(150) NULL, `post time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`idComments`), UNIQUE INDEX `idComments_UNIQUE` (`idComments` ASC) VISIBLE)";
+    conn.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Table created");
+    });
+  });
+
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
 app.get("/forgot-password", function(req, res){
     res.render("ForgotPassword", {
         "heading": "FORGOT PASSWORD",
@@ -162,9 +180,12 @@ app.post("/login", urlencodedParser, function(req, res) {
     con.query(sql, function(err, result){
         if(err) throw err;
         if(result.length > 0){
+<<<<<<< HEAD
             res.cookie("userData", {
                 user: qdata.user
             });
+=======
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
             res.render("ForgotPassword", {
                 "heading": "nothing",
                 "subheading": "LOGGED IN SUCCESSFULLY",
@@ -194,12 +215,16 @@ app.post("/signup", urlencodedParser, function(req, res) {
         ans: req.body.ans
     };
     if(qdata.pass != qdata.repass){
+<<<<<<< HEAD
         res.render("ForgotPassword", {
             "heading": "nothing",
             "subheading": "PASSWORD AND REPASSWORD DOES NOT MATCH",
             "input": "nothing",
             "display": "none"
         });
+=======
+        res.send("password and re-password not matched");
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
         res.end(); 
         return;                                
     }
@@ -207,6 +232,7 @@ app.post("/signup", urlencodedParser, function(req, res) {
     console.log(qdata);
     con.query(sql, function(err, result){
         if(err) throw err;
+<<<<<<< HEAD
         if(result.length > 0){
             res.render("ForgotPassword", {
                 "heading": "nothing",
@@ -215,6 +241,10 @@ app.post("/signup", urlencodedParser, function(req, res) {
                 "display": "none"
             });
         }
+=======
+        if(result.length > 0)
+            res.send("username already used");
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
         else{
             console.log("here");
             var query = "insert into players values ('"+ qdata.name + "', '" + qdata.email + "', '" + qdata.user + "', aes_encrypt('" + qdata.pass + "', unhex(sha2('" + qdata.pass + "', 256))), '" + qdata.ques + "', aes_encrypt('ans', unhex(sha2('" + qdata.ans + "', 256))));";
@@ -232,6 +262,7 @@ app.post("/signup", urlencodedParser, function(req, res) {
     });
 });
 
+<<<<<<< HEAD
 app.get("/logout", function(req, res) {
     res.clearCookie("userData");
     res.redirect("/");
@@ -239,11 +270,43 @@ app.get("/logout", function(req, res) {
 
 app.get("/login", function(req, res) {
   res.render("LoginPage");
+=======
+app.get("/login", function(req, res) {
+  res.render("LoginPage");
 });
 
 app.get("/signup", function(req, res) {
   res.render("SignUp");
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
 });
+  
+var posts=[]
+
+<<<<<<< HEAD
+app.get("/signup", function(req, res) {
+  res.render("SignUp");
+});
+=======
+var test={
+    title: "Faltu Title",
+    body: "A 32 years old woman named Milo Moiré introduced “Mirror Box”; a public art performance. In the act complete strangers — both men and women — were invited to touch her breasts and lady bits through the opening in the boxes for maximum of 30 seconds — not a second more. More interesting thing is whole touchy-touchy act was being recorded every second by cameras within the boxes. Yes, really!",
+    img: "",
+    user: "my useless name",
+    date: "Jan 12",
+    disc_id: 12
+};
+posts.push(test);
+
+test={
+    title: "Next Faltu Title",
+    body: "A variety of objects — roses, feather, chains, scissors and even a gun with bullets loaded — were placed on the table. In the beginning, people were gentle, kissing her, placing rose in her hand and feeding cakes. But soon, the act started turning wild. People took the scissors off the table and cut off all her clothes, one man tried to rape her, another loaded the pistol with the bullet and pointed it at her head. Another still cut her skin around the neck and drank her blood.",
+    img: "",
+    user: "Varun",
+    date: "Feb 23",
+    disc_id: 13
+}
+posts.push(test);
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
 
 app.set('view engine', 'ejs');
 
@@ -255,6 +318,7 @@ app.get("/about", function(req, res){
 });
 
 app.get("/", function(req, res){
+<<<<<<< HEAD
     res.cookie("dummy", {});
     var sql = "select * from discussion order by dsc_id desc limit 10;";
     var posts = [];
@@ -285,6 +349,10 @@ app.get("/", function(req, res){
                 posts: posts
             });
         }
+=======
+    res.render("home",{
+        posts: posts
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
     });
 });
 
@@ -293,6 +361,7 @@ app.get("/dashboard", function(req, res){
 });
 
 app.get("/compose", function(req, res){
+<<<<<<< HEAD
     console.log(req.cookies);
     if(req.cookies.hasOwnProperty("userData"))
         res.render("compose");
@@ -322,11 +391,30 @@ app.post("/compose", function(req, res){
             "display": "none"
         });
     });
+=======
+    res.render("compose");
+});
+
+app.post("/compose", function(req, res){
+    const post={
+        title: req.body.postTitle,
+        body: req.body.postBody,
+        img: "",
+        disc_id: 12
+    };
+    posts.push(post);
+    res.redirect();
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
 });
 
 var server = app.listen(8080, function () {
   var host = server.address().address
   var port = server.address().port
   
+<<<<<<< HEAD
   console.log("Example app listening at", host, port)
 });
+=======
+  console.log("Server started at", host, port)
+});
+>>>>>>> parent of 79ec475... DISCUSSION PAGE (semi complete)
