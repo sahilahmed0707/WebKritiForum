@@ -2,8 +2,9 @@
 <html lang="en-US">
 
 <head>
-    <title>Welcome to the Dark Forums - First forum</title>
+    <title>Welcome to the Leaf Forums - First forum</title>
 </head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
     @import url('https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap');
 
@@ -80,6 +81,7 @@
         display: flex;
         margin-left: 10vw;
         margin-right: 5vw;
+        /* flex-direction: column; */
     }
 
     .main div {
@@ -100,6 +102,18 @@
 
 
 
+    }
+
+    .user_details h1 {
+        font-size: 2vw;
+    }
+
+    .user_details p {
+        font-size: 2vw;
+        border: 0.1vw solid rgb(85, 85, 85);
+        background-color: rgb(53, 53, 53);
+        width: 30vw;
+        text-align: center;
     }
 
     .cicle1,
@@ -126,6 +140,63 @@
     .user_details div {
         display: flex;
         justify-content: space-between;
+    }
+
+    @media(max-width:600px) {
+        .main {
+            display: flex;
+            margin-left: 15vw;
+            margin-right: 0;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .main div {
+            color: rgb(133, 133, 133);
+            display: flex;
+            width: 60vw;
+            height: 60vw;
+            /* letter-spacing: 2px; */
+            border: 0.1vw solid rgb(80, 80, 80);
+            /* border-radius: 10%; */
+            background-color: rgb(71, 71, 71);
+            padding: 0%;
+            font-size: 7vw;
+            font-family: 'Open Sans', ;
+            position: relative;
+            margin-left: 1vw;
+            margin-right: 1vw;
+        }
+
+        nav ul li a {
+            padding: 0px 1vw;
+            display: block;
+            color: rgb(133, 133, 133);
+            text-decoration: none;
+            background: rgb(44, 44, 44);
+            font-size: 5vw;
+
+        }
+
+        .logo {
+            width: 30vw;
+        }
+
+        .user_details {
+            font-size: 5vw;
+        }
+
+        .user_details h1 {
+            font-size: 5vw;
+        }
+
+        .user_details p {
+            font-size: 5vw;
+            border: 0.2vw solid rgb(85, 85, 85);
+            background-color: rgb(53, 53, 53);
+            width: 70vw;
+            text-align: center;
+        }
     }
 </style>
 
