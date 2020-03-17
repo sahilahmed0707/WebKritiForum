@@ -324,6 +324,30 @@ app.post("/compose", function(req, res){
     });
 });
 
+
+app.get("/post/:title", function (req, res) {
+    let j = 0;
+    let x = -1;
+    const requestedTitle = _.kebabCase(req.params.title);
+    console.log(req.params.title);
+    for ( j = 0; j < posts.length; j++) {
+        console.log(_.kebabCase(posts[j].title));
+        console.log(requestedTitle);
+        if (requestedTitle === _.kebabCase(posts[j].title)) {
+            res.render("discussion", {
+                title: posts[j].title,
+                body: posts[j].body,
+                date: posts[j].date,
+                user: posts[j].user
+            });
+        }
+    }
+    if(j===posts.length){
+        console.log("Post not found");
+    } 
+});
+
+
 var server = app.listen(8080, function () {
   var host = server.address().address
   var port = server.address().port
