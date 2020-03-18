@@ -250,7 +250,7 @@ app.get('/about', function(req, res) {
 
 app.get('/', function(req, res) {
   res.cookie('dummy', {});
-  var sql = 'select * from discussion order by dsc_id desc limit 10;';
+  var sql = 'select * from discussion;';
   var posts = [];
   conn.query(sql, function(err, result) {
     if (err) throw err;
@@ -279,9 +279,33 @@ app.get('/', function(req, res) {
 
 app.get('/dashboard', function(req, res) {
   console.log(req.cookies);
-  if (req.cookies.hasOwnProperty('userData'))
-    res.render('dashboard');
-  else
+  if (req.cookies.hasOwnProperty('userData')) {
+    res.cookie('dummy', {});
+    var sql = 'select * from discussion where usr_id = "' +
+        req.cookies.userData.user + '";';
+    var posts = [];
+    conn.query(sql, function(err, result) {
+      if (err) throw err;
+      console.log('hye');
+      if (result.length > 0) {
+        posts = [];
+        for (var i = 0; i < result.length; i++) {
+          var post = {
+            title: result[i].dsc_name,
+            body: result[i].data,
+            img: '',
+            user: result[i].usr_id,
+            date: moment(result[i]).format('YYYY MMMM DD'),
+            disc_id: result[i].dsc_id
+          };
+          posts.push(post);
+        }
+        console.log(posts);
+        console.log('here');
+        res.render('dashboard', {posts: posts});
+      }
+    });
+  } else
     res.redirect('http://localhost:8080/login');
 });
 
@@ -311,12 +335,13 @@ app.post('/compose', function(req, res) {
   conn.query(sql, function(err, result) {
     if (err) throw err;
     console.log('discussion added successfully');
-    res.render('ForgotPassword', {
-      'heading': 'nothing',
-      'subheading': 'DISCUSSION ADDED SUCCESSFULLY',
-      'input': 'nothing',
-      'display': 'none'
-    });
+    // res.render('ForgotPassword', {
+    //   'heading': 'nothing',
+    //   'subheading': 'DISCUSSION ADDED SUCCESSFULLY',
+    //   'input': 'nothing',
+    //   'display': 'none'
+    // });
+    res.redirect('/');
   });
 });
 
