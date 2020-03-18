@@ -4,6 +4,9 @@
 <head>
     <link rel="mask-icon" href="../logo.png">
     <title>Welcome to the Leaf Forums - First forum</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href="objects.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
@@ -280,11 +283,41 @@
                 <p>
                     07/07/2000</p>
             </div>
-            <br>
-            <a href="./edit_profile" style="background-color: rgb(20, 20, 20);">
-                <h1 style="font-size: 2vw;">Edit Profile</h1>
-        </div>
 
+
+        </div>
+        <h1 class="Heading">YOUR RECENT DISCUSSIONS</h1>
+        <script src="home.js"></script>
+        <% for(var i = posts.length - 1; i >= 0; i--) { %>
+        <div class="Container">
+            <div class="SubHeadingContainer">
+                <a class="SubHeading" href=""><%= posts[i].title %></a>
+            </div>
+            <div class="ProfileContainer">
+                <div class="ImgDiv" overflow="hidden">
+                    <img class="ProfileImg" src="assets/default_profile_pic.jpg">
+                </div>
+                <div class="ProfileInfoDiv">
+                    <div class="ProfileNameDiv">
+                        <a class="ProfileNameA" id="profile_name_a" href=""><%= posts[i].user %></a>
+                    </div>
+                    <div class="ProfileNameDiv" id="date_div">
+                        <span class="ProfileNameA" id="date_a"><%= posts[i].date %></span>
+                    </div>
+                </div>
+            </div>
+            <p class="BodySpan"><%= posts[i].body %></p>
+
+        </div>
+        <% } %>
+        <script>
+            var elem = document.getElementsByClassName("BodySpan");
+            for (var i = 0; i <= elem.length; i++) {
+                var str = elem[i].innerHTML;
+                str = str.replace(/char10/g, "<br>")
+                elem[i].innerHTML = str;
+            }
+        </script>
 
     </div>
 </body>
