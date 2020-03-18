@@ -3,22 +3,23 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const moment = require("moment");
 const app = express();
+const _=require("lodash");
 const cookieParser = require("cookie-parser");
-var mysql = require('mysql');
-var url = require("url");
-var data = require("fs");
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+const mysql = require('mysql');
+const url = require("url");
+const data = require("fs");
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.set("view engine", "ejs");
 app.use(express.static(__dirname+'/public'));
 app.use(cookieParser());
-var con = mysql.createConnection({
+const con = mysql.createConnection({
     host: "localhost",
     user: "webkriti",
     password: "12345",
     database: "account"
 });
 
-var conn = mysql.createConnection({
+const conn = mysql.createConnection({
     host: "localhost",
     user: "webkriti",
     password: "12345",
@@ -27,7 +28,7 @@ var conn = mysql.createConnection({
   //   insecureAuterh : true,
   });
 
-  var conco = mysql.createConnection({
+  const conco = mysql.createConnection({
     host: "localhost",
     user: "webkriti",
     password: "12345",
@@ -253,11 +254,10 @@ app.use(express.static("public"));
 app.get("/about", function(req, res){
     res.render("About Page");
 });
-
+var posts = [];
 app.get("/", function(req, res){
     res.cookie("dummy", {});
-    var sql = "select * from discussion order by dsc_id desc limit 10;";
-    var posts = [];
+    var sql = "select * from discussion order by dsc_id desc limit 10;"; 
     conn.query(sql, function(err, result) {
         if(err) throw err;
         console.log("hye");
@@ -334,6 +334,7 @@ app.get("/post/:title", function (req, res) {
         console.log(_.kebabCase(posts[j].title));
         console.log(requestedTitle);
         if (requestedTitle === _.kebabCase(posts[j].title)) {
+            x==0;
             res.render("discussion", {
                 title: posts[j].title,
                 body: posts[j].body,
@@ -342,9 +343,9 @@ app.get("/post/:title", function (req, res) {
             });
         }
     }
-    if(j===posts.length){
-        console.log("Post not found");
-    } 
+    // if(j===posts.length&&x===-1){
+    //     console.log("Post not found");
+    // } 
 });
 
 
