@@ -1,5 +1,5 @@
 # WebKritiForum
-Ese hi khali bethe the to socha todhi bakchodi ho jaye to ye lo forum bala lo fraaaaands.
+
 
 
 You have to know SQL, Javascript, HTML, CSS and a server-side language.
