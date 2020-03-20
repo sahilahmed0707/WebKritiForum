@@ -88,6 +88,10 @@
         /* flex-direction: column; */
     }
 
+    .main strong {
+        color: rgb(150, 24, 253);
+    }
+
     .main div {
         color: rgb(133, 133, 133);
         display: flex;
@@ -124,11 +128,12 @@
     .cicle2,
     .cicle3 {
         border-radius: 50%;
-
         flex-direction: column;
         text-align: center;
         justify-content: center;
         border-color: rgb(71, 71, 71);
+        box-shadow: 0.5vw 0.5vw 1vw rgb(133, 133, 133);
+        margin-bottom: 5vw;
 
     }
 
@@ -144,10 +149,14 @@
     .user_details div {
         display: flex;
         justify-content: space-between;
+        margin-left: 1vw;
+        margin-right: 1vw;
     }
 
     .user_details {
         font-size: 5vw;
+        margin-top: 5vw;
+        box-shadow: 0.5vw 0.5vw 1vw rgb(133, 133, 133);
     }
 
     .user_details h1 {
@@ -170,6 +179,8 @@
             flex-direction: column;
             justify-content: space-around;
         }
+
+
 
         .main div {
             color: rgb(133, 133, 133);
@@ -204,6 +215,7 @@
 
         .user_details {
             font-size: 5vw;
+            width: 90vw;
         }
 
         .user_details h1 {
@@ -228,6 +240,10 @@
                 <li>
                     <header><img src="./logo.gif" alt="Leaf Forums Logo" height="40%" width="40%"></header>
                 </li>
+            </div>
+            <div class="compose"><a href="/compose" style="background-color: rgba(0,0,0,0);"><img src="compose.png"
+                        alt="Compose Logo" width="200vw" height="60vw"
+                        style="overflow: hidden;margin-top: 0.7vw;margin-left: 1vw;"></a>
             </div>
             <div class="buttons">
                 <li>
@@ -262,6 +278,7 @@
         <br>
         <hr>
         <div class="user_details">
+            <h2 style="font-size: 3vw;text-align: center;color: rgb(137, 0, 250);">USER DETAILS:</h2>
             <div class="username">
                 <h1>Username:</h1>
                 <p>
@@ -278,15 +295,13 @@
                     Aasdfasf
                     Haffjk</p>
             </div>
-            <div class="dob">
-                <h1>Date of Birth:</h1>
-                <p>
-                    07/07/2000</p>
-            </div>
+
 
 
         </div>
-        <h1 class="Heading">YOUR RECENT DISCUSSIONS</h1>
+        <br>
+        <br><br>
+        <h1 class="Heading">YOUR RECENT DISCUSSIONS:</h1>
         <script src="home.js"></script>
         <% for(var i = posts.length - 1; i >= 0; i--) { %>
         <div class="Container">
