@@ -131,12 +131,13 @@ app.post('/change-password', urlencodedParser, function(req, res) {
         qdata.user + '\';';
     con.query(sql, function(err, result) {
       if (err) throw err;
-      res.render('ForgotPassword', {
-        'heading': 'nothing',
-        'subheading': 'PASSWORD CHANGED SUCCESSFULLY',
-        'input': 'nothing',
-        'display': 'none'
-      });
+//       res.render('ForgotPassword', {
+//         'heading': 'nothing',
+//         'subheading': 'PASSWORD CHANGED SUCCESSFULLY',
+//         'input': 'nothing',
+//         'display': 'none'
+//       });
+      res.redirect('/login');
     });
   } else {
     res.render('ForgotPassword', {
@@ -215,12 +216,13 @@ app.post('/signup', urlencodedParser, function(req, res) {
       con.query(query, function(err, result) {
         if (err) throw err;
         console.log('added data successfully');
-        res.render('ForgotPassword', {
-          'heading': 'nothing',
-          'subheading': 'ADDED DATA SUCCESSFULLY',
-          'input': 'nothing',
-          'display': 'none'
-        });
+//         res.render('ForgotPassword', {
+//           'heading': 'nothing',
+//           'subheading': 'ADDED DATA SUCCESSFULLY',
+//           'input': 'nothing',
+//           'display': 'none'
+//         });
+        res.redirect('/login');
       });
     }
   });
