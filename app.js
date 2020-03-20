@@ -153,30 +153,33 @@ app.post('/change-password', urlencodedParser, function(req, res) {
     });
   }
 })
-app.post('/login', urlencodedParser, function(req, res) {
-  var qdata = {user: req.body.user, pass: req.body.pass};
-  var sql = 'select * from players where username = \'' + qdata.user +
-      '\' and password = aes_encrypt(\'' + qdata.pass + '\', unhex(sha2(\'' +
-      qdata.pass + '\', 256)));';
-  con.query(sql, function(err, result) {
-    if (err) throw err;
-    if (result.length > 0) {
-      res.cookie('userData', {user: qdata.user});
-      //   res.render('ForgotPassword', {
-      //     'heading': 'nothing',
-      //     'subheading': 'LOGGED IN SUCCESSFULLY',
-      //     'input': 'nothing',
-      //     'display': 'none'
-      //   });
-      res.redirect('/');
-    } else {
-      res.render('ForgotPassword', {
-        'heading': 'nothing',
-        'subheading': 'INVALID USERNAME OR PASSWORD',
-        'input': 'nothing',
-        'display': 'none'
-      });
-    }
+app.post("/login", urlencodedParser, function(req, res) {
+  var qdata = {
+      user:req.body.user,
+      pass:req.body.pass
+  };
+  var sql = "select * from players where username = '" + qdata.user + "' and password = aes_encrypt('" + qdata.pass + "', unhex(sha2('"+ qdata.pass + "', 256)));";
+  con.query(sql, function(err, result){
+      if(err) throw err;
+      if(result.length > 0){
+          res.cookie("userData", {
+              user: qdata.user
+          });
+          res.render("ForgotPassword", {
+              "heading": "nothing",
+              "subheading": "LOGED IN SUCCESSFULLY",
+              "input": "nothing",
+              "display": "none"
+          });
+      }
+      else{
+          res.render("ForgotPassword", {
+              "heading": "nothing",
+              "subheading": "INVALID USERNAME OR PASSWORD",
+              "input": "nothing",
+              "display": "none"
+          });
+      }
   });
 });
 
