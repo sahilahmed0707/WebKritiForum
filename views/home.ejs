@@ -4,10 +4,12 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link href="objects.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        
+    </style>
 </head>
 <body>
     <h1 class="Heading">RECENT DISCUSSIONS</h1>
-    <script src="home.js"></script>
     <% for(var i = posts.length - 1; i >= 0; i--) { %>
         <div class="Container">
             <div class="SubHeadingContainer">
@@ -27,8 +29,29 @@
                 </div>
             </div>
             <p class="BodySpan"  ><%= posts[i].body %></p>
-            
+            <div class="ContainerFooter">
+                <div class="UpvoteDiv" >
+                    <img class="UpvoteImg" src="assets/upvote.png">
+                    <div class="NumberOfUpvoteDiv">
+                        <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].numberOfUpvotes %></span>
+                    </div>
+                </div>
+                <div class="CommentsDiv">
+                    <img class="CommentsImg" src="assets/comments.png">
+                    <div class="TotalCommentsDiv">
+                        <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].total_posts %></span>
+                    </div>
+                </div>
+            </div>
         </div>
+    <% } %>
+    <% if(total_rows / current_page > 10) { %>
+        <form class="PageIndexer" action="http://localhost:8080/home" method="get">
+            <% if(current_page > 1) { %>
+                <input class="ButtonSubmit" id="previous" name="button" type="submit" value="Previous">
+            <% } %>
+            <input class="ButtonSubmit" id="next" name="button" type="submit" value="Next">
+        </form>
     <% } %>
     <script>
         var elem = document.getElementsByClassName("BodySpan");

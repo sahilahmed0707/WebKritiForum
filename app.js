@@ -11,6 +11,11 @@ var urlencodedParser = bodyParser.urlencoded({extended: false});
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
+
+String.prototype.replaceAt = function(index, replacement){
+  return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+
 var con = mysql.createConnection({
   host: 'localhost',
   user: 'webkriti',
@@ -250,34 +255,75 @@ app.get('/about', function(req, res) {
   res.render('About Page');
 });
 
-app.get('/', function(req, res) {
-  res.cookie('dummy', {});
-  var sql = 'select * from discussion;';
+function home_query(req, res, sql, current_page){
+  var response = {
+      posts: [],
+      total_rows: 0,
+      current_page: current_page
+  }
+  console.log(response);
+  var total_rows = 0;
+  conn.query("select count(*) from discussion;", function(err, result) {
+      if(err) throw err;
+      response.total_rows = result[0]["count(*)"];
+      console.log(result);
+  }); 
   var posts = [];
   conn.query(sql, function(err, result) {
-    if (err) throw err;
-    console.log('hye');
-    if (result.length > 0) {
-      posts = [];
-      for (var i = 0; i < result.length; i++) {
-        var post = {
-          title: result[i].dsc_name,
-          body: result[i].data,
-          img: '',
-          user: result[i].usr_id,
-          date: moment(result[i]).format('YYYY MMMM DD'),
-          disc_id: result[i].dsc_id
-        };
-        posts.push(post);
+      if(err) throw err;
+      console.log("hye");
+      console.log(result);
+      if(result.length > 0){
+          response.posts = [];
+          for(var i = 0; i < result.length; i++){
+              var tempTitle = result[i].dsc_name;
+              var first_letter = "";
+              first_letter = tempTitle.charAt(0);
+              first_letter = first_letter.toUpperCase();
+              var post = {
+                  title: tempTitle.replaceAt(0, first_letter),
+                  body: result[i].data,
+                  img: "",
+                  user: result[i].usr_id,
+                  date: moment(result[i]).format('YYYY MMMM DD'),
+                  disc_id: result[i].dsc_id,
+                  numberOfUpvotes: result[i].thanks,
+                  total_posts: result[i].total_posts
+              };
+              response.posts.push(post);
+          }
+          console.log(response.posts);
+          console.log("here");
+          res.cookie("current_page", current_page);
+          console.log(total_rows + " " + current_page);
+          res.render("home", response);
       }
-      console.log(posts);
-      console.log('here');
-      res.render('home', {posts: posts});
-    } else {
-      res.render('home', {posts: posts});
-    }
+      else {
+          res.cookie("current_page", current_page);
+          res.render("home", response);
+      }
   });
+}
+
+app.get("/home", function(req, res){
+  var sql = "";
+  var change = -1;
+  var current_page = parseInt(req.cookies.current_page);
+  if(req.query.button == "Next"){
+      change = 1;
+      sql = "select * from discussion where dsc_id > " + (current_page * 10) + " and dsc_id < " + ((current_page + 1) * 10) + ";";
+  }
+  else
+      sql = "select * from discussion where dsc_id > " + ((current_page - 2) * 10) + " and dsc_id < " + ((current_page - 1) * 10) + ";";
+  home_query(req, res, sql, current_page + change)
 });
+app.get("/", function(req, res){
+  res.cookie("dummy", {});
+  var sql = "select * from discussion limit 10;";
+  var current_page = 1;        
+  home_query(req, res, sql, current_page);
+});
+
 
 app.get('/dashboard', function(req, res) {
   console.log(req.cookies);
