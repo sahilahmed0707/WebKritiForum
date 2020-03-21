@@ -14,7 +14,7 @@ body {
 
 .Container {
     min-height: 1%;
-    width: 50%;
+    width: 70%;
     overflow: hidden;
     margin: auto auto;
     padding: 1.5vw 2vw;
@@ -22,11 +22,16 @@ body {
     display: grid;
     background-color: rgb(49, 49, 49);
     border-radius: 0.2em;
+    box-shadow: 0.2vw 0.2vw 0.5vw rgb(100,100,100);
+}
+
+.Container:hover{
+    box-shadow: 0.2vw 0.2vw 1vw rgb(120,120,120);
 }
 
 .PageIndexer {
     min-height: 1%;
-    width: 53vw;
+    width: 72.5vw;
     overflow: hidden;
     margin: auto auto;
     margin-bottom: 5vw;
