@@ -4,14 +4,14 @@ const ejs = require('ejs');
 const moment = require('moment');
 const app = express();
 const cookieParser = require('cookie-parser');
-var mysql = require('mysql');
-var url = require('url');
-var data = require('fs');
-var urlencodedParser = bodyParser.urlencoded({extended: false});
+const mysql = require('mysql');
+const url = require('url');
+const data = require('fs');
+const _ = require("lodash");
+const urlencodedParser = bodyParser.urlencoded({extended: false});
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
-app.use(cookieParser());
-
+app.use(cookieParser());     
 String.prototype.replaceAt = function(index, replacement){
   return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 }
@@ -46,7 +46,13 @@ var conco = mysql.createConnection({
 
 con.connect(function(err) {
   if (err) throw err;
-  console.log('connected');
+  console.log('User Table Connected!');
+  var sql =
+      'CREATE TABLE IF NOT EXISTS `forum`.`users` ( `name` varchar(50) NOT NULL, `email` varchar(50) NOT NULL, `username` varchar(30) NOT NULL, `password` blob NOT NULL, `question` varchar(100) NOT NULL, `ans` blob NOT NULL, PRIMARY KEY (`username`) )'
+  con.query(sql, function(err, result) {
+    if (err) throw err;
+    if (result.length > 0) console.log('User Table created');
+  });
 });
 
 conn.connect(function(err) {
@@ -82,7 +88,7 @@ app.get('/forgot-password', function(req, res) {
 });
 app.post('/forgot-password/user', urlencodedParser, function(req, res) {
   var qdata = {user: req.body.user};
-  var sql = 'select * from players where username = \'' + qdata.user + '\';'
+  var sql = 'select * from users where username = \'' + qdata.user + '\';'
   con.query(sql, function(err, result) {
     if (err) throw err;
     if (result.length > 0) {
@@ -106,7 +112,7 @@ app.post('/forgot-password/user', urlencodedParser, function(req, res) {
 
 app.post('/forgot-password/ans', urlencodedParser, function(req, res) {
   var qdata = {'user': req.body.extra_info, 'ans': req.body.ans};
-  var sql = 'select * from players where username = \'' + qdata.user +
+  var sql = 'select * from users where username = \'' + qdata.user +
       '\' and ans = aes_encrypt(\'ans\', unhex(sha2(\'' + qdata.ans +
       '\', 256)));';
   con.query(sql, function(err, result) {
@@ -131,7 +137,7 @@ app.post('/change-password', urlencodedParser, function(req, res) {
     'repass': req.body.repass
   };
   if (qdata.pass == qdata.repass) {
-    var sql = 'update players set password = aes_encrypt(\'' + qdata.pass +
+    var sql = 'update users set password = aes_encrypt(\'' + qdata.pass +
         '\', unhex(sha2(\'' + qdata.pass + '\', 256))) where username = \'' +
         qdata.user + '\';';
     con.query(sql, function(err, result) {
@@ -158,7 +164,7 @@ app.post("/login", urlencodedParser, function(req, res) {
       user:req.body.user,
       pass:req.body.pass
   };
-  var sql = "select * from players where username = '" + qdata.user + "' and password = aes_encrypt('" + qdata.pass + "', unhex(sha2('"+ qdata.pass + "', 256)));";
+  var sql = "select * from users where username = '" + qdata.user + "' and password = aes_encrypt('" + qdata.pass + "', unhex(sha2('"+ qdata.pass + "', 256)));";
   con.query(sql, function(err, result){
       if(err) throw err;
       if(result.length > 0){
@@ -203,7 +209,7 @@ app.post('/signup', urlencodedParser, function(req, res) {
     res.end();
     return;
   }
-  var sql = 'select * from players where username = \'' + qdata.user + '\';';
+  var sql = 'select * from users where username = \'' + qdata.user + '\';';
   console.log(qdata);
   con.query(sql, function(err, result) {
     if (err) throw err;
@@ -216,7 +222,7 @@ app.post('/signup', urlencodedParser, function(req, res) {
       });
     } else {
       console.log('here');
-      var query = 'insert into players values (\'' + qdata.name + '\', \'' +
+      var query = 'insert into users values (\'' + qdata.name + '\', \'' +
           qdata.email + '\', \'' + qdata.user + '\', aes_encrypt(\'' +
           qdata.pass + '\', unhex(sha2(\'' + qdata.pass + '\', 256))), \'' +
           qdata.ques + '\', aes_encrypt(\'ans\', unhex(sha2(\'' + qdata.ans +
@@ -404,6 +410,96 @@ app.post('/compose', function(req, res) {
     res.redirect('/');
   });
 });
+
+
+
+app.get("/post/:title", function (req, res) {
+  console.log(req.cookies);
+  let j = 0;
+  let x=0;
+  const requestedTitle = _.kebabCase(req.params.title);
+  console.log(req.params.title);
+  for (j = 0; j < posts.length; j++) {
+      console.log(j);
+      console.log(requestedTitle);
+      if (requestedTitle === _.kebabCase(posts[j].title)) {
+          x=j;
+          let reqdsc_id=posts[x].disc_id;
+          console.log(posts[x]);
+          console.log("jaddu");
+          console.log(posts[x].disc_id);
+          var sql = "select * from comments where dsc_id = '"+reqdsc_id+"' order by upvote desc;";
+          conn.query(sql, function (err, result) {
+              if (err) throw err;
+              console.log("hye123");
+              if (result.length > 0) {
+                  comments = [];
+                  for (var i = 0; i < result.length; i++) {
+                      var comment = {
+                          body: result[i].cmt,
+                          img: "",
+                          user: result[i].usr_id,
+                          date: moment(result[i].comment_time).format('YYYY MMMM DD HH:mm:ss'),
+                          disc_id: result[i].dsc_id,
+                          comment_id: result[i].idComments,
+                          upvote: result[i].upvote,
+                      };
+                      // console.log(comment);
+                      comments.push(comment);
+                  }
+                  // console.log(comments);
+                  console.log("here");
+                  console.log(x);
+                  res.render("discussion", {
+                      comments: comments,
+                      title: posts[x].title,
+                      body: posts[x].body,
+                      date: posts[x].date,
+                      user: posts[x].user,
+                  });
+              } 
+              else {
+                  console.log("here123");
+                  console.log(x);
+                  console.log(posts[x]);
+                  res.render("discussion", {
+                      comments:0,
+                      title: posts[x].title,
+                      body: posts[x].body,
+                      date: posts[x].date,
+                      user: posts[x].user,
+                  });
+              }
+          });
+      }
+  }
+});
+
+
+app.post("/post/:title", function (req, res) {
+  var str = req.body.postBody;
+  str = str.replace(/\r\n/g, 'char10');
+  let post = {
+      body: str,
+      user: req.cookies.userData.user,
+  };
+  console.log(req.params.title);
+
+  var sql = "select * from discussion where dsc_name ='" + req.params.title + "';";
+  conn.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("No match found");
+      if (result.length > 0) {
+          var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values( "' + post.user + '","' + result[0].dsc_id + '",  "' + post.body + '", current_timestamp)';
+          conn.query(sql, function (err, result) {
+              if (err) throw err;
+          });
+      }
+  });
+  res.redirect(req.get('referer'));
+});
+
+
 
 var server = app.listen(8080, function() {
   var host = server.address().address

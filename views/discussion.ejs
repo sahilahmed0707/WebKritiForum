@@ -144,17 +144,37 @@
         </div>
     
 
-
+        <% for(var i = comments.length - 1; i >= 0; i--) { %>
+            <div class="Container">
+                <div class="SubHeadingContainer">
+                    <!-- <a class="SubHeading" href="/comment/<%= comments[i].title %>"><%= comments[i].title %></a> -->
+                </div>
+                <div class="ProfileContainer">
+                    <div class="ImgDiv" overflow="hidden">
+                        <img class="ProfileImg" src="../assets/default_profile_pic.jpg">
+                    </div>
+                    <div class="ProfileInfoDiv">
+                        <div class="ProfileNameDiv">
+                            <a class="ProfileNameA" id="profile_name_a" href=""><%=comments[i].user%> </a>
+                        </div>
+                        <div class="ProfileNameDiv" id="date_div">
+                            <span class = "ProfileNameA" id="date_a"><%= comments[i].date %></span>
+                        </div>
+                    </div>
+                </div>
+                <p class="BodySpan"  ><%= comments[i].body %></p>
+                
+            </div>
+        <% } %>
 
         
-<h1 class="Heading"><%=title%></h1>
-<form action="" method="post">
-    <div class="Container" id="container_div">
-        <label class="SubHeading">Post</label>
-        <textarea class="PostBody" name="postBody" cols="30" rows="10" required=""></textarea>
-        <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
-    </div>
-</form>
-</body>
-
-<%- include("partials/footer"); -%>
+        <form action="http://localhost:8080/post/<%=title%>" method="post">
+            <div class="Container" id="container_div">
+                <label class="SubHeading">Post</label>
+                <textarea class="PostBody" name="postBody" cols="30" rows="10" required=""></textarea>
+                <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
+            </div>
+        </form>
+        </body>
+        
+        <%- include("partials/footer"); -%>
