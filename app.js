@@ -73,7 +73,7 @@ conco.connect(function (err) {
   if (err) throw err;
   console.log('Comments Table Connected!');
   var sql =
-    'CREATE TABLE IF NOT EXISTS `forum`.`Comments` ( `idComments` INT NOT NULL, `usr_id` VARCHAR(45) NULL, `dsc_id` INT NULL, `cmt` VARCHAR(150) NULL, `post time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`idComments`), UNIQUE INDEX `idComments_UNIQUE` (`idComments` ASC) VISIBLE)';
+    'CREATE TABLE `comments` ( `idComments` int NOT NULL AUTO_INCREMENT, `usr_id` varchar(45) DEFAULT NULL, `dsc_id` int DEFAULT NULL, `cmt` varchar(150) DEFAULT NULL, `post_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP, `upvote` int NOT NULL DEFAULT "0", PRIMARY KEY (`idComments`), UNIQUE KEY `idComments_UNIQUE` (`idComments`) )';
   conco.query(sql, function (err, result) {
     if (err) throw err;
     if (result.length > 0) console.log('Comments Table created');
