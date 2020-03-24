@@ -145,7 +145,21 @@
     }
     
 </style>
-
+<script>
+    (function (){
+        console.log(req.cookies);
+        if(req.cookies.hasOwnProperty('userData')){
+            document.getElementById("loggedout").style.display = "none";
+            document.getElementById("loggedin").style.display = "flex";
+            document.getElementById("composelogo").style.display = "flex";
+        }
+        else{
+            document.getElementById("loggedout").style.display = "flex";
+            document.getElementById("loggedin").style.display = "none";
+            document.getElementById("composelogo").style.display = "none";
+        }
+    })();
+</script>
 
 <body>
 
