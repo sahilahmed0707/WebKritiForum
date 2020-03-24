@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 const url = require('url');
 const data = require('fs');
+const logger = require('morgan');
 const _ = require("lodash");
 const urlencodedParser = bodyParser.urlencoded({
   extended: false
@@ -44,7 +45,7 @@ var conco = mysql.createConnection({
 });
 
 
-//   OBJjavascript = JSON.parse(JSON.stringify(objNullPrototype));
+app.use(logger('dev'));
 
 con.connect(function (err) {
   if (err) throw err;
@@ -520,5 +521,8 @@ app.get("/post/:title", function (req, res) {
       var host = server.address().address
       var port = server.address().port
 
-      console.log('Example app listening at', host, port)
+      console.log('##########################################################');
+      console.log('#####               STARTING SERVER                  #####');
+      console.log('##########################################################\n');
+      console.log(`Express running → PORT ${server.address().port}`);
     });
