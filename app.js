@@ -455,7 +455,7 @@ app.get('/dashboard/:user', function (req, res) {
 
 app.get('/dashboard', function (req, res) {
   console.log(req.cookies);
-  if (req.cookies.hasOwnProperty('userData')) {
+  if (req.cookies.userData.user != 'NULL') {
     res.cookie('dummy', {});
     var sql = 'select * from discussion where usr_id = "' +
       req.cookies.userData.user + '";';
