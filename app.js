@@ -302,6 +302,7 @@ function home_query(req, res, sql, current_page) {
   var response = {
     posts: [],
     total_rows: 0,
+    'user': req.cookies.userData.user,
     current_page: current_page
   }
   console.log(response);
@@ -426,6 +427,7 @@ app.get('/dashboard/:user', function (req, res) {
             posts: posts,
             dash_name: dash_name,
             dash_email: dash_email,
+            'user': req.cookies.userData.user,
             dash_user: dash_user
           });
         }
