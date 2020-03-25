@@ -1,4 +1,3 @@
-
 <%- include("partials/header"); -%>
 <head>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
@@ -29,20 +28,22 @@
                 </div>
             </div>
             <p class="BodySpan" ><%= posts[i].body %></p>
-            <div class="ContainerFooter">
-                <div class="UpvoteDiv" >
-                    <img class="UpvoteImg" src="assets/upvote.png">
-                    <div class="NumberOfUpvoteDiv">
-                        <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].numberOfUpvotes %></span>
+            <%= if(user != "NULL"){ %>
+                <div class="ContainerFooter">
+                    <div class="UpvoteDiv" >
+                        <img class="UpvoteImg" src="assets/upvote.png">
+                        <div class="NumberOfUpvoteDiv">
+                            <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].numberOfUpvotes %></span>
+                        </div>
+                    </div>
+                    <div class="CommentsDiv">
+                        <img class="CommentsImg" src="assets/comments.png">
+                        <div class="TotalCommentsDiv">
+                            <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].total_posts %></span>
+                        </div>
                     </div>
                 </div>
-                <div class="CommentsDiv">
-                    <img class="CommentsImg" src="assets/comments.png">
-                    <div class="TotalCommentsDiv">
-                        <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].total_posts %></span>
-                    </div>
-                </div>
-            </div>
+            <% } %>
         </div>
     <% } %>
     <form class="PageIndexer" action="http://localhost:8080/home" method="get">
