@@ -133,7 +133,7 @@
             </div>
             <div class="ProfileInfoDiv">
                 <div class="ProfileNameDiv">
-                    <a class="ProfileNameA" id="profile_name_a" href=""><%= user %></a>
+                    <a class="ProfileNameA" id="profile_name_a" href="/dashboard/<%= user %>"><%= user %></a>
                 </div>
                 <div class="ProfileNameDiv" id="date_div">
                     <span class="ProfileNameA" id="date_a"><%= date %></span>
@@ -155,7 +155,7 @@
             </div>
             <div class="ProfileInfoDiv">
                 <div class="ProfileNameDiv">
-                    <a class="ProfileNameA" id="profile_name_a" href=""><%=comments[i].user%> </a>
+                    <a class="ProfileNameA" id="profile_name_a" href="/dashboard/<%=comments[i].user%>"><%=comments[i].user%> </a>
                 </div>
                 <div class="ProfileNameDiv" id="date_div">
                     <span class="ProfileNameA" id="date_a"><%= comments[i].date %></span>
@@ -165,11 +165,12 @@
         <p class="BodySpan"><%= comments[i].body %></p>
         <div class="ContainerFooter">
             <div class="UpvoteDiv">
-                <img class="UpvoteImg" src="assets/upvote.png">
+                <img class="UpvoteImg" src="../assets/upvote.png">
                 <div class="NumberOfUpvoteDiv">
                     <span class="ProfileNameA" id="number_of_upvotes"><%= comments[i].numberOfUpvotes %></span>
                 </div>
             </div>
+        </div>
         </div>
         <% } %>
 

@@ -21,14 +21,14 @@
                 </div>
                 <div class="ProfileInfoDiv">
                     <div class="ProfileNameDiv">
-                        <a class="ProfileNameA" id="profile_name_a" href=""><%= posts[i].user %></a>
+                        <a class="ProfileNameA" id="profile_name_a" href="/dashboard/<%=posts[i].user%>"><%= posts[i].user %></a>
                     </div>
                     <div class="ProfileNameDiv" id="date_div">
                         <span class = "ProfileNameA" id="date_a"><%= posts[i].date %></span>
                     </div>
                 </div>
             </div>
-            <p class="BodySpan"  ><%= posts[i].body %></p>
+            <p class="BodySpan" ><%= posts[i].body %></p>
             <div class="ContainerFooter">
                 <div class="UpvoteDiv" >
                     <img class="UpvoteImg" src="assets/upvote.png">

@@ -32,8 +32,6 @@ var conn = mysql.createConnection({
   user: 'webkriti',
   password: '12345',
   database: 'Forum',
-  //   port: "3306",
-  //   insecureAuterh : true,
 });
 
 var conco = mysql.createConnection({
@@ -41,8 +39,6 @@ var conco = mysql.createConnection({
   user: 'webkriti',
   password: '12345',
   database: 'Forum',
-  //   port: "3306",
-  //   insecureAuterh : true,
 });
 
 
@@ -63,7 +59,7 @@ conn.connect(function (err) {
   if (err) throw err;
   console.log('Discussion Table Connected!');
   var sql =
-    'CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL auto_increment, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(450) NULL, `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, `total_posts` INT NOT NULL DEFAULT 0, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE);'
+    'CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL auto_increment,`dsc_namekebab` VARCHAR(45) NOT NULL, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(450) NULL, `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, `total_posts` INT NOT NULL DEFAULT 0, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE);'
   conn.query(sql, function (err, result) {
     if (err) throw err;
     if (result.length > 0) console.log('Discussion Table created');
@@ -182,12 +178,7 @@ app.post("/login", urlencodedParser, function (req, res) {
       res.cookie("userData", {
         user: qdata.user
       });
-      res.render("ForgotPassword", {
-        "heading": "nothing",
-        "subheading": "LOGED IN SUCCESSFULLY",
-        "input": "nothing",
-        "display": "none"
-      });
+      res.redirect("/");
     } else {
       res.render("ForgotPassword", {
         "heading": "nothing",
@@ -264,7 +255,7 @@ app.post('/signup', urlencodedParser, function (req, res) {
 
 app.get('/logout', function (req, res) {
   res.clearCookie('userData');
-  res.redirect('/');
+  res.redirect('/login');
 })
 
 app.get('/login', function (req, res) {
@@ -311,6 +302,8 @@ function home_query(req, res, sql, current_page) {
         var first_letter = "";
         first_letter = tempTitle.charAt(0);
         first_letter = first_letter.toUpperCase();
+        console.log(moment(result[i]).tz('Asia/Kolkata').format('YYYY MMMM DD HH:mm:ss'));
+        
         var post = {
           title: tempTitle.replaceAt(0, first_letter),
           body: result[i].data,
@@ -362,15 +355,72 @@ app.get("/", function (req, res) {
   home_query(req, res, sql, current_page);
 });
 
+app.get('/dashboard/:user', function (req, res) {
+  if (req.cookies.hasOwnProperty('userData')) {
+    res.cookie('dummy', {});
+  const requestedUser = req.params.user;
+  console.log(requestedUser);
+    var sql = 'select * from discussion where usr_id = "' +
+    requestedUser + '";';
+    var posts = [];
+    conn.query(sql, function (err, result) {
+      if (err) throw err;
+      if (result.length > 0) {
+        posts = [];
+        for (var i = 0; i < result.length; i++) {
+          console.log(moment(result[i]).tz(Asia/Kolkata).format('YYYY MMMM DD HH:mm:ss'));
+          var post = {
+            title: result[i].dsc_name,
+            body: result[i].data,
+            img: '',
+            user: result[i].usr_id,
+            date: moment(result[i]).format('YYYY MMMM DD'),
+           
+            disc_id: result[i].dsc_id
+          };
+          posts.push(post);
+        }
+        console.log(posts);
+        var dash_name;
+        var dash_user;
+        var dash_email;
+        con.query(
+          'select * from users where username = "' +
+          requestedUser + '";',
+          function (err, details) {
+            if (err) throw err;
+            console.log('userdetails read');
+            setdashvals(
+              details[0].name, details[0].username, details[0].email);
+          },
+        );
 
-app.get('/dashboard', function(req, res) {
+        function setdashvals(vn, vu, ve) {
+          dash_name = vn;
+          dash_user = vu;
+          dash_email = ve;
+          res.render('dashboard', {
+            posts: posts,
+            dash_name: dash_name,
+            dash_email: dash_email,
+            dash_user: dash_user
+          });
+        }
+        console.log('here');
+      }
+    });
+  }
+});
+
+
+app.get('/dashboard', function (req, res) {
   console.log(req.cookies);
   if (req.cookies.hasOwnProperty('userData')) {
     res.cookie('dummy', {});
     var sql = 'select * from discussion where usr_id = "' +
-        req.cookies.userData.user + '";';
+      req.cookies.userData.user + '";';
     var posts = [];
-    conn.query(sql, function(err, result) {
+    conn.query(sql, function (err, result) {
       if (err) throw err;
       console.log('hye');
       if (result.length > 0) {
@@ -391,14 +441,14 @@ app.get('/dashboard', function(req, res) {
         var dash_user;
         var dash_email;
         con.query(
-            'select * from users where username = "' +
-                req.cookies.userData.user + '";',
-            function(err, details) {
-              if (err) throw err;
-              console.log('userdetails read');
-              setdashvals(
-                  details[0].name, details[0].username, details[0].email);
-            },
+          'select * from users where username = "' +
+          req.cookies.userData.user + '";',
+          function (err, details) {
+            if (err) throw err;
+            console.log('userdetails read');
+            setdashvals(
+              details[0].name, details[0].username, details[0].email);
+          },
         );
 
         function setdashvals(vn, vu, ve) {
@@ -410,7 +460,7 @@ app.get('/dashboard', function(req, res) {
             dash_name: dash_name,
             dash_email: dash_email,
             dash_user: dash_user
-          }); 
+          });
         }
         console.log('here');
       }
@@ -432,15 +482,16 @@ app.post('/compose', function (req, res) {
   str = str.replace(/\r\n/g, 'char10');
 
   const post = {
-    title: _.kebabCase(req.body.postTitle),
+    title: req.body.postTitle,
+    titlekebab: _.kebabCase(req.body.postTitle),
     body: str,
     user: req.cookies.userData.user
   };
   console.log(post);
   var currTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   var sql =
-    'insert into discussion (dsc_name, usr_id, thanks, data, post_time) values("' +
-    post.title + '", "' + post.user + '", 0, "' + post.body +
+    'insert into discussion (dsc_name,dsc_namekebab, usr_id, thanks, data, post_time) values("' +
+    post.title + '","' + post.titlekebab + '", "' + post.user + '", 0, "' + post.body +
     '", current_timestamp)';
   conn.query(sql, function (err, result) {
     if (err) throw err;
@@ -458,104 +509,110 @@ app.post('/compose', function (req, res) {
 
 
 app.get("/post/:title", function (req, res) {
-      console.log(req.cookies);
+  console.log(req.cookies);
 
-      const requestedTitle = _.kebabCase(req.params.title);
-    console.log(requestedTitle);
-      res.cookie('dummy', {});
-      var sql = 'select * from discussion where dsc_name ="'+requestedTitle+'";';
-      conn.query(sql, function (err, result) {
-          if (err) throw err;
-          console.log('hye');
-          console.log(result);
-          if (result.length > 0) {
-            var post = {
-              title: result[0].dsc_name,
-              body: result[0].data,
-              img: '',
-              user: result[0].usr_id,
-              date: moment(result[0]).format('YYYY MMMM DD'),
-              disc_id: result[0].dsc_id,
-            };
-            console.log(post);
-            console.log("jaddu");
-            var sql = "select * from comments where dsc_id = '" + result[0].dsc_id + "' order by upvote desc;";
-            conn.query(sql, function (err, result) {
-              if (err) throw err;
-              console.log("hye123");
-              if (result.length > 0) {
-                comments = [];
-                for (var i = 0; i < result.length; i++) {
-                  var comment = {
-                    body: result[i].cmt,
-                    img: "",
-                    user: result[i].usr_id,
-                    date: moment(result[i].comment_time).format('YYYY MMMM DD HH:mm:ss'),
-                    disc_id: result[i].dsc_id,
-                    comment_id: result[i].idComments,
-                    upvote: result[i].upvote,
-                  };
-                  // console.log(comment);
-                  comments.push(comment);
-                }
-                // console.log(comments);
-                console.log("here");
-                
-                res.render("discussion", {
-                  comments: comments,
-                  title: post.title,
-                  body: post.body,
-                  date: post.date,
-                  user: post.user,
-                });
-              } else {
-                console.log("here123");
-
-                res.render("discussion", {
-                  comments: 0,
-                  title: post.title,
-                  body: post.body,
-                  date: post.date,
-                  user: post.user,
-                });
-              }
-            });
-          }
-        })
-      });
-
-
-    app.post("/post/:title", function (req, res) {
-      var str = req.body.postBody;
-      str = str.replace(/\r\n/g, 'char10');
-      let post = {
-        body: str,
-        user: req.cookies.userData.user,
+  const requestedTitle = _.kebabCase(req.params.title);
+  console.log(requestedTitle);
+  res.cookie('dummy', {});
+  var sql = 'select * from discussion where dsc_namekebab ="' + requestedTitle + '";';
+  conn.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log('hye');
+    console.log(result);
+    if (result.length > 0) {
+      console.log(moment(result[0]).format('YYYY MMMM DD'));
+      var post = {
+        title: result[0].dsc_name,
+        body: result[0].data,
+        img: '',
+        user: result[0].usr_id,
+        date: moment(result[0]).format('YYYY MMMM DD'),
+        disc_id: result[0].dsc_id,
       };
-      console.log(req.params.title);
-
-      var sql = "select * from discussion where dsc_name ='" + req.params.title + "';";
+      console.log(post);
+      console.log("jaddu");
+      var sql = "select * from comments where dsc_id = '" + result[0].dsc_id + "' order by upvote desc;";
       conn.query(sql, function (err, result) {
         if (err) throw err;
-        console.log("No match found");
+        console.log("hye123");
         if (result.length > 0) {
-          var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values( "' + post.user + '","' + result[0].dsc_id + '",  "' + post.body + '", current_timestamp)';
-          conn.query(sql, function (err, result) {
-            if (err) throw err;
+          comments = [];
+          for (var i = 0; i < result.length; i++) {
+            var comment = {
+              body: result[i].cmt,
+              img: "",
+              user: result[i].usr_id,
+              date: moment(result[i].comment_time).format('YYYY MMMM DD HH:mm:ss'),
+              disc_id: result[i].dsc_id,
+              comment_id: result[i].idComments,
+              upvote: result[i].upvote,
+            };
+            // console.log(comment);
+            comments.push(comment);
+          }
+          // console.log(comments);
+          console.log("here");
+
+          res.render("discussion", {
+            comments: comments,
+            title: post.title,
+            body: post.body,
+            date: post.date,
+            user: post.user,
+          });
+        } else {
+          console.log("here123");
+
+          res.render("discussion", {
+            comments: 0,
+            title: post.title,
+            body: post.body,
+            date: post.date,
+            user: post.user,
           });
         }
       });
-      res.redirect(req.get('referer'));
-    });
+    }
+  })
+});
+
+
+app.post("/post/:title", function (req, res) {
+  var str = req.body.postBody;
+  str = str.replace(/\r\n/g, 'char10');
+  let post = {
+    body: str,
+    user: req.cookies.userData.user,
+  };
+  console.log(req.params.title);
+
+  var sql = "select * from discussion where dsc_name ='" + req.params.title + "' ;";
+  conn.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("No match found");
+    if (result.length > 0) {
+      var sql = "UPDATE discussion SET total_posts = total_posts+1 where dsc_name ='" + req.params.title + "';"
+      conn.query(sql, function (err, result) {
+        if (err) throw err;
+      });
+      var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values( "' + post.user + '","' + result[0].dsc_id + '",  "' + post.body + '", current_timestamp)';
+      conn.query(sql, function (err, result) {
+        if (err) throw err;
+      });
+
+    }
+  });
+  res.redirect(req.get('referer'));
+});
 
 
 
-    var server = app.listen(8080, function () {
-      var host = server.address().address
-      var port = server.address().port
+var server = app.listen(8080, function () {
+  var host = server.address().address
+  var port = server.address().port
 
-      console.log('##########################################################');
-      console.log('#####               STARTING SERVER                  #####');
-      console.log('##########################################################\n');
-      console.log(`Express running → PORT ${server.address().port}`);
-    });
+  console.log('##########################################################');
+  console.log('#####               STARTING SERVER                  #####');
+  console.log('##########################################################\n');
+  console.log(`Express running → PORT ${server.address().port}`);
+});

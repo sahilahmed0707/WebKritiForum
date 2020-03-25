@@ -5,7 +5,7 @@
     <link rel="mask-icon" href="../logo.png">
     <title>Welcome to the Leaf Forums - First forum</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <link href="objects.css" rel="stylesheet" type="text/css">
+    <link href="../objects.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -238,10 +238,10 @@
         <ul>
             <div class="logo">
                 <li>
-                    <header><img src="./logo.gif" alt="Leaf Forums Logo" height="40%" width="40%"></header>
+                    <header><img src="../logo.gif" alt="Leaf Forums Logo" height="40%" width="40%"></header>
                 </li>
             </div>
-            <div class="compose"><a href="/compose" style="background-color: rgba(0,0,0,0);"><img src="compose.png"
+            <div class="compose"><a href="/compose" style="background-color: rgba(0,0,0,0);"><img src="../compose.png"
                         alt="Compose Logo" width="200vw" height="60vw"
                         style="overflow: hidden;margin-top: 0.7vw;margin-left: 1vw;"></a>
             </div>
@@ -300,16 +300,16 @@
         </div>
         <br>
         <br><br>
-        <h1 class="Heading">YOUR RECENT DISCUSSIONS:</h1>
-        <script src="home.js"></script>
+        <h1 class="Heading">RECENT DISCUSSIONS:</h1>
+        <script src="../home.js"></script>
         <% for(var i = posts.length - 1; i >= 0; i--) { %>
         <div class="Container">
             <div class="SubHeadingContainer">
-                <a class="SubHeading" href=""><%= posts[i].title %></a>
+                <a class="SubHeading" href="post/<%= posts[i].title %>"><%= posts[i].title %></a>
             </div>
             <div class="ProfileContainer">
                 <div class="ImgDiv" overflow="hidden">
-                    <img class="ProfileImg" src="assets/default_profile_pic.jpg">
+                    <img class="ProfileImg" src="../assets/default_profile_pic.jpg">
                 </div>
                 <div class="ProfileInfoDiv">
                     <div class="ProfileNameDiv">
@@ -337,3 +337,4 @@
 </body>
 
 </html>
+<%- include("partials/footer"); -%>
