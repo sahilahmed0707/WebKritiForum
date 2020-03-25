@@ -127,7 +127,7 @@ app.post('/forgot-password/ans', urlencodedParser, function (req, res) {
     if (err) throw err;
     if (result.length > 0) {
       res.render('NewPassword', {
-        'username': qdata.user
+        'username': qdata.user,
         'user': req.cookies.userData.user,
       });
     } else {
@@ -168,7 +168,7 @@ app.post('/change-password', urlencodedParser, function (req, res) {
       'heading': 'nothing',
       'subheading': 'PASSWORD AND REPASSWORD DOES NOT MATCH',
       'input': 'nothing',
-      'user': req.cookies.userData.user
+      'user': req.cookies.userData.user,
       'display': 'none'
     });
   }
@@ -192,7 +192,7 @@ app.post("/login", urlencodedParser, function (req, res) {
       res.render("ForgotPassword", {
         "heading": "nothing",
         "subheading": "INVALID USERNAME OR PASSWORD",
-        'user': req.cookies.userData.user
+        'user': req.cookies.userData.user,
         "input": "nothing",
         "display": "none"
       });
@@ -214,9 +214,9 @@ app.post('/signup', urlencodedParser, function (req, res) {
     res.render('ForgotPassword', {
       'heading': 'nothing',
       'subheading': 'PASSWORD AND REPASSWORD DOES NOT MATCH',
-      'user': req.cookies.userData.user
+      'user': req.cookies.userData.user,
       'input': 'nothing',
-      'display': 'none'
+      'display': 'none',
     });
     res.end();
     return;
@@ -228,7 +228,7 @@ app.post('/signup', urlencodedParser, function (req, res) {
     if (result.length > 0) {
       res.render('ForgotPassword', {
         'heading': 'nothing',
-        'user': req.cookies.userData.user
+        'user': req.cookies.userData.user,
         'subheading': 'USERNAME ALREADY EXISTS',
         'input': 'nothing',
         'display': 'none'
@@ -480,7 +480,7 @@ app.get('/dashboard', function (req, res) {
             posts: posts,
             dash_name: dash_name,
             dash_email: dash_email,
-            'user': req.cookies.userData.user
+            'user': req.cookies.userData.user,
             dash_user: dash_user
           });
         }
