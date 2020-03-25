@@ -86,6 +86,7 @@ app.get('/forgot-password', function (req, res) {
   res.render('ForgotPassword', {
     'heading': 'FORGOT PASSWORD',
     'subheading': 'USERNAME',
+    'user': req.cookies.userData.user,
     'input': 'user',
     'display': 'initial'
   });
@@ -102,6 +103,7 @@ app.post('/forgot-password/user', urlencodedParser, function (req, res) {
       res.render('ForgotPassword', {
         'heading': result[0].username,
         'subheading': result[0].question,
+        'user': req.cookies.userData.user,
         'input': 'ans',
         'display': 'initial'
       });
@@ -109,6 +111,7 @@ app.post('/forgot-password/user', urlencodedParser, function (req, res) {
       res.render('ForgotPassword', {
         'heading': 'nothing',
         'subheading': 'USERNAME DOES NOT EXIST',
+        'user': req.cookies.userData.user,
         'input': 'nothing',
         'display': 'none'
       });
@@ -129,11 +132,13 @@ app.post('/forgot-password/ans', urlencodedParser, function (req, res) {
     if (result.length > 0) {
       res.render('NewPassword', {
         'username': qdata.user
+        'user': req.cookies.userData.user,
       });
     } else {
       res.render('ForgotPassword', {
         'heading': 'nothing',
         'subheading': 'INCORRECT ANSWER',
+        'user': req.cookies.userData.user,
         'input': 'nothing',
         'display': 'none'
       });
@@ -155,6 +160,7 @@ app.post('/change-password', urlencodedParser, function (req, res) {
       if (err) throw err;
       //       res.render('ForgotPassword', {
       //         'heading': 'nothing',
+                //'user': req.cookies.userData.user
       //         'subheading': 'PASSWORD CHANGED SUCCESSFULLY',
       //         'input': 'nothing',
       //         'display': 'none'
@@ -166,6 +172,7 @@ app.post('/change-password', urlencodedParser, function (req, res) {
       'heading': 'nothing',
       'subheading': 'PASSWORD AND REPASSWORD DOES NOT MATCH',
       'input': 'nothing',
+      'user': req.cookies.userData.user
       'display': 'none'
     });
   }
@@ -184,6 +191,7 @@ app.post("/login", urlencodedParser, function (req, res) {
       });
       res.render("ForgotPassword", {
         "heading": "nothing",
+        'user': req.cookies.userData.user
         "subheading": "LOGED IN SUCCESSFULLY",
         "input": "nothing",
         "display": "none"
@@ -192,6 +200,7 @@ app.post("/login", urlencodedParser, function (req, res) {
       res.render("ForgotPassword", {
         "heading": "nothing",
         "subheading": "INVALID USERNAME OR PASSWORD",
+        'user': req.cookies.userData.user
         "input": "nothing",
         "display": "none"
       });
@@ -213,6 +222,7 @@ app.post('/signup', urlencodedParser, function (req, res) {
     res.render('ForgotPassword', {
       'heading': 'nothing',
       'subheading': 'PASSWORD AND REPASSWORD DOES NOT MATCH',
+      'user': req.cookies.userData.user
       'input': 'nothing',
       'display': 'none'
     });
@@ -226,6 +236,7 @@ app.post('/signup', urlencodedParser, function (req, res) {
     if (result.length > 0) {
       res.render('ForgotPassword', {
         'heading': 'nothing',
+        'user': req.cookies.userData.user
         'subheading': 'USERNAME ALREADY EXISTS',
         'input': 'nothing',
         'display': 'none'
@@ -241,6 +252,7 @@ app.post('/signup', urlencodedParser, function (req, res) {
         if (err) throw err;
         console.log('added data successfully');
         //         res.render('ForgotPassword', {
+            //        'user': req.cookies.userData.user
         //           'heading': 'nothing',
         //           'subheading': 'ADDED DATA SUCCESSFULLY',
         //           'input': 'nothing',
@@ -268,11 +280,15 @@ app.get('/logout', function (req, res) {
 })
 
 app.get('/login', function (req, res) {
-  res.render('LoginPage');
+  res.render('LoginPage', {
+      'user': req.cookies.userData.user
+  });
 });
 
 app.get('/signup', function (req, res) {
-  res.render('SignUp');
+  res.render('SignUp', {
+      'user': req.cookies.userData.user
+  });
 });
 
 app.set('view engine', 'ejs');
@@ -283,7 +299,9 @@ app.use(bodyParser.urlencoded({
 app.use(express.static('public'));
 
 app.get('/about', function (req, res) {
-  res.render('About Page');
+  res.render('About Page', {
+      'user': req.cookies.userData.user
+  });
 });
 
 function home_query(req, res, sql, current_page) {
@@ -355,7 +373,9 @@ app.get("/home", function (req, res) {
 });
 
 app.get("/", function (req, res) {
-  res.cookie("dummy", {});
+  res.cookie("userData", {
+    'user': "NULL"  
+  });
   var sql = "select * from discussion order by dsc_id desc limit 10;";
   var current_page = 1;
   res.cookie("current_page", current_page);
@@ -409,6 +429,7 @@ app.get('/dashboard', function(req, res) {
             posts: posts,
             dash_name: dash_name,
             dash_email: dash_email,
+            'user': req.cookies.userData.user
             dash_user: dash_user
           }); 
         }
@@ -422,7 +443,9 @@ app.get('/dashboard', function(req, res) {
 app.get('/compose', function (req, res) {
   console.log(req.cookies);
   if (req.cookies.hasOwnProperty('userData'))
-    res.render('compose');
+    res.render('compose', {
+        'user': req.cookies.userData.user
+    });
   else
     res.redirect('http://localhost:8080/login');
 });
@@ -447,6 +470,7 @@ app.post('/compose', function (req, res) {
     console.log('discussion added successfully');
     // res.render('ForgotPassword', {
     //   'heading': 'nothing',
+    //      'user': req.cookies.userData.user
     //   'subheading': 'DISCUSSION ADDED SUCCESSFULLY',
     //   'input': 'nothing',
     //   'display': 'none'
