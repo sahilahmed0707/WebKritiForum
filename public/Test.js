@@ -62,6 +62,8 @@ setInterval(function(){
         lastKeyCode = event.keyCode;
         temp_left = (1 - (i % 2))*(i + -1);
         temp_top = (i % 2)*(2 * i - 4);
+        if(elem.length < 4 && elem_to_add < 4)
+          elem_to_add += 4;
       }
     }   
   };
