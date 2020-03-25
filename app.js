@@ -270,7 +270,7 @@ app.get('/logout', function (req, res) {
   res.cookie("userData", {
     'user': null  
   });
-  res.redirect('/login');
+  res.redirect('/');
 })
 
 app.get('/login', function (req, res) {
