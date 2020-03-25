@@ -267,7 +267,9 @@ app.post('/signup', urlencodedParser, function (req, res) {
 // });
 
 app.get('/logout', function (req, res) {
-  res.clearCookie('userData');
+  res.cookie("userData", {
+    'user': "NULL"  
+  });
   res.redirect('/login');
 })
 
