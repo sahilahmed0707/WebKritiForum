@@ -70,12 +70,25 @@ conco.connect(function (err) {
   if (err) throw err;
   console.log('Comments Table Connected!');
   var sql =
-    'CREATE TABLE if not exists `comments` ( `idComments` int NOT NULL AUTO_INCREMENT, `usr_id` varchar(45) DEFAULT NULL, `dsc_id` int DEFAULT NULL, `cmt` varchar(150) DEFAULT NULL, `post_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP, `upvote` int NOT NULL DEFAULT "0", PRIMARY KEY (`idComments`), UNIQUE KEY `idComments_UNIQUE` (`idComments`) )';
+    'CREATE TABLE if not exists `forum`.`comments` ( `idComments` int NOT NULL AUTO_INCREMENT, `usr_id` varchar(45) DEFAULT NULL, `dsc_id` int DEFAULT NULL, `cmt` varchar(150) DEFAULT NULL, `post_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP, `upvote` int NOT NULL DEFAULT "0", PRIMARY KEY (`idComments`), UNIQUE KEY `idComments_UNIQUE` (`idComments`) )';
   conco.query(sql, function (err, result) {
     if (err) throw err;
     if (result.length > 0) console.log('Comments Table created');
   });
+
+  var sql ='CREATE TABLE if not exists `forum`.`comment_thanks` (`user_id` varchar(50) NOT NULL,`idCmt` int NOT NULL);';
+  conco.query(sql, function (err, result) {
+    if (err) throw err;
+    if (result.length > 0) console.log('Comments Thanks Table created');
+  });
+  
+  var sql ='CREATE TABLE if not exists `forum`.`discussion_thanks` (`user_id` varchar(50) NOT NULL,`dsc_id` int NOT NULL) ;';
+  conco.query(sql, function (err, result) {
+    if (err) throw err;
+    if (result.length > 0) console.log('Discussion Thanks Table created');
+  });
 });
+
 
 
 app.get('/forgot-password', function (req, res) {
@@ -186,7 +199,7 @@ app.post("/login", urlencodedParser, function (req, res) {
         user: qdata.user
       });
 
-      res.redirect("/");
+      res.redirect(req.get('referer'));
 
     } else {
       res.render("ForgotPassword", {
@@ -392,7 +405,7 @@ app.get('/dashboard/:user', function (req, res) {
       if (result.length > 0) {
         posts = [];
         for (var i = 0; i < result.length; i++) {
-          console.log(moment(result[i]).tz(Asia/Kolkata).format('YYYY MMMM DD HH:mm:ss'));
+          // console.log(moment(result[i]).tz(Asia/Kolkata).format('YYYY MMMM DD HH:mm:ss'));
           var post = {
             title: result[i].dsc_name,
             body: result[i].data,
@@ -607,6 +620,7 @@ app.get("/post/:title", function (req, res) {
 
 
 app.post("/post/:title", function (req, res) {
+  if(req.cookies.userData.user!=null){
   var str = req.body.postBody;
   str = str.replace(/\r\n/g, 'char10');
   let post = {
@@ -631,7 +645,9 @@ app.post("/post/:title", function (req, res) {
 
     }
   });
-  res.redirect(req.get('referer'));
+  
+}
+else{res.redirect("/login")}
 });
 
 
