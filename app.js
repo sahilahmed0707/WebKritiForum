@@ -352,14 +352,14 @@ app.get("/", function (req, res) {
 });
 
 
-app.get('/dashboard', function (req, res) {
+app.get('/dashboard', function(req, res) {
   console.log(req.cookies);
   if (req.cookies.hasOwnProperty('userData')) {
     res.cookie('dummy', {});
     var sql = 'select * from discussion where usr_id = "' +
-      req.cookies.userData.user + '";';
+        req.cookies.userData.user + '";';
     var posts = [];
-    conn.query(sql, function (err, result) {
+    conn.query(sql, function(err, result) {
       if (err) throw err;
       console.log('hye');
       if (result.length > 0) {
@@ -376,10 +376,32 @@ app.get('/dashboard', function (req, res) {
           posts.push(post);
         }
         console.log(posts);
+        var dash_name;
+        var dash_user;
+        var dash_email;
+        con.query(
+            'select * from users where username = "' +
+                req.cookies.userData.user + '";',
+            function(err, details) {
+              if (err) throw err;
+              console.log('userdetails read');
+              setdashvals(
+                  details[0].name, details[0].username, details[0].email);
+            },
+        );
+
+        function setdashvals(vn, vu, ve) {
+          dash_name = vn;
+          dash_user = vu;
+          dash_email = ve;
+          res.render('dashboard', {
+            posts: posts,
+            dash_name: dash_name,
+            dash_email: dash_email,
+            dash_user: dash_user
+          }); 
+        }
         console.log('here');
-        res.render('dashboard', {
-          posts: posts
-        });
       }
     });
   } else
