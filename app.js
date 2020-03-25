@@ -268,7 +268,7 @@ app.post('/signup', urlencodedParser, function (req, res) {
 
 app.get('/logout', function (req, res) {
   res.cookie("userData", {
-    'user': "NULL"  
+    'user': null  
   });
   res.redirect('/login');
 })
@@ -371,7 +371,7 @@ app.get("/home", function (req, res) {
 
 app.get("/", function (req, res) {
   res.cookie("userData", {
-    'user': "NULL"  
+    'user': null  
   });
   var sql = "select * from discussion order by dsc_id desc limit 10;";
   var current_page = 1;
