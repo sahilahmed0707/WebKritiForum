@@ -1,173 +1,179 @@
-
 <%- include("partials/header"); -%>
 <!-- <head> -->
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <link href="../objects.css" rel="stylesheet" type="text/css">
-    <style>
-        body {
-            font-family: "Arial Black";
-        }
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<link href="../objects.css" rel="stylesheet" type="text/css">
+<style>
+    body {
+        font-family: "Arial Black";
+    }
 
-        .Heading {
-            text-align: center;
-            font-size: 2.5vw;
-            font-weight: bold;
-            color: rgb(137, 0, 250);
-        }
+    .Heading {
+        text-align: center;
+        font-size: 2.5vw;
+        font-weight: bold;
+        color: rgb(137, 0, 250);
+    }
 
-        .Container {
-            min-height: 1%;
-            width: 70%;
-            overflow: hidden;
-            margin: auto auto;
-            padding: 1.5vw 2vw;
-            margin-bottom: 1vw;
-            background-color: rgb(49, 49, 49);
-        }
+    .Container {
+        min-height: 1%;
+        width: 70%;
+        overflow: hidden;
+        margin: auto auto;
+        padding: 1.5vw 2vw;
+        margin-bottom: 1vw;
+        background-color: rgb(49, 49, 49);
+    }
 
-        .SubHeadingContainer {
-            margin: 0 auto;
-            margin-bottom: 0.5vw;
-        }
+    .SubHeadingContainer {
+        margin: 0 auto;
+        margin-bottom: 0.5vw;
+    }
 
-        .SubHeading {
-            text-align: left;
-            text-decoration: none;
-            font-size: 2vw;
-            background-color: transparent;
-            color: white;
-            font-weight: bold;
-        }
+    .SubHeading {
+        text-align: left;
+        text-decoration: none;
+        font-size: 2vw;
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
+    }
 
-        .SubHeading:hover {
-            text-decoration: underline;
-        }
+    .SubHeading:hover {
+        text-decoration: underline;
+    }
 
-        .ProfileContainer {
-            display: flex;
-            margin-bottom: 0.5vw;
-        }
+    .ProfileContainer {
+        display: flex;
+        margin-bottom: 0.5vw;
+    }
 
-        .ImgDiv {
-            border-radius: 100%;
-            margin-right: 0.5vw;
-            height: 4vw;
-            width: 4vw;
-            background-color:rgb(137, 0, 250);
-            flex: 0 0 auto;
-            cursor: pointer;
-        }
+    .ImgDiv {
+        border-radius: 100%;
+        margin-right: 0.5vw;
+        height: 4vw;
+        width: 4vw;
+        background-color: rgb(137, 0, 250);
+        flex: 0 0 auto;
+        cursor: pointer;
+    }
 
-        .ProfileImg {
-            height: 4vw;
-            width: 4vw;
-            border-radius: 100%;
-        }
+    .ProfileImg {
+        height: 4vw;
+        width: 4vw;
+        border-radius: 100%;
+    }
 
-        .ProfileInfoDiv {
-            flex: 1 0 auto;
-        }
+    .ProfileInfoDiv {
+        flex: 1 0 auto;
+    }
 
-        .ProfileNameDiv {
-            margin-bottom: 0.4vw;
-            height: 1.75vw;
-            padding: auto 0;
-            background-color: transparent;
-        }
+    .ProfileNameDiv {
+        margin-bottom: 0.4vw;
+        height: 1.75vw;
+        padding: auto 0;
+        background-color: transparent;
+    }
 
-        .ProfileNameA {
-            font-size: 1vw;
-            text-align: left;
-            text-decoration: none;
-            color: white;
-            font-family: "Roboto";
-            background-color: transparent;
-        }
+    .ProfileNameA {
+        font-size: 1vw;
+        text-align: left;
+        text-decoration: none;
+        color: white;
+        font-family: "Roboto";
+        background-color: transparent;
+    }
 
-        .ProfileNameA:hover {
-            text-decoration: underline;
-        }
+    .ProfileNameA:hover {
+        text-decoration: underline;
+    }
 
-        #date_div {
-            margin-bottom: 0px;
-        }
+    #date_div {
+        margin-bottom: 0px;
+    }
 
-        #date_a {
-            color : rgb(113, 112, 114);
-            cursor: pointer;
-        }
+    #date_a {
+        color: rgb(113, 112, 114);
+        cursor: pointer;
+    }
 
-        .BodySpan {
-            color: white;
-            font-size: 1vw;
-            font-family: "Roboto";
-            cursor: pointer;
-        }
-       
+    .BodySpan {
+        color: white;
+        font-size: 1vw;
+        font-family: "Roboto";
+        cursor: pointer;
+    }
 
-        .PostBody {
-            margin-bottom: 1vw;
-        }
 
-        .TitleInput {
-            margin-bottom: 1vw;
-            height: 2vw;
-            font-size: 1.5vw;
-        }
-    </style>
+    .PostBody {
+        margin-bottom: 1vw;
+    }
+
+    .TitleInput {
+        margin-bottom: 1vw;
+        height: 2vw;
+        font-size: 1.5vw;
+    }
+</style>
 </head>
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
+
 <body>
-  
-    <!-- <script src="home.js"></script> -->
-  
-        <div class="Container">
-            <div class="SubHeadingContainer">
-                <a class="SubHeading" href=""><%= title %></a>
-            </div>
-            <div class="ProfileContainer">
-                <div class="ImgDiv" overflow="hidden">
-                    <img class="ProfileImg" src="../assets/default_profile_pic.jpg">
-                </div>
-                <div class="ProfileInfoDiv">
-                    <div class="ProfileNameDiv">
-                        <a class="ProfileNameA" id="profile_name_a" href=""><%= user %></a>
-                    </div>
-                    <div class="ProfileNameDiv" id="date_div">
-                        <span class = "ProfileNameA" id="date_a"><%= date %></span>
-                    </div>
-                </div>
-            </div>
-            <span class="BodySpan"><%= body %></span>
-        </div>
-    
 
-        <% for(var i = comments.length - 1; i >= 0; i--) { %>
-            <div class="Container">
-                <div class="SubHeadingContainer">
-                    <!-- <a class="SubHeading" href="/comment/<%= comments[i].title %>"><%= comments[i].title %></a> -->
-                </div>
-                <div class="ProfileContainer">
-                    <div class="ImgDiv" overflow="hidden">
-                        <img class="ProfileImg" src="../assets/default_profile_pic.jpg">
-                    </div>
-                    <div class="ProfileInfoDiv">
-                        <div class="ProfileNameDiv">
-                            <a class="ProfileNameA" id="profile_name_a" href=""><%=comments[i].user%> </a>
-                        </div>
-                        <div class="ProfileNameDiv" id="date_div">
-                            <span class = "ProfileNameA" id="date_a"><%= comments[i].date %></span>
-                        </div>
-                    </div>
-                </div>
-                <p class="BodySpan"  ><%= comments[i].body %></p>
-                
+    <!-- <script src="home.js"></script> -->
+
+    <div class="Container">
+        <div class="SubHeadingContainer">
+            <a class="SubHeading" href=""><%= title %></a>
+        </div>
+        <div class="ProfileContainer">
+            <div class="ImgDiv" overflow="hidden">
+                <img class="ProfileImg" src="../assets/default_profile_pic.jpg">
             </div>
+            <div class="ProfileInfoDiv">
+                <div class="ProfileNameDiv">
+                    <a class="ProfileNameA" id="profile_name_a" href=""><%= user %></a>
+                </div>
+                <div class="ProfileNameDiv" id="date_div">
+                    <span class="ProfileNameA" id="date_a"><%= date %></span>
+                </div>
+            </div>
+        </div>
+        <span class="BodySpan"><%= body %></span>
+    </div>
+
+
+    <% for(var i = comments.length - 1; i >= 0; i--) { %>
+    <div class="Container">
+        <div class="SubHeadingContainer">
+            <!-- <a class="SubHeading" href="/comment/<%= comments[i].title %>"><%= comments[i].title %></a> -->
+        </div>
+        <div class="ProfileContainer">
+            <div class="ImgDiv" overflow="hidden">
+                <img class="ProfileImg" src="../assets/default_profile_pic.jpg">
+            </div>
+            <div class="ProfileInfoDiv">
+                <div class="ProfileNameDiv">
+                    <a class="ProfileNameA" id="profile_name_a" href=""><%=comments[i].user%> </a>
+                </div>
+                <div class="ProfileNameDiv" id="date_div">
+                    <span class="ProfileNameA" id="date_a"><%= comments[i].date %></span>
+                </div>
+            </div>
+        </div>
+        <p class="BodySpan"><%= comments[i].body %></p>
+        <div class="ContainerFooter">
+            <div class="UpvoteDiv">
+                <img class="UpvoteImg" src="assets/upvote.png">
+                <div class="NumberOfUpvoteDiv">
+                    <span class="ProfileNameA" id="number_of_upvotes"><%= comments[i].numberOfUpvotes %></span>
+                </div>
+            </div>
+        </div>
         <% } %>
 
-        
+
         <form action="http://localhost:8080/post/<%=title%>" method="post">
             <div class="Container" id="container_div">
                 <label class="SubHeading">Post</label>
@@ -175,6 +181,6 @@
                 <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
             </div>
         </form>
-        </body>
-        
-        <%- include("partials/footer"); -%>
+</body>
+
+<%- include("partials/footer"); -%>

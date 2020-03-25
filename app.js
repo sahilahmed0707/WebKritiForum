@@ -12,6 +12,7 @@ const _ = require("lodash");
 const urlencodedParser = bodyParser.urlencoded({
   extended: false
 });
+const ejsLint = require('ejs-lint');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
@@ -73,7 +74,7 @@ conco.connect(function (err) {
   if (err) throw err;
   console.log('Comments Table Connected!');
   var sql =
-    'CREATE TABLE `comments` ( `idComments` int NOT NULL AUTO_INCREMENT, `usr_id` varchar(45) DEFAULT NULL, `dsc_id` int DEFAULT NULL, `cmt` varchar(150) DEFAULT NULL, `post_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP, `upvote` int NOT NULL DEFAULT "0", PRIMARY KEY (`idComments`), UNIQUE KEY `idComments_UNIQUE` (`idComments`) )';
+    'CREATE TABLE if not exists `comments` ( `idComments` int NOT NULL AUTO_INCREMENT, `usr_id` varchar(45) DEFAULT NULL, `dsc_id` int DEFAULT NULL, `cmt` varchar(150) DEFAULT NULL, `post_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP, `upvote` int NOT NULL DEFAULT "0", PRIMARY KEY (`idComments`), UNIQUE KEY `idComments_UNIQUE` (`idComments`) )';
   conco.query(sql, function (err, result) {
     if (err) throw err;
     if (result.length > 0) console.log('Comments Table created');
@@ -250,6 +251,16 @@ app.post('/signup', urlencodedParser, function (req, res) {
     }
   });
 });
+
+
+
+// app.use(function(req, res, next) {
+//   if((req.cookies.hasOwnProperty('userData'))){
+//     req.session.user = userObject;
+//     res.locals.user = req.session.user;
+//   }
+//   next();
+// });
 
 app.get('/logout', function (req, res) {
   res.clearCookie('userData');
