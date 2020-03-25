@@ -199,7 +199,7 @@ app.post("/login", urlencodedParser, function (req, res) {
         user: qdata.user
       });
 
-      res.redirect(req.get('referer'));
+      res.redirect('http://localhost:8080/');
 
     } else {
       res.render("ForgotPassword", {
