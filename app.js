@@ -383,9 +383,11 @@ app.get("/home", function (req, res) {
 });
 
 app.get("/", function (req, res) {
-  res.cookie("userData", {
-    'user': null  
-  });
+  if (req.cookies.userData.user == "NULL"){
+      res.cookie("userData", {
+      'user': null  
+    });
+  }
   var sql = "select * from discussion order by dsc_id desc limit 10;";
   var current_page = 1;
   res.cookie("current_page", current_page);
@@ -393,7 +395,7 @@ app.get("/", function (req, res) {
 });
 
 app.get('/dashboard/:user', function (req, res) {
-  if (req.cookies.hasOwnProperty('userData')) {
+  if (req.cookies.userData.user != "NULL") {
     res.cookie('dummy', {});
   const requestedUser = req.params.user;
   console.log(requestedUser);
@@ -510,7 +512,7 @@ app.get('/dashboard', function (req, res) {
 
 app.get('/compose', function (req, res) {
   console.log(req.cookies);
-  if (req.cookies.hasOwnProperty('userData'))
+  if (req.cookies.userData.user != "NULL")
     res.render('compose', {
         'user': req.cookies.userData.user
     });
