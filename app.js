@@ -620,7 +620,7 @@ app.get("/post/:title", function (req, res) {
 
 
 app.post("/post/:title", function (req, res) {
-  if(req.cookies.userData.user!=null){
+  if(req.cookies.userData.user!="NULL"){
   var str = req.body.postBody;
   str = str.replace(/\r\n/g, 'char10');
   let post = {
