@@ -321,7 +321,7 @@ function home_query(req, res, sql, current_page) {
         var first_letter = "";
         first_letter = tempTitle.charAt(0);
         first_letter = first_letter.toUpperCase();
-        console.log(moment(result[i]).tz('Asia/Kolkata').format('YYYY MMMM DD HH:mm:ss'));
+        // console.log(moment(result[i]).tz('Asia/Kolkata').format('YYYY MMMM DD HH:mm:ss'));
         
         var post = {
           title: tempTitle.replaceAt(0, first_letter),
