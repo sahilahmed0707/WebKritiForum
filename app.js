@@ -340,14 +340,12 @@ function home_query(req, res, sql, current_page) {
         var first_letter = "";
         first_letter = tempTitle.charAt(0);
         first_letter = first_letter.toUpperCase();
-        // console.log(moment(result[i]).tz('Asia/Kolkata').format('YYYY MMMM DD HH:mm:ss'));
-
         var post = {
           title: tempTitle.replaceAt(0, first_letter),
           body: result[i].data,
           img: "",
           user: result[i].usr_id,
-          date: moment(result[i]).format('YYYY MMMM DD'),
+          date: moment(result[i].post_time).local().format('YYYY MMMM DD HH:mm'),
           disc_id: result[i].dsc_id,
           numberOfUpvotes: result[i].thanks,
           total_posts: result[i].total_posts
@@ -617,7 +615,7 @@ app.get("/post/:title", function (req, res) {
         body: result[0].data,
         img: '',
         user: result[0].usr_id,
-        date: moment(result[0]).format('YYYY MMMM DD'),
+        date: moment(result[0].post_time).format('YYYY MMMM DD HH:mm'),
         disc_id: result[0].dsc_id,
       
       };
@@ -630,14 +628,17 @@ app.get("/post/:title", function (req, res) {
         if (result.length > 0) {
           comments = [];
           for (var i = 0; i < result.length; i++) {
+           
+            
             var comment = {
               body: result[i].cmt,
               img: "",
               user: result[i].usr_id,
-              date: moment(result[i].comment_time).format('YYYY MMMM DD HH:mm:ss'),
+              date: moment(result[i].post_time).local().format('YYYY MMMM DD HH:mm'),
               disc_id: result[i].dsc_id,
               comment_id: result[i].idComments,
               upvote: result[i].upvote,
+
             };
             comments.push(comment);
           }
