@@ -2,12 +2,14 @@
 <link href="objects.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <head>
     <style>
         .PostBody {
             margin-bottom: 1vw;
             height: 14vw;
+            font-size: 1.2vw;
         }
 
         .TitleInput {
@@ -16,10 +18,26 @@
             font-size: 1.5vw;
         }
 
-        #sub_heading {
-            font-family: "Arial Black";
+
+
+        @media(max-width:800px) {
+            .PostBody {
+                margin-bottom: 1vw;
+                height: 40vw;
+                font-size: 2.5vw;
+            }
+
+            .TitleInput {
+                margin-bottom: 1vw;
+                height: 4vw;
+                font-size: 3vw;
+
+            }
+
+
         }
     </style>
+    <title>Compose</title>
 </head>
 <h1 class="Heading">COMPOSE</h1>
 <form action="http://localhost:8080/compose" method="post">
