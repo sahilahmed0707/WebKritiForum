@@ -23,11 +23,11 @@ body {
     display: grid;
     background-color: rgb(57, 62, 70);
     border-radius: 0.2em;
-    box-shadow: 0.2vw 0.2vw 0.5vw rgb(100,100,100);
+    box-shadow: 0.2vw 0.2vw 0.5vw rgb(138, 138, 138);
 }
 
 .Container:hover{
-    box-shadow: 0.2vw 0.2vw 1vw rgb(120,120,120);
+    box-shadow: 0.2vw 0.2vw 1vw rgb(195, 195, 195);
 }
 
 .PageIndexer {
