@@ -690,10 +690,9 @@ app.post("/post/:title", function (req, res) {
       conn.query(sql, function (err, result) {
         if (err) throw err;
       });
-      res.redirect(req.get('referer'));
     }
   });
-  
+  res.redirect(req.get('referer'));
 }
 else{res.redirect("/login")}
 });
