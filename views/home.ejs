@@ -1,61 +1,69 @@
 <%- include("partials/header"); -%>
+
 <head>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link href="objects.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
-        
+
     </style>
 </head>
+
 <body>
     <h1 class="Heading">RECENT DISCUSSIONS</h1>
     <% for(var i = 0; i < posts.length; i++) { %>
-        <div class="Container">
-            <div class="SubHeadingContainer">
-                <a class="SubHeading" href="/post/<%= posts[i].title %>"><%= posts[i].title %></a>
-            </div>
-            <div class="ProfileContainer">
-                <div class="ImgDiv" overflow="hidden">
-                    <img class="ProfileImg" src="assets/default_profile_pic.jpg">
-                </div>
-                <div class="ProfileInfoDiv">
-                    <div class="ProfileNameDiv">
-                        <a class="ProfileNameA" id="profile_name_a" href="/dashboard/<%=posts[i].user%>"><%= posts[i].user %></a>
-                    </div>
-                    <div class="ProfileNameDiv" id="date_div">
-                        <span class = "ProfileNameA" id="date_a"><%= posts[i].date %></span>
-                    </div>
-                </div>
-            </div>
-            <p class="BodySpan" ><%= posts[i].body %></p>
-            <% if(user != "NULL"){ %>
-                <div class="ContainerFooter">
-                    <div class="UpvoteDiv" >
-                        <img class="UpvoteImg" src="assets/upvote.png">
-                        <div class="NumberOfUpvoteDiv">
-                            <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].numberOfUpvotes %></span>
-                        </div>
-                    </div>
-                    <div class="CommentsDiv">
-                        <img class="CommentsImg" src="assets/comments.png">
-                        <div class="TotalCommentsDiv">
-                            <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].total_posts %></span>
-                        </div>
-                    </div>
-                </div>
-            <% } %>
+    <div class="Container">
+        <div class="SubHeadingContainer">
+            <a class="SubHeading" href="/post/<%= posts[i].title %>"><%= posts[i].title %></a>
         </div>
+        <div class="ProfileContainer">
+            <div class="ImgDiv" overflow="hidden">
+                <img class="ProfileImg" src="assets/default_profile_pic.jpg">
+            </div>
+            <div class="ProfileInfoDiv">
+                <div class="ProfileNameDiv">
+                    <a class="ProfileNameA" id="profile_name_a"
+                        href="/dashboard/<%=posts[i].user%>"><%= posts[i].user %></a>
+                </div>
+                <div class="ProfileNameDiv" id="date_div">
+                    <span class="ProfileNameA" id="date_a"><%= posts[i].date %></span>
+                </div>
+            </div>
+        </div>
+        <p class="BodySpan"><%= posts[i].body %></p>
+        <% if(user != "NULL"){ %>
+        <div class="ContainerFooter">
+            <div class="UpvoteDiv">
+                <div class="UpvoteImg">
+                    <img class="UpvoteImg" src="assets/upvote.png">
+                    <img class="UpvoteImg" src="assets/upvotehover.png"></div>
+                <div class="NumberOfUpvoteDiv">
+                    <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].numberOfUpvotes %></span>
+                </div>
+            </div>
+            <div class="CommentsDiv">
+                <div class="CommentsImg">
+                    <img class="CommentsImg" src="assets/comments.png">
+                    <img class="CommentsImg" src="assets/commentshover.png"></div>
+                <div class="TotalCommentsDiv">
+                    <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].total_posts %></span>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
     <% } %>
     <form class="PageIndexer" action="http://localhost:8080/home" method="get">
-        <input class="ButtonSubmit" id="previous" name="button" type="submit" <% if(current_page == 1) { %> style="display: none;" <% } %> value="Previous">
+        <input class="ButtonSubmit" id="previous" name="button" type="submit" <% if(current_page == 1) { %>
+            style="display: none;" <% } %> value="Previous">
         <% if(total_rows / current_page > 10) { %>
-            <input class="ButtonSubmit" id="next" name="button" type="submit" value="Next">
+        <input class="ButtonSubmit" id="next" name="button" type="submit" value="Next">
         <% } %>
         <input type="text" style="display: none;" value="<%= current_page %>" name="current_page">
     </form>
     <script>
         var elem = document.getElementsByClassName("BodySpan");
-        for(var i = 0; i <= elem.length; i++){
+        for (var i = 0; i <= elem.length; i++) {
             var str = elem[i].innerHTML;
             str = str.replace(/char10/g, "<br>")
             elem[i].innerHTML = str;
