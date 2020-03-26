@@ -31,6 +31,8 @@ const createAccountLimiter = rateLimit({
   message: "Too many login/signup request from this IP, please try again after an hour"
 });
 
+// Data Sanitization against XSS
+// app.use(xss());
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -182,13 +184,6 @@ app.post('/change-password', urlencodedParser, function (req, res) {
       qdata.user + '\';';
     con.query(sql, function (err, result) {
       if (err) throw err;
-      //       res.render('ForgotPassword', {
-      //         'heading': 'nothing',
-      // 'user': req.cookies.userData.user
-      //         'subheading': 'PASSWORD CHANGED SUCCESSFULLY',
-      //         'input': 'nothing',
-      //         'display': 'none'
-      //       });
       res.redirect('/login');
     });
   } else {
@@ -365,8 +360,8 @@ app.get("/cmtthanks/:idcmt", function (req, res) {
   });
 
   user = req.cookies.userData.user;
-  var sql = "insert into forum.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT '" + user + "','" + idcmt + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = '" + user + "' AND idCmt = '" + idcmt + "' ) LIMIT 1;";
-  conn.query(sql, function (err, result) {
+  var sql = "insert into forum.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = ? AND idCmt = ? ) LIMIT 1;";
+  conn.query(sql,[user,idcmt,user,idcmt], function (err, result) {
     if (err) throw err;
   });
 
@@ -382,8 +377,8 @@ app.get("/dscthanks/:dscid", function (req, res) {
   dscid = req.params.dscid;
 
   user = req.cookies.userData.user;
-  var sql = "insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT '" + user + "','" + dscid + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
-  conn.query(sql, function (err, result) {
+  var sql = "insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
+  conn.query(sql,[user,dscid], function (err, result) {
     if (err) throw err;
   });
 
@@ -416,14 +411,13 @@ app.get("/home", function (req, res) {
 });
 
 app.get("/", function (req, res) {
-  console.log(req.cookies);
-
-  // ||req.cookies.userData.user == null
-  if (req.cookies == undefined) {
+  console.log(req.cookies.userData);
+  if (req.cookies.userData == undefined) {
     res.cookie("userData", {
       'user': null,
     });
   }
+  console.log(req.cookies.userData);
   conco.query("UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);", function (err, ans) {
     if (err) throw err;
   });
@@ -434,19 +428,17 @@ app.get("/", function (req, res) {
 });
 
 app.get('/dashboard/:user', function (req, res) {
-  if (req.cookies.userData.user != "NULL") {
+  if (req.cookies.userData.user != null ) {
     res.cookie('dummy', {});
     const requestedUser = req.params.user;
     console.log(requestedUser);
-    var sql = 'select * from discussion where usr_id = "' +
-      requestedUser + '";';
+    var sql = 'select * from discussion where usr_id = ? ;';
     var posts = [];
-    conn.query(sql, function (err, result) {
+    conn.query(sql,[requestedUser],function (err, result) {
       if (err) throw err;
       if (result.length > 0) {
         posts = [];
         for (var i = 0; i < result.length; i++) {
-          // console.log(moment(result[i]).tz(Asia/Kolkata).format('YYYY MMMM DD HH:mm:ss'));
           var post = {
             title: result[i].dsc_name,
             body: result[i].data,
@@ -462,10 +454,7 @@ app.get('/dashboard/:user', function (req, res) {
         var dash_name;
         var dash_user;
         var dash_email;
-        con.query(
-          'select * from users where username = "' +
-          requestedUser + '";',
-          function (err, details) {
+        con.query('select * from users where username = ?;', [requestedUser], function (err, details) {
             if (err) throw err;
             console.log('userdetails read');
             setdashvals(
@@ -494,14 +483,12 @@ app.get('/dashboard/:user', function (req, res) {
 
 app.get('/dashboard', function (req, res) {
   console.log(req.cookies);
-  if (req.cookies.userData.user != 'NULL') {
+  if (req.cookies.userData.user != null) {
     res.cookie('dummy', {});
-    var sql = 'select * from discussion where usr_id = "' +
-      req.cookies.userData.user + '";';
+    var sql = 'select * from discussion where usr_id = ? ;';
     var posts = [];
-    conn.query(sql, function (err, result) {
+    conn.query(sql,[req.cookies.userData.user], function (err, result) {
       if (err) throw err;
-      console.log('hye');
       if (result.length > 0) {
         posts = [];
         for (var i = 0; i < result.length; i++) {
@@ -519,10 +506,7 @@ app.get('/dashboard', function (req, res) {
         var dash_name;
         var dash_user;
         var dash_email;
-        con.query(
-          'select * from users where username = "' +
-          req.cookies.userData.user + '";',
-          function (err, details) {
+        con.query('select * from users where username = ? ;', [req.cookies.userData.user] ,function (err,  details) {
             if (err) throw err;
             console.log('userdetails read');
             setdashvals(
@@ -569,10 +553,8 @@ app.post('/compose', function (req, res) {
   };
   var currTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   var sql =
-    'insert into discussion (dsc_name,dsc_namekebab, usr_id, thanks, data, post_time) values("' +
-    post.title + '","' + post.titlekebab + '", "' + post.user + '", 0, "' + post.body +
-    '", current_timestamp)';
-  conn.query(sql, function (err, result) {
+    'insert into discussion (dsc_name,dsc_namekebab, usr_id, data, post_time) values(?,?,?,?,current_timestamp)';
+  conn.query(sql,[post.title,post.titlekebab,post.user,,post.body ], function (err, result) {
     if (err) throw err;
     console.log('discussion added successfully');
     // res.render('ForgotPassword', {
@@ -591,8 +573,8 @@ app.post('/compose', function (req, res) {
 app.get("/post/:title", function (req, res) {
   const requestedTitle = _.kebabCase(req.params.title);
   res.cookie('dummy', {});
-  var sql = 'select * from discussion where dsc_namekebab ="' + requestedTitle + '";';
-  conn.query(sql, function (err, result) {
+  var sql = 'select * from discussion where dsc_namekebab = ? ;';
+  conn.query(sql, [requestedTitle], function (err, result) {
     if (err) throw err;
     if (result.length > 0) {
       var post = {
@@ -605,15 +587,13 @@ app.get("/post/:title", function (req, res) {
 
       };
       console.log(post);
-      var sql = "select * from comments where dsc_id = '" + result[0].dsc_id + "' order by upvote;";
-      conn.query(sql, function (err, result) {
+      var sql = "select * from comments where dsc_id = ? order by upvote;";
+      conn.query(sql,[result[0].dsc_id], function (err, result) {
         if (err) throw err;
         console.log("hye123");
         if (result.length > 0) {
           comments = [];
           for (var i = 0; i < result.length; i++) {
-
-
             var comment = {
               body: result[i].cmt,
               img: "",
@@ -660,17 +640,17 @@ app.post("/post/:title", function (req, res) {
     };
 
 
-    var sql = "select * from discussion where dsc_name ='" + req.params.title + "' ;";
-    conn.query(sql, function (err, result) {
+    var sql = "select * from discussion where dsc_name =? ;";
+    conn.query(sql,[req.params.title], function (err, result) {
       if (err) throw err;
 
       if (result.length > 0) {
-        var sql = "UPDATE discussion SET total_posts = total_posts+1 where dsc_name ='" + req.params.title + "';"
-        conn.query(sql, function (err, result) {
+        var sql = "UPDATE discussion SET total_posts = total_posts+1 where dsc_name =?;"
+        conn.query(sql,[req.params.title], function (err, result) {
           if (err) throw err;
         });
-        var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values( "' + post.user + '","' + result[0].dsc_id + '",  "' + post.body + '", current_timestamp)';
-        conn.query(sql, function (err, result) {
+        var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values(?,?,?, current_timestamp)';
+        conn.query(sql,[ post.user,result[0].dsc_id,post.body ], function (err, result) {
           if (err) throw err;
         });
       }
