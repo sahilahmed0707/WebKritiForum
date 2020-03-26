@@ -427,15 +427,18 @@ app.get("/", function (req, res) {
   home_query(req, res, sql, current_page);
 });
 
-app.get('/dashboard/:user', function (req, res) {
-  if (req.cookies.userData.user != null ) {
+app.get('/dashboard/:user', function(req, res) {
+  if (req.cookies.userData.user != null) {
     res.cookie('dummy', {});
     const requestedUser = req.params.user;
     console.log(requestedUser);
-    var sql = 'select * from discussion where usr_id = ? ;';
+    var sql =
+        'select * from discussion where usr_id = ? ;';
+    var upvotes = 0;
     var posts = [];
-    conn.query(sql,[requestedUser],function (err, result) {
+    conn.query(sql,[requestedUser], function(err, result) {
       if (err) throw err;
+      var dashdiscount = result.length;
       if (result.length > 0) {
         posts = [];
         for (var i = 0; i < result.length; i++) {
@@ -445,33 +448,50 @@ app.get('/dashboard/:user', function (req, res) {
             img: '',
             user: result[i].usr_id,
             date: moment(result[i]).format('YYYY MMMM DD'),
-
             disc_id: result[i].dsc_id
           };
           posts.push(post);
+          upvotes = upvotes + result[i].thanks;
         }
         console.log(posts);
         var dash_name;
         var dash_user;
         var dash_email;
-        con.query('select * from users where username = ?;', [requestedUser], function (err, details) {
-            if (err) throw err;
-            console.log('userdetails read');
-            setdashvals(
-              details[0].name, details[0].username, details[0].email);
-          },
+        con.query('select * from users where username = ?;', [requestedUser], function(err, details) {
+              if (err) throw err;
+              console.log('userdetails read');
+              conco.query(
+                  'select * from comments where usr_id = ?;', [requestedUser], function(err, commentcount) {
+                    if (err) throw err;
+                    console.log('comment count read');
+                    var commentss = [];
+                    for (var j = 0; j < commentcount.length; j++) {
+                      upvotes = upvotes + commentcount[j].upvote;
+                    }
+
+                    setdashvals(
+                        details[0].name, details[0].username, details[0].email,
+                        dashdiscount, commentcount.length, upvotes);
+                  })
+            },
         );
 
-        function setdashvals(vn, vu, ve) {
+        function setdashvals(vn, vu, ve, vd, vp, vup) {
           dash_name = vn;
           dash_user = vu;
           dash_email = ve;
+          dashdiscount = vd;
+          commentcount = vp;
+          upvotes = vup;
           res.render('dashboard', {
             posts: posts,
             dash_name: dash_name,
             dash_email: dash_email,
             'user': req.cookies.userData.user,
-            dash_user: dash_user
+            dash_user: dash_user,
+            dashdiscount: dashdiscount,
+            commentcount: commentcount,
+            upvotes: upvotes
           });
         }
         console.log('here');
@@ -481,14 +501,16 @@ app.get('/dashboard/:user', function (req, res) {
 });
 
 
-app.get('/dashboard', function (req, res) {
+app.get('/dashboard', function(req, res) {
   console.log(req.cookies);
   if (req.cookies.userData.user != null) {
     res.cookie('dummy', {});
-    var sql = 'select * from discussion where usr_id = ? ;';
+    var sql = 'select * from discussion where usr_id = ?;';
+    var upvotes = 0;
     var posts = [];
-    conn.query(sql,[req.cookies.userData.user], function (err, result) {
+    conn.query(sql,[req.cookies.userData.user], function(err, result) {
       if (err) throw err;
+      var dashdiscount = result.length;
       if (result.length > 0) {
         posts = [];
         for (var i = 0; i < result.length; i++) {
@@ -501,29 +523,47 @@ app.get('/dashboard', function (req, res) {
             disc_id: result[i].dsc_id
           };
           posts.push(post);
+          upvotes = upvotes + result[i].thanks;
         }
         console.log(posts);
         var dash_name;
         var dash_user;
         var dash_email;
-        con.query('select * from users where username = ? ;', [req.cookies.userData.user] ,function (err,  details) {
-            if (err) throw err;
-            console.log('userdetails read');
-            setdashvals(
-              details[0].name, details[0].username, details[0].email);
-          },
+        con.query('select * from users where username = ?;', [req.cookies.userData.user], function(err, details) {
+              if (err) throw err;
+              console.log('userdetails read');
+              conco.query(
+                  'select * from comments where usr_id = ?;', [req.cookies.userData.user], function(err, commentcount) {
+                    if (err) throw err;
+                    console.log('comment count read');
+                    var commentss = [];
+                    for (var j = 0; j < commentcount.length; j++) {
+                      upvotes = upvotes + commentcount[j].upvote;
+                    }
+
+                    setdashvals(
+                        details[0].name, details[0].username, details[0].email,
+                        dashdiscount, commentcount.length, upvotes);
+                  })
+            },
         );
 
-        function setdashvals(vn, vu, ve) {
+        function setdashvals(vn, vu, ve, vd, vp, vup) {
           dash_name = vn;
           dash_user = vu;
           dash_email = ve;
+          dashdiscount = vd;
+          commentcount = vp;
+          upvotes = vup;
           res.render('dashboard', {
             posts: posts,
             dash_name: dash_name,
             dash_email: dash_email,
             'user': req.cookies.userData.user,
-            dash_user: dash_user
+            dash_user: dash_user,
+            dashdiscount: dashdiscount,
+            commentcount: commentcount,
+            upvotes: upvotes
           });
         }
       }
@@ -531,6 +571,7 @@ app.get('/dashboard', function (req, res) {
   } else
     res.redirect('http://localhost:8080/login');
 });
+
 
 app.get('/compose', function (req, res) {
   if (req.cookies.userData.user != "NULL")
