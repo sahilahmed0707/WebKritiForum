@@ -20,14 +20,15 @@ app.use(helmet());
 app.use(helmet.noCache());
 
 // Preventing DOS Attacks
-app.use(express.json({ limit: '10kb' })); // Body limit is 10
+app.use(express.json({
+  limit: '10kb'
+})); // Body limit is 10
 
 // express-rate-limit dependency
 const createAccountLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window
   max: 5, // start blocking after 5 requests
-  message:
-    "Too many login/signup request from this IP, please try again after an hour"
+  message: "Too many login/signup request from this IP, please try again after an hour"
 });
 
 
@@ -64,18 +65,17 @@ app.use(logger('dev'));
 
 con.connect(function (err) {
   if (err) throw err;
-  console.log('User Table Connected!');
+
   var sql =
     'CREATE TABLE IF NOT EXISTS `forum`.`users` ( `name` varchar(50) NOT NULL, `email` varchar(50) NOT NULL, `username` varchar(30) NOT NULL, `password` blob NOT NULL, `question` varchar(100) NOT NULL, `ans` blob NOT NULL, PRIMARY KEY (`username`) )'
   con.query(sql, function (err, result) {
     if (err) throw err;
-    if (result.length > 0) console.log('User Table created');
   });
 });
 
 conn.connect(function (err) {
   if (err) throw err;
-  console.log('Discussion Table Connected!');
+
   var sql =
     'CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL auto_increment,`dsc_namekebab` VARCHAR(45) NOT NULL, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(450) NULL, `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, `total_posts` INT NOT NULL DEFAULT 0, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE);'
   conn.query(sql, function (err, result) {
@@ -86,25 +86,21 @@ conn.connect(function (err) {
 
 conco.connect(function (err) {
   if (err) throw err;
-  console.log('Comments Table Connected!');
+
   var sql =
     'CREATE TABLE if not exists `forum`.`comments` ( `idComments` int NOT NULL AUTO_INCREMENT, `usr_id` varchar(45) DEFAULT NULL, `dsc_id` int DEFAULT NULL, `cmt` varchar(150) DEFAULT NULL, `post_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP, `upvote` int NOT NULL DEFAULT "0", PRIMARY KEY (`idComments`), UNIQUE KEY `idComments_UNIQUE` (`idComments`) )';
   conco.query(sql, function (err, result) {
     if (err) throw err;
-    if (result.length > 0) console.log('Comments Table created');
   });
+});
+var sql = 'CREATE TABLE if not exists `forum`.`comment_thanks` (`user_id` varchar(50) NOT NULL,`idCmt` int NOT NULL);';
+conco.query(sql, function (err, result) {
+  if (err) throw err;
+});
 
-  var sql ='CREATE TABLE if not exists `forum`.`comment_thanks` (`user_id` varchar(50) NOT NULL,`idCmt` int NOT NULL);';
-  conco.query(sql, function (err, result) {
-    if (err) throw err;
-    if (result.length > 0) console.log('Comments Thanks Table created');
-  });
-  
-  var sql ='CREATE TABLE if not exists `forum`.`discussion_thanks` (`user_id` varchar(50) NOT NULL,`dsc_id` int NOT NULL) ;';
-  conco.query(sql, function (err, result) {
-    if (err) throw err;
-    if (result.length > 0) console.log('Discussion Thanks Table created');
-  });
+var sql = 'CREATE TABLE if not exists `forum`.`discussion_thanks` (`user_id` varchar(50) NOT NULL,`dsc_id` int NOT NULL) ;';
+conco.query(sql, function (err, result) {
+  if (err) throw err;
 });
 
 
@@ -188,7 +184,7 @@ app.post('/change-password', urlencodedParser, function (req, res) {
       if (err) throw err;
       //       res.render('ForgotPassword', {
       //         'heading': 'nothing',
-                  // 'user': req.cookies.userData.user
+      // 'user': req.cookies.userData.user
       //         'subheading': 'PASSWORD CHANGED SUCCESSFULLY',
       //         'input': 'nothing',
       //         'display': 'none'
@@ -205,7 +201,7 @@ app.post('/change-password', urlencodedParser, function (req, res) {
     });
   }
 })
-app.post("/login",createAccountLimiter, urlencodedParser, function (req, res) {
+app.post("/login", createAccountLimiter, urlencodedParser, function (req, res) {
   var qdata = {
     user: req.body.user,
     pass: req.body.pass
@@ -232,7 +228,7 @@ app.post("/login",createAccountLimiter, urlencodedParser, function (req, res) {
   });
 });
 
-app.post('/signup',createAccountLimiter, urlencodedParser, function (req, res) {
+app.post('/signup', createAccountLimiter, urlencodedParser, function (req, res) {
   var qdata = {
     user: req.body.user,
     pass: req.body.pass,
@@ -283,20 +279,20 @@ app.post('/signup',createAccountLimiter, urlencodedParser, function (req, res) {
 
 app.get('/logout', function (req, res) {
   res.cookie("userData", {
-    'user': null  
+    'user': null
   });
   res.redirect('/');
 })
 
 app.get('/login', function (req, res) {
   res.render('LoginPage', {
-      // 'user': req.cookies.userData.user
+    // 'user': req.cookies.userData.user
   });
 });
 
 app.get('/signup', function (req, res) {
   res.render('SignUp', {
-      'user': req.cookies.userData.user
+    'user': req.cookies.userData.user
   });
 });
 
@@ -309,19 +305,19 @@ app.use(express.static('public'));
 
 app.get('/about', function (req, res) {
   res.render('About Page', {
-      'user': req.cookies.userData.user
+    'user': req.cookies.userData.user
   });
 });
 
 function home_query(req, res, sql, current_page) {
-  
+
   var response = {
     posts: [],
     total_rows: 0,
     'user': req.cookies.userData.user,
     current_page: current_page
   }
-  console.log(response);
+
   var total_rows = 0;
   conn.query("select count(*) from discussion;", function (err, result) {
     if (err) throw err;
@@ -331,8 +327,7 @@ function home_query(req, res, sql, current_page) {
   var posts = [];
   conn.query(sql, function (err, result) {
     if (err) throw err;
-    console.log("hye");
-    console.log(result);
+
     if (result.length > 0) {
       response.posts = [];
       for (var i = 0; i < result.length; i++) {
@@ -352,8 +347,7 @@ function home_query(req, res, sql, current_page) {
         };
         response.posts.push(post);
       }
-      console.log(response);
-      console.log(total_rows + " " + current_page);
+
       res.cookie("current_page", current_page);
       res.render("home", response);
     } else {
@@ -363,41 +357,41 @@ function home_query(req, res, sql, current_page) {
   });
 }
 
-app.get("/cmtthanks/:idcmt",function (req, res) {
-  idcmt=req.params.idcmt;
-  console.log(req.cookies);
-  
-  user= req.cookies.userData.user;
-  var sql="insert into forum.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT '" + user + "','" + idcmt + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = '" + user + "' AND idCmt = '" + idcmt + "' ) LIMIT 1;";
+app.get("/cmtthanks/:idcmt", function (req, res) {
+  idcmt = req.params.idcmt;
+  var update = "UPDATE comments SET upvote = ( SELECT COUNT(user_id) FROM comment_thanks WHERE comment_thanks.idCmt = comments.idComments);";
+  con.query(update, function (err, ans) {
+    if (err) throw err;
+  });
+
+  user = req.cookies.userData.user;
+  var sql = "insert into forum.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT '" + user + "','" + idcmt + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = '" + user + "' AND idCmt = '" + idcmt + "' ) LIMIT 1;";
   conn.query(sql, function (err, result) {
     if (err) throw err;
   });
-  
-  var update="UPDATE comments SET upvote = ( SELECT COUNT(user_id) FROM comment_thanks WHERE comment_thanks.idCmt = comments.idComments);";
+
+  var update = "UPDATE comments SET upvote = ( SELECT COUNT(user_id) FROM comment_thanks WHERE comment_thanks.idCmt = comments.idComments);";
   con.query(update, function (err, ans) {
-    if (err) throw err; 
+    if (err) throw err;
   });
-  
+
   res.redirect(req.get('referer'));
 });
 
-app.get("/dscthanks/:dscid",function (req, res) {
-  dscid=req.params.dscid;
-  console.log("dsc");
-  
-  console.log(req.cookies);
-  
-  user= req.cookies.userData.user;
-  var sql="insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT '" + user + "','" + dscid + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
+app.get("/dscthanks/:dscid", function (req, res) {
+  dscid = req.params.dscid;
+
+  user = req.cookies.userData.user;
+  var sql = "insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT '" + user + "','" + dscid + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
   conn.query(sql, function (err, result) {
     if (err) throw err;
   });
-  
-  var update="UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);";
+
+  var update = "UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);";
   con.query(update, function (err, ans) {
-    if (err) throw err; 
+    if (err) throw err;
   });
-  
+
   res.redirect(req.get('referer'));
 });
 
@@ -423,15 +417,15 @@ app.get("/home", function (req, res) {
 
 app.get("/", function (req, res) {
   console.log(req.cookies);
-  
+
   // ||req.cookies.userData.user == null
-  if (req.cookies == undefined ){
-      res.cookie("userData", {
-      'user': null  ,
+  if (req.cookies == undefined) {
+    res.cookie("userData", {
+      'user': null,
     });
   }
   conco.query("UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);", function (err, ans) {
-    if (err) throw err; 
+    if (err) throw err;
   });
   var sql = "select * from discussion order by dsc_id desc limit 10;";
   var current_page = 1;
@@ -442,10 +436,10 @@ app.get("/", function (req, res) {
 app.get('/dashboard/:user', function (req, res) {
   if (req.cookies.userData.user != "NULL") {
     res.cookie('dummy', {});
-  const requestedUser = req.params.user;
-  console.log(requestedUser);
+    const requestedUser = req.params.user;
+    console.log(requestedUser);
     var sql = 'select * from discussion where usr_id = "' +
-    requestedUser + '";';
+      requestedUser + '";';
     var posts = [];
     conn.query(sql, function (err, result) {
       if (err) throw err;
@@ -459,7 +453,7 @@ app.get('/dashboard/:user', function (req, res) {
             img: '',
             user: result[i].usr_id,
             date: moment(result[i]).format('YYYY MMMM DD'),
-           
+
             disc_id: result[i].dsc_id
           };
           posts.push(post);
@@ -548,7 +542,6 @@ app.get('/dashboard', function (req, res) {
             dash_user: dash_user
           });
         }
-        console.log('here');
       }
     });
   } else
@@ -556,10 +549,9 @@ app.get('/dashboard', function (req, res) {
 });
 
 app.get('/compose', function (req, res) {
-  console.log(req.cookies);
   if (req.cookies.userData.user != "NULL")
     res.render('compose', {
-        'user': req.cookies.userData.user
+      'user': req.cookies.userData.user
     });
   else
     res.redirect('http://localhost:8080/login');
@@ -575,7 +567,6 @@ app.post('/compose', function (req, res) {
     body: str,
     user: req.cookies.userData.user
   };
-  console.log(post);
   var currTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   var sql =
     'insert into discussion (dsc_name,dsc_namekebab, usr_id, thanks, data, post_time) values("' +
@@ -598,18 +589,12 @@ app.post('/compose', function (req, res) {
 
 
 app.get("/post/:title", function (req, res) {
-  console.log(req.cookies);
-
   const requestedTitle = _.kebabCase(req.params.title);
-  console.log(requestedTitle);
   res.cookie('dummy', {});
   var sql = 'select * from discussion where dsc_namekebab ="' + requestedTitle + '";';
   conn.query(sql, function (err, result) {
     if (err) throw err;
-    console.log('hye');
-    console.log(result);
     if (result.length > 0) {
-      console.log(moment(result[0]).format('YYYY MMMM DD'));
       var post = {
         title: result[0].dsc_name,
         body: result[0].data,
@@ -617,10 +602,9 @@ app.get("/post/:title", function (req, res) {
         user: result[0].usr_id,
         date: moment(result[0].post_time).format('YYYY MMMM DD HH:mm'),
         disc_id: result[0].dsc_id,
-      
+
       };
       console.log(post);
-      console.log("jaddu");
       var sql = "select * from comments where dsc_id = '" + result[0].dsc_id + "' order by upvote;";
       conn.query(sql, function (err, result) {
         if (err) throw err;
@@ -628,8 +612,8 @@ app.get("/post/:title", function (req, res) {
         if (result.length > 0) {
           comments = [];
           for (var i = 0; i < result.length; i++) {
-           
-            
+
+
             var comment = {
               body: result[i].cmt,
               img: "",
@@ -642,7 +626,6 @@ app.get("/post/:title", function (req, res) {
             };
             comments.push(comment);
           }
-          console.log("here");
           res.render("discussion", {
             comments: comments,
             title: post.title,
@@ -652,7 +635,6 @@ app.get("/post/:title", function (req, res) {
             'user': req.cookies.userData.user,
           });
         } else {
-          console.log("here123");
           res.render("discussion", {
             comments: 0,
             title: post.title,
@@ -669,33 +651,34 @@ app.get("/post/:title", function (req, res) {
 
 
 app.post("/post/:title", function (req, res) {
-  if(req.cookies.userData.user!="NULL"){
-  var str = req.body.postBody;
-  str = str.replace(/\r\n/g, 'char10');
-  let post = {
-    body: str,
-    user: req.cookies.userData.user,
-  };
-  console.log(req.params.title);
+  if (req.cookies.userData.user != "NULL") {
+    var str = req.body.postBody;
+    str = str.replace(/\r\n/g, 'char10');
+    let post = {
+      body: str,
+      user: req.cookies.userData.user,
+    };
 
-  var sql = "select * from discussion where dsc_name ='" + req.params.title + "' ;";
-  conn.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("No match found");
-    if (result.length > 0) {
-      var sql = "UPDATE discussion SET total_posts = total_posts+1 where dsc_name ='" + req.params.title + "';"
-      conn.query(sql, function (err, result) {
-        if (err) throw err;
-      });
-      var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values( "' + post.user + '","' + result[0].dsc_id + '",  "' + post.body + '", current_timestamp)';
-      conn.query(sql, function (err, result) {
-        if (err) throw err;
-      });
-    }
-  });
-  res.redirect(req.get('referer'));
-}
-else{res.redirect("/login")}
+
+    var sql = "select * from discussion where dsc_name ='" + req.params.title + "' ;";
+    conn.query(sql, function (err, result) {
+      if (err) throw err;
+
+      if (result.length > 0) {
+        var sql = "UPDATE discussion SET total_posts = total_posts+1 where dsc_name ='" + req.params.title + "';"
+        conn.query(sql, function (err, result) {
+          if (err) throw err;
+        });
+        var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values( "' + post.user + '","' + result[0].dsc_id + '",  "' + post.body + '", current_timestamp)';
+        conn.query(sql, function (err, result) {
+          if (err) throw err;
+        });
+      }
+    });
+    res.redirect(req.get('referer'));
+  } else {
+    res.redirect("/login")
+  }
 });
 
 
