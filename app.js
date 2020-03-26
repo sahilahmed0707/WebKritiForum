@@ -639,12 +639,9 @@ app.get("/post/:title", function (req, res) {
               comment_id: result[i].idComments,
               upvote: result[i].upvote,
             };
-            // console.log(comment);
             comments.push(comment);
           }
-          // console.log(comments);
           console.log("here");
-
           res.render("discussion", {
             comments: comments,
             title: post.title,
@@ -655,7 +652,6 @@ app.get("/post/:title", function (req, res) {
           });
         } else {
           console.log("here123");
-
           res.render("discussion", {
             comments: 0,
             title: post.title,
@@ -694,7 +690,7 @@ app.post("/post/:title", function (req, res) {
       conn.query(sql, function (err, result) {
         if (err) throw err;
       });
-
+      res.redirect(req.get('referer'));
     }
   });
   
