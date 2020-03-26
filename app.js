@@ -314,6 +314,7 @@ app.get('/about', function (req, res) {
 });
 
 function home_query(req, res, sql, current_page) {
+  
   var response = {
     posts: [],
     total_rows: 0,
@@ -340,14 +341,6 @@ function home_query(req, res, sql, current_page) {
         first_letter = tempTitle.charAt(0);
         first_letter = first_letter.toUpperCase();
         // console.log(moment(result[i]).tz('Asia/Kolkata').format('YYYY MMMM DD HH:mm:ss'));
-        
-        conn.query("UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = '" +result[i].dsc_id+"');", function (err, ans) {
-          if (err) throw err;
-          console.log("123");
-          
-          console.log(ans);
-          
-        });
 
         var post = {
           title: tempTitle.replaceAt(0, first_letter),
@@ -379,8 +372,11 @@ app.get("/dscthanks/:dscid",function (req, res) {
   console.log(req.cookies);
   
   user= req.cookies.userData.user;
-  conn.query("insert into discussion_thanks ( user_id,dsc_id) values('" + user + "','" + dscid + "') ;", function (err, result) {
+  conn.query("insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT '" + user + "','" + dscid + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;", function (err, result) {
     if (err) throw err;
+  });
+  con.query("UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);", function (err, ans) {
+    if (err) throw err; 
   });
   res.redirect(req.get('referer'));
 });
@@ -414,6 +410,9 @@ app.get("/", function (req, res) {
       'user': null  ,
     });
   }
+  conco.query("UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);", function (err, ans) {
+    if (err) throw err; 
+  });
   var sql = "select * from discussion order by dsc_id desc limit 10;";
   var current_page = 1;
   res.cookie("current_page", current_page);
