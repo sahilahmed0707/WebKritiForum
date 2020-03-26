@@ -1,108 +1,241 @@
+<%- include("partials/header"); -%>
 <!DOCTYPE html>
 <html>
-<link href="objects.css" rel="stylesheet" type="text/css">
+<!-- <link href="objects.css" rel="stylesheet" type="text/css"> -->
+
 <head>
   <meta charset="utf-8">
   <title>SignUp</title>
   <meta name="generator" content="Google Web Designer 7.1.1.1210">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <style type="text/css">
-    html, body {
-      width: 100%;
-      height: 130%;
-      margin: 0px;
-    }
     body {
-      background-color: rgb(18, 18, 18);
+      background-color: rgb(34, 40, 49);
+      font-family: "Open Sans";
     }
+
     .SignUPlabel {
       position: absolute;
       border-color: transparent;
       font-weight: bold;
-      font-family: "Arial Black";
-      color: rgb(137, 0, 250);
+      font-family: "Open Sans";
+      color: rgb(0, 173, 181);
       height: 10.15%;
       width: 20%;
       top: 30%;
       left: 40%;
       font-size: 2.5vw;
     }
+
     .ContainerDiv {
       position: absolute;
       width: 75%;
-      background-color: rgb(49, 49, 49);
+      background-color: rgb(57, 62, 70);
       left: 12.5%;
       top: 25%;
       border: none;
       border-radius: 0.2em;
       height: 115%;
     }
+
     .UsernameLabel {
       position: absolute;
-      top: 50%;
-      width: 20%;
-      color: rgb(137, 0, 250);
+      top: 49%;
+
+      color: rgb(0, 173, 181);
       text-align: left;
       font-weight: bold;
-      font-family: "Arial Black";
-      left: 25%;
-      font-size: 1vw;
-      height: 3%;
+      font-family: "Open Sans";
+      left: 20%;
+      font-size: 1.5vw;
+
     }
+
     .UsernameInput {
       position: absolute;
-      width: 50%;
-      left: 25%;
-      height: 4%;
+      width: 60vw;
+      left: 20%;
+      height: 1.5vw;
       top: 53%;
+      font-size: 1vw;
     }
+
     #password_label {
-      top: 60%;
+      top: 59%;
     }
+
     #password_input {
       top: 63%;
     }
 
     #button_submit {
       position: absolute;
-      left: 25%;
+      left: 20%;
       top: 125%;
+      font-size: 1.5vw;
+      height: 2vw;
+      width: 7vw;
+      border: none;
+      background-color: rgb(0, 173, 181);
+      color: rgb(238, 238, 238);
+
+    }
+
+    #button_submit:hover {
+      position: absolute;
+      left: 20%;
+      top: 125%;
+      font-size: 1.5vw;
+      height: 2vw;
+      width: 7vw;
+      border: none;
+      cursor: pointer;
+      background-color: rgb(0, 139, 146);
+      color: rgb(238, 238, 238);
+
     }
 
     #repass_label {
       width: 35%;
-      top: 70%;
+      top: 65%;
     }
+
     #password_input_1 {
       top: 73%;
     }
+
     #error_label {
       top: 45%;
       font-size: 100%;
       display: none;
+    }
+
+    @media(max-width:800px) {
+      .SignUPlabel {
+        position: absolute;
+        border-color: transparent;
+        font-weight: bold;
+        font-family: "Open Sans";
+        color: rgb(0, 173, 181);
+
+
+        top: 30%;
+        left: 35%;
+        font-size: 6vw;
+      }
+
+      .ContainerDiv {
+        position: absolute;
+        width: 95%;
+        background-color: rgb(57, 62, 70);
+        left: 2.5%;
+        top: 25%;
+        border: none;
+        border-radius: 0.2em;
+        height: 115%;
+      }
+
+      .UsernameLabel {
+        position: absolute;
+        top: 49%;
+
+        color: rgb(0, 173, 181);
+        text-align: left;
+        font-weight: bold;
+        font-family: "Open Sans";
+        left: 20%;
+        font-size: 3vw;
+
+      }
+
+      .UsernameInput {
+        position: absolute;
+        width: 60vw;
+        left: 20%;
+        height: 3.2vw;
+        top: 53%;
+        font-size: 2.3vw;
+      }
+
+      #password_label {
+        top: 59%;
+      }
+
+      #password_input {
+        top: 63%;
+      }
+
+      #button_submit {
+        position: absolute;
+        left: 20%;
+        top: 125%;
+        font-size: 3vw;
+        height: 4vw;
+        width: 14vw;
+        border: none;
+        background-color: rgb(0, 173, 181);
+        color: rgb(238, 238, 238);
+
+      }
+
+      #button_submit:hover {
+        position: absolute;
+        left: 20%;
+        top: 125%;
+        font-size: 3vw;
+        height: 4vw;
+        width: 14vw;
+        border: none;
+        cursor: pointer;
+        background-color: rgb(0, 139, 146);
+        color: rgb(238, 238, 238);
+
+      }
+
+      #repass_label {
+        width: 35%;
+        top: 65%;
+      }
+
+      #password_input_1 {
+        top: 73%;
+      }
+
+      #error_label {
+        top: 45%;
+        font-size: 100%;
+        display: none;
+      }
     }
   </style>
 </head>
 
 <body class="htmlNoPages">
   <div class="ContainerDiv" id="container_div" align="center"></div>
-  <label class="SignUPlabel" id="sign_up_label" align="center">Sign Up</label>
+  <label class="SignUPlabel" id="sign_up_label" align="center">SignUp</label>
   <form action="http://localhost:8080/signup" method="post" id="input_form">
-    <label class="UsernameLabel" id="username_label">USERNAME:</label>
+    <label class="UsernameLabel" id="username_label">Username:</label>
     <input class="UsernameInput" id="username_input" placeholder="Your Username" type="text" name="user" required="">
-    <label class="UsernameLabel" id="password_label">PASSWORD:</label>
-    <label class="UsernameLabel" id="repass_label_1" style="top: 70%; width: 35%;">RETYPE PASSWORD:</label>
-    <label class="UsernameLabel" id="squestion_label" style="width: 35%; top: 100%;">SECURITY QUESTION:</label>
-    <label class="UsernameLabel" id="name_label" style="top: 90%;">FULL NAME:</label>
-    <label class="UsernameLabel" id="answer_label" style="top: 110%;">ANSWER:</label>
-    <input class="UsernameInput" id="password_input" placeholder="Your Password" type="password" name="pass" required="">
-    <input class="UsernameInput" id="password_input_1" placeholder="Retype Your Password" type="password" name="repass" required="">
-    <input class="UsernameInput" id="email_input" type="text" placeholder="Your Email" name="email" required="" style="top: 83%;">
-    <input class="UsernameInput" id="name_input" type="text" name="name" placeholder="Your Full Name" required="" style="top: 93%;">
-    <input class="UsernameInput" id="ques_input" type="text" name="ques" placeholder="Your Security Question" required="" style="top: 103%; width: 50%;">
-    <input class="UsernameInput" id="answer_input" type="text" name="ans" placeholder="Your Answer" required="" style="width: 50%; top: 113%;">
+    <label class="UsernameLabel" id="password_label">Password:</label>
+    <label class="UsernameLabel" id="repass_label_1" style="top: 68.5%; width: 35%;">Retype Password:</label>
+    <label class="UsernameLabel" id="squestion_label" style="width: 35%; top: 98.5%;">Security Question:</label>
+    <label class="UsernameLabel" id="name_label" style="top: 89%;">Full Name:</label>
+    <label class="UsernameLabel" id="answer_label" style="top: 109%;">Answer:</label>
+    <input class="UsernameInput" id="password_input" placeholder="Your Password" type="password" name="pass"
+      required="">
+    <input class="UsernameInput" id="password_input_1" placeholder="Retype Your Password" type="password" name="repass"
+      required="">
+    <input class="UsernameInput" id="email_input" type="text" placeholder="Your Email" name="email" required=""
+      style="top: 83%;">
+    <input class="UsernameInput" id="name_input" type="text" name="name" placeholder="Your Full Name" required=""
+      style="top: 93%;">
+    <input class="UsernameInput" id="ques_input" type="text" name="ques" placeholder="Your Security Question"
+      required="" style="top: 103%; width: 61%;">
+    <input class="UsernameInput" id="answer_input" type="text" name="ans" placeholder="Your Answer" required=""
+      style="width: 61%; top: 113%;">
     <label class="UsernameLabel" id="error_label">start</label>
-    <label class="UsernameLabel" id="email_label" style="top: 80%;">EMAIL:</label>
-    <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
+    <label class="UsernameLabel" id="email_label" style="top: 79%;">Email:</label>
+    <input class="ButtonSubmit" id="button_submit" type="submit" value="Submit">
   </form>
 </body>
 
