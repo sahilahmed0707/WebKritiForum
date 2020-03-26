@@ -372,12 +372,16 @@ app.get("/dscthanks/:dscid",function (req, res) {
   console.log(req.cookies);
   
   user= req.cookies.userData.user;
-  conn.query("insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT '" + user + "','" + dscid + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;", function (err, result) {
+  var sql="insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT '" + user + "','" + dscid + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
+  conn.query(sql, function (err, result) {
     if (err) throw err;
   });
-  con.query("UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);", function (err, ans) {
+  
+  var update="UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);";
+  con.query(update, function (err, ans) {
     if (err) throw err; 
   });
+  
   res.redirect(req.get('referer'));
 });
 
