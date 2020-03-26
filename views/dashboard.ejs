@@ -1,9 +1,10 @@
+<%- include("partials/header"); -%>
 <!DOCTYPE html>
 <html lang="en-US">
 
 <head>
     <link rel="mask-icon" href="../logo.png">
-    <title>Welcome to the Leaf Forums - First forum</title>
+    <title><%=dash_user%> Dashboard - Leaf Forums</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link href="../objects.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -11,75 +12,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
     @import url('https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap');
-
-    body {
-        background-color: rgb(20, 20, 20);
-    }
-
-    body a {
-        background: rgb(133, 133, 133);
-        font-size: 3vw;
-    }
-
-    nav {
-        width: 100%;
-        background-color: rgb(34, 34, 34);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-
-    }
-
-    .logo {
-        padding: 0%;
-        width: 10vw;
-
-    }
-
-    .buttons {
-        display: flex;
-        flex-direction: row;
-        padding-top: 1vw;
-        justify-content: space-around;
-
-    }
-
-    buttons div {
-        padding-left: 0px;
-    }
-
-    nav ul li {
-        list-style: none;
-        padding-top: 0%;
-    }
-
-    nav ul li a:hover {
-        background: rgb(53, 53, 53);
-    }
-
-    nav ul li a:focus {
-        background: rgb(85, 85, 85);
-    }
-
-
-    nav ul li a {
-        padding: 0px 1vw;
-        display: block;
-        color: rgb(133, 133, 133);
-        text-decoration: none;
-        background: rgb(44, 44, 44);
-        font-size: 2vw;
-
-    }
-
-
-
-    nav ul {
-        display: flex;
-        padding: 0%;
-        justify-content: space-between;
-
-    }
 
     .main {
         display: flex;
@@ -89,27 +21,24 @@
     }
 
     .main strong {
-        color: rgb(150, 24, 253);
+        color: rgb(0, 173, 181);
     }
 
     .main div {
-        color: rgb(133, 133, 133);
+        color: rgb(238, 238, 238);
         display: flex;
         width: 25vw;
         height: 25vw;
         /* letter-spacing: 2px; */
-        border: 0.1vw solid rgb(80, 80, 80);
+        /* border: 0.1vw solid rgb(80, 80, 80); */
         /* border-radius: 10%; */
-        background-color: rgb(71, 71, 71);
+        background-color: rgb(57, 62, 70);
         padding: 0%;
         font-size: 3vw;
-        font-family: 'Open Sans', ;
+        font-family: 'Open Sans';
         position: relative;
         margin-left: 1vw;
         margin-right: 1vw;
-
-
-
     }
 
     .user_details h1 {
@@ -118,8 +47,8 @@
 
     .user_details p {
         font-size: 2vw;
-        border: 0.1vw solid rgb(85, 85, 85);
-        background-color: rgb(53, 53, 53);
+        /* border: 0.1vw solid rgb(85, 85, 85); */
+        background-color: rgb(57, 62, 70);
         width: 30vw;
         text-align: center;
     }
@@ -131,8 +60,23 @@
         flex-direction: column;
         text-align: center;
         justify-content: center;
-        border-color: rgb(71, 71, 71);
-        box-shadow: 0.5vw 0.5vw 1vw rgb(133, 133, 133);
+        /* border-color: rgb(71, 71, 71); */
+        /* box-shadow: 0.5vw 0.5vw 1vw rgb(133, 133, 133); */
+        box-shadow: 0.2vw 0.2vw 0.5vw rgb(138, 138, 138);
+        margin-bottom: 5vw;
+
+    }
+
+    .cicle1:hover,
+    .cicle2:hover,
+    .cicle3:hover {
+        border-radius: 50%;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        /* border-color: rgb(71, 71, 71); */
+        /* box-shadow: 0.5vw 0.5vw 1vw rgb(133, 133, 133); */
+        box-shadow: 0.2vw 0.2vw 1vw rgb(195, 195, 195);
         margin-bottom: 5vw;
 
     }
@@ -163,15 +107,20 @@
         font-size: 2vw;
     }
 
+    .user_details h2 {
+        font-size: 3vw;
+        color: rgb(0, 173, 181);
+        text-align: center;
+    }
+
     .user_details p {
         font-size: 2vw;
-        border: 0.1vw solid rgb(85, 85, 85);
         background-color: rgb(53, 53, 53);
         width: 30vw;
         text-align: center;
     }
 
-    @media(max-width:600px) {
+    @media(max-width:800px) {
         .main {
             display: flex;
             margin-left: 15vw;
@@ -180,53 +129,43 @@
             justify-content: space-around;
         }
 
-
-
         .main div {
-            color: rgb(133, 133, 133);
+
             display: flex;
             width: 60vw;
             height: 60vw;
             /* letter-spacing: 2px; */
-            border: 0.1vw solid rgb(80, 80, 80);
+            /* border: 0.1vw solid rgb(80, 80, 80); */
             /* border-radius: 10%; */
-            background-color: rgb(71, 71, 71);
+            background-color: rgb(57, 62, 70);
             padding: 0%;
             font-size: 7vw;
-            font-family: 'Open Sans', ;
+            font-family: 'Open Sans';
             position: relative;
             margin-left: 1vw;
             margin-right: 1vw;
         }
 
-        nav ul li a {
-            padding: 0px 1vw;
-            display: block;
-            color: rgb(133, 133, 133);
-            text-decoration: none;
-            background: rgb(44, 44, 44);
-            font-size: 5vw;
-
-        }
-
-        .logo {
-            width: 30vw;
-        }
-
         .user_details {
-            font-size: 5vw;
+            font-size: 3.5vw;
             width: 90vw;
         }
 
         .user_details h1 {
-            font-size: 5vw;
+            font-size: 3.5vw;
+            margin-top: 2vw;
+        }
+
+        .user_details h2 {
+            font-size: 4vw;
+            color: rgb(0, 173, 181);
+            text-align: center;
         }
 
         .user_details p {
-            font-size: 5vw;
-            border: 0.2vw solid rgb(85, 85, 85);
+            font-size: 3.5vw;
             background-color: rgb(53, 53, 53);
-            width: 70vw;
+            width: 63vw;
             text-align: center;
         }
     }
@@ -234,51 +173,33 @@
 
 <body>
 
-    <nav>
-        <ul>
-            <div class="logo">
-                <li>
-                    <header><img src="../logo.gif" alt="Leaf Forums Logo" height="40%" width="40%"></header>
-                </li>
-            </div>
-            <div class="compose"><a href="/compose" style="background-color: rgba(0,0,0,0);"><img src="../compose.png"
-                        alt="Compose Logo" width="200vw" height="60vw"
-                        style="overflow: hidden;margin-top: 0.7vw;margin-left: 1vw;"></a>
-            </div>
-            <div class="buttons">
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li><a href="/logout">Logout</a></li>
-            </div>
-        </ul>
-    </nav>
+
     <br>
     <div class="container">
         <div class="main">
             <div class="cicle1">
 
                 <p><strong> Discussions <br>Started:</strong></p>
-                <p>15</p>
+                <p><%=dashdiscount%></p>
 
             </div>
             <div class="cicle2">
 
-                <p><strong> Thanks <br>Recieved: </strong>
-                    <p>15</p>
+                <p><strong> Upvotes <br>Recieved: </strong>
+                    <p><%=upvotes%></p>
 
             </div>
             <div class="cicle3">
 
-                <p><strong>Comments:<br></strong></p>
-                <p>15</p>
+                <p><strong>Posts<br>Done:</strong></p>
+                <p><%=commentcount%></p>
 
             </div>
         </div>
         <br>
         <hr>
         <div class="user_details">
-            <h2 style="font-size: 3vw;text-align: center;color: rgb(137, 0, 250);">USER DETAILS:</h2>
+            <h2>USER DETAILS:</h2>
             <div class="username">
                 <h1>Username:</h1>
                 <p>
@@ -300,12 +221,11 @@
         </div>
         <br>
         <br><br>
-        <h1 class="Heading">RECENT DISCUSSIONS:</h1>
-        <script src="../home.js"></script>
-        <% for(var i = posts.length - 1; i >= 0; i--) { %>
+        <h1 class="Heading">YOUR RECENT DISCUSSIONS</h1>
+        <% for(var i = 0; i < posts.length; i++) { %>
         <div class="Container">
             <div class="SubHeadingContainer">
-                <a class="SubHeading" href="post/<%= posts[i].title %>"><%= posts[i].title %></a>
+                <a class="SubHeading" href="/post/<%= posts[i].title %>"><%= posts[i].title %></a>
             </div>
             <div class="ProfileContainer">
                 <div class="ImgDiv" overflow="hidden">
@@ -313,7 +233,8 @@
                 </div>
                 <div class="ProfileInfoDiv">
                     <div class="ProfileNameDiv">
-                        <a class="ProfileNameA" id="profile_name_a" href=""><%= posts[i].user %></a>
+                        <a class="ProfileNameA" id="profile_name_a"
+                            href="/dashboard/<%=posts[i].user%>"><%= posts[i].user %></a>
                     </div>
                     <div class="ProfileNameDiv" id="date_div">
                         <span class="ProfileNameA" id="date_a"><%= posts[i].date %></span>
@@ -321,7 +242,19 @@
                 </div>
             </div>
             <p class="BodySpan"><%= posts[i].body %></p>
+            <% if(user != "NULL"){ %>
+            <div class="ContainerFooter">
+                <div class="UpvoteDiv">
 
+
+                </div>
+
+                <div class="CommentsDiv">
+
+
+                </div>
+            </div>
+            <% } %>
         </div>
         <% } %>
         <script>
