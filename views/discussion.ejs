@@ -174,7 +174,7 @@
         </div>
         <% } %>
 
-
+        <% console.log(user);console.log("1234567890"); if(user != null ) {   %>
         <form action="http://localhost:8080/post/<%=title%>" method="post">
             <div class="Container" id="container_div">
                 <label class="SubHeading">Post</label>
@@ -183,5 +183,5 @@
             </div>
         </form>
 </body>
-
+<% } %>
 <%- include("partials/footer"); -%>

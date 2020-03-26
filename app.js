@@ -100,6 +100,7 @@ app.get('/forgot-password', function (req, res) {
     'display': 'initial'
   });
 });
+
 app.post('/forgot-password/user', urlencodedParser, function (req, res) {
   var qdata = {
     user: req.body.user
@@ -169,7 +170,7 @@ app.post('/change-password', urlencodedParser, function (req, res) {
       if (err) throw err;
       //       res.render('ForgotPassword', {
       //         'heading': 'nothing',
-                //'user': req.cookies.userData.user
+                  // 'user': req.cookies.userData.user
       //         'subheading': 'PASSWORD CHANGED SUCCESSFULLY',
       //         'input': 'nothing',
       //         'display': 'none'
@@ -288,7 +289,7 @@ app.get('/logout', function (req, res) {
 
 app.get('/login', function (req, res) {
   res.render('LoginPage', {
-      'user': req.cookies.userData.user
+      // 'user': req.cookies.userData.user
   });
 });
 
@@ -339,6 +340,14 @@ function home_query(req, res, sql, current_page) {
         first_letter = first_letter.toUpperCase();
         // console.log(moment(result[i]).tz('Asia/Kolkata').format('YYYY MMMM DD HH:mm:ss'));
         
+        conn.query("UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = '" +result[i].dsc_id+"');", function (err, ans) {
+          if (err) throw err;
+          console.log("123");
+          
+          console.log(ans);
+          
+        });
+
         var post = {
           title: tempTitle.replaceAt(0, first_letter),
           body: result[i].data,
@@ -362,6 +371,19 @@ function home_query(req, res, sql, current_page) {
   });
 }
 
+app.get("/dscthanks/:dscid",function (req, res) {
+  dscid=req.params.dscid;
+  console.log("dsc");
+  
+  console.log(req.cookies);
+  
+  user= req.cookies.userData.user;
+  conn.query("insert into discussion_thanks ( user_id,dsc_id) values('" + user + "','" + dscid + "') ;", function (err, result) {
+    if (err) throw err;
+  });
+  res.redirect(req.get('referer'));
+});
+
 app.get("/home", function (req, res) {
   var sql = "";
   var change = -1;
@@ -383,7 +405,9 @@ app.get("/home", function (req, res) {
 });
 
 app.get("/", function (req, res) {
-  if (req.cookies.userData.user == "NULL"){
+  console.log(req.cookies);
+  
+  if (req.cookies.userData.user == null){
       res.cookie("userData", {
       'user': null  
     });
@@ -603,6 +627,7 @@ app.get("/post/:title", function (req, res) {
             body: post.body,
             date: post.date,
             user: post.user,
+            'user': req.cookies.userData.user,
           });
         } else {
           console.log("here123");
@@ -613,6 +638,7 @@ app.get("/post/:title", function (req, res) {
             body: post.body,
             date: post.date,
             user: post.user,
+            'user': req.cookies.userData.user,
           });
         }
       });
