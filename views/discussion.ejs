@@ -188,6 +188,14 @@
             <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
         </div>
     </form>
+    <script>
+        var elem = document.getElementsByClassName("BodySpan");
+        for (var i = 0; i <= elem.length; i++) {
+            var str = elem[i].innerHTML;
+            str = str.replace(/char10/g, "<br>")
+            elem[i].innerHTML = str;
+        }
+    </script>
 </body>
 <% } %>
 <%- include("partials/footer"); -%>
