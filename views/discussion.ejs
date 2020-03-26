@@ -155,7 +155,8 @@
             </div>
             <div class="ProfileInfoDiv">
                 <div class="ProfileNameDiv">
-                    <a class="ProfileNameA" id="profile_name_a" href="/dashboard/<%=comments[i].user%>"><%=comments[i].user%> </a>
+                    <a class="ProfileNameA" id="profile_name_a"
+                        href="/dashboard/<%=comments[i].user%>"><%=comments[i].user%> </a>
                 </div>
                 <div class="ProfileNameDiv" id="date_div">
                     <span class="ProfileNameA" id="date_a"><%= comments[i].date %></span>
@@ -165,26 +166,28 @@
         <p class="BodySpan"><%= comments[i].body %></p>
         <div class="ContainerFooter">
             <div class="UpvoteDiv">
-                <div class="UpvoteImg">
-                    <img class="UpvoteImg" src="../assets/upvote.png">
-                    <img class="UpvoteImg" src="../assets/upvotehover.png">
-                </div>
+                <a href="/cmtthanks/<%=comments[i].comment_id%>" style=" background : rgba(0,0,00,0);">
+                    <div class="UpvoteImg">
+                       <img class="UpvoteImg" src="../assets/upvote.png">
+                       <img class="UpvoteImg" src="../assets/upvotehover.png">
+                    </div>
+                </a>
                 <div class="NumberOfUpvoteDiv">
-                    <span class="ProfileNameA" id="number_of_upvotes"><%= comments[i].numberOfUpvotes %></span>
+                    <span class="ProfileNameA" id="number_of_upvotes"><%= comments[i].upvote %></span>
                 </div>
             </div>
         </div>
-        </div>
-        <% } %>
+    </div>
+    <% } %>
 
-        <% console.log(user);console.log("1234567890"); if(user != null ) {   %>
-        <form action="http://localhost:8080/post/<%=title%>" method="post">
-            <div class="Container" id="container_div">
-                <label class="SubHeading">Post</label>
-                <textarea class="PostBody" name="postBody" cols="30" rows="10" required=""></textarea>
-                <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
-            </div>
-        </form>
+    <% console.log(user);console.log("1234567890"); if(user != null ) {   %>
+    <form action="http://localhost:8080/post/<%=title%>" method="post">
+        <div class="Container" id="container_div">
+            <label class="SubHeading">Post</label>
+            <textarea class="PostBody" name="postBody" cols="30" rows="10" required=""></textarea>
+            <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
+        </div>
+    </form>
 </body>
 <% } %>
 <%- include("partials/footer"); -%>

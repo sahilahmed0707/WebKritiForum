@@ -365,6 +365,24 @@ function home_query(req, res, sql, current_page) {
   });
 }
 
+app.get("/cmtthanks/:idcmt",function (req, res) {
+  idcmt=req.params.idcmt;
+  console.log(req.cookies);
+  
+  user= req.cookies.userData.user;
+  var sql="insert into forum.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT '" + user + "','" + idcmt + "' ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = '" + user + "' AND idCmt = '" + idcmt + "' ) LIMIT 1;";
+  conn.query(sql, function (err, result) {
+    if (err) throw err;
+  });
+  
+  var update="UPDATE comments SET upvote = ( SELECT COUNT(user_id) FROM comment_thanks WHERE comment_thanks.idCmt = comments.idComments);";
+  con.query(update, function (err, ans) {
+    if (err) throw err; 
+  });
+  
+  res.redirect(req.get('referer'));
+});
+
 app.get("/dscthanks/:dscid",function (req, res) {
   dscid=req.params.dscid;
   console.log("dsc");
@@ -601,10 +619,11 @@ app.get("/post/:title", function (req, res) {
         user: result[0].usr_id,
         date: moment(result[0]).format('YYYY MMMM DD'),
         disc_id: result[0].dsc_id,
+      
       };
       console.log(post);
       console.log("jaddu");
-      var sql = "select * from comments where dsc_id = '" + result[0].dsc_id + "' order by upvote desc;";
+      var sql = "select * from comments where dsc_id = '" + result[0].dsc_id + "' order by upvote;";
       conn.query(sql, function (err, result) {
         if (err) throw err;
         console.log("hye123");
