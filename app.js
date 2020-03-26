@@ -23,10 +23,11 @@ app.use(helmet.noCache());
 app.use(express.json({ limit: '10kb' })); // Body limit is 10
 
 // express-rate-limit dependency
-const limit = rateLimit({
-  max: 100,// max requests
-  windowMs: 60 * 60 * 1000, // 1 Hour
-  message: 'Too many requests' // message to send
+const createAccountLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour window
+  max: 5, // start blocking after 5 requests
+  message:
+    "Too many login/signup request from this IP, please try again after an hour"
 });
 
 
@@ -204,7 +205,7 @@ app.post('/change-password', urlencodedParser, function (req, res) {
     });
   }
 })
-app.post("/login", urlencodedParser, function (req, res) {
+app.post("/login",createAccountLimiter, urlencodedParser, function (req, res) {
   var qdata = {
     user: req.body.user,
     pass: req.body.pass
@@ -231,7 +232,7 @@ app.post("/login", urlencodedParser, function (req, res) {
   });
 });
 
-app.post('/signup', urlencodedParser, function (req, res) {
+app.post('/signup',createAccountLimiter, urlencodedParser, function (req, res) {
   var qdata = {
     user: req.body.user,
     pass: req.body.pass,
