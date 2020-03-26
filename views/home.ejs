@@ -3,6 +3,8 @@
 <head>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link href="objects.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home Page - Leaf Forums</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
 
@@ -34,8 +36,8 @@
         <% if(user != "NULL"){ %>
         <div class="ContainerFooter">
             <div class="UpvoteDiv">
-            <a href="/dscthanks/<%=posts[i].disc_id%>" style= " background : rgba(0,0,00,0);">
-                    <div class="UpvoteImg"> 
+                <a href="/dscthanks/<%=posts[i].disc_id%>" style=" background : rgba(0,0,00,0);">
+                    <div class="UpvoteImg">
                         <img class="UpvoteImg" src="assets/upvote.png">
                         <img class="UpvoteImg" src="assets/upvotehover.png">
                     </div>
