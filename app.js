@@ -283,7 +283,7 @@ app.post('/signup',createAccountLimiter, urlencodedParser, function (req, res) {
 
 app.get('/logout', function (req, res) {
   res.cookie("userData", {
-    'user': null  
+    'user': "NULL"
   });
   res.redirect('/');
 })
