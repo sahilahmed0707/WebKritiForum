@@ -275,28 +275,11 @@ app.post('/signup',createAccountLimiter, urlencodedParser, function (req, res) {
       con.query(query, function (err, result) {
         if (err) throw err;
         console.log('added data successfully');
-        //         res.render('ForgotPassword', {
-            //        'user': req.cookies.userData.user
-        //           'heading': 'nothing',
-        //           'subheading': 'ADDED DATA SUCCESSFULLY',
-        //           'input': 'nothing',
-        //           'display': 'none'
-        //         });
         res.redirect('/login');
       });
     }
   });
 });
-
-
-
-// app.use(function(req, res, next) {
-//   if((req.cookies.hasOwnProperty('userData'))){
-//     req.session.user = userObject;
-//     res.locals.user = req.session.user;
-//   }
-//   next();
-// });
 
 app.get('/logout', function (req, res) {
   res.cookie("userData", {
