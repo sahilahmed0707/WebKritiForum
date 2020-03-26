@@ -1,7 +1,5 @@
-
 <style>
     .footer_container {
-        color: rgb(150, 150, 150);
         background-color: rgb(50, 50, 50);
         line-height: 0.5vw;
         height: 9vw;
@@ -9,12 +7,10 @@
         text-align: left;
         display: flex;
         justify-content: space-between;
-
-
     }
 
     .footer_container a:link {
-        color: rgb(150, 150, 150);
+        color: rgb(238, 238, 238);
         text-decoration: none;
         background-color: transparent;
     }
@@ -22,19 +18,19 @@
 
 
     .footer_container a:active {
-        color: rgb(150, 150, 150);
+        color: rgb(238, 238, 238);
         text-decoration: none;
         background-color: transparent;
     }
 
     .footer_container a:visited {
-        color: rgb(150, 150, 150);
+        color: rgb(238, 238, 238);
         text-decoration: none;
         background-color: transparent;
     }
 
     .footer_container a:hover {
-        color: rgb(200, 200, 200);
+        color: rgb(0, 116, 122);
         text-decoration: none;
         background-color: transparent;
 
@@ -62,8 +58,81 @@
         margin-left: 2vw;
     }
 
+    .footer_container h1 {
+        font-size: 3vw;
+    }
+
     .footer_container p {
         font-size: 1vw;
+    }
+
+    @media(max-width:800px) {
+        .footer_container {
+            background-color: rgb(50, 50, 50);
+            line-height: 0.5vw;
+            height: 15vw;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer_container a:link {
+            color: rgb(238, 238, 238);
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+
+
+        .footer_container a:active {
+            color: rgb(238, 238, 238);
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        .footer_container a:visited {
+            color: rgb(238, 238, 238);
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        .footer_container a:hover {
+            color: rgb(0, 116, 122);
+            text-decoration: none;
+            background-color: transparent;
+
+        }
+
+        .footer_contacts a {
+            text-decoration: none;
+            background-color: transparent;
+
+        }
+
+        .footer_contacts img {
+            height: 8vw;
+            width: auto;
+            background: transparent;
+            margin-top: 2vw;
+            box-shadow: transparent;
+            margin: -0.2vw;
+            padding-top: 2vw;
+        }
+
+        .footer_container p,
+        .footer_container h1 {
+            vertical-align: 5vw;
+            margin-left: 2vw;
+        }
+
+        .footer_container h1 {
+            font-size: 5vw;
+        }
+
+        .footer_container p {
+            font-size: 2vw;
+        }
     }
 </style>
 
@@ -77,7 +146,7 @@
         <div class="footer_aboutus">
             <a href="/about">
                 <br>
-                <h1 style="font-size: 3vw;">About Us</h1>
+                <h1>About Us</h1>
                 <p>(A Surprise is waiting)</p>
                 <p>Hint:Arrow Keys</p>
             </a>
@@ -103,4 +172,5 @@
     </div>
 
 </body>
+
 </html>
