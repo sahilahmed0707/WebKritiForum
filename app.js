@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const moment = require('moment');
-const app = express();
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 const url = require('url');
@@ -13,6 +12,24 @@ const urlencodedParser = bodyParser.urlencoded({
   extended: false
 });
 const ejsLint = require('ejs-lint');
+const helmet = require('helmet');
+const rateLimit = require("express-rate-limit");
+const app = express();
+
+app.use(helmet());
+app.use(helmet.noCache());
+
+// Preventing DOS Attacks
+app.use(express.json({ limit: '10kb' })); // Body limit is 10
+
+// express-rate-limit dependency
+const limit = rateLimit({
+  max: 100,// max requests
+  windowMs: 60 * 60 * 1000, // 1 Hour
+  message: 'Too many requests' // message to send
+});
+
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
@@ -407,9 +424,10 @@ app.get("/home", function (req, res) {
 app.get("/", function (req, res) {
   console.log(req.cookies);
   
-  if (req.cookies.userData.user == null){
+  // ||req.cookies.userData.user == null
+  if (req.cookies == undefined ){
       res.cookie("userData", {
-      'user': null  
+      'user': null  ,
     });
   }
   var sql = "select * from discussion order by dsc_id desc limit 10;";
