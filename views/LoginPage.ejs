@@ -1,234 +1,135 @@
-<%- include("partials/header"); -%>
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta charset="utf-8">
-  <title>Log In Page</title>
+  <title>LoginPage</title>
   <meta name="generator" content="Google Web Designer 7.1.1.1210">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
+  <style type="text/css" id="gwd-text-style">
+    p {
+      margin: 0px;
+    }
+    h1 {
+      margin: 0px;
+    }
+    h2 {
+      margin: 0px;
+    }
+    h3 {
+      margin: 0px;
+    }
+  </style>
   <style type="text/css">
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+    }
     body {
-      background-color: rgb(34, 40, 49);
-      font-family: "Open Sans";
-
+      background-color: rgb(18, 18, 18);
+      transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+      transform-style: preserve-3d;
     }
-
     .login_div {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      width: 50vw;
-      height: 30vw;
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      left: 25%;
+      top: 25%;
       background-image: none;
-      margin-top: 7vw;
-      margin-left: 25vw;
-      background-color: rgb(57, 62, 70);
-      /* min-height: 250px; */
+      border-radius: 0.2em;
+      padding: 0px;
+      background-color: rgb(49, 49, 49);
     }
-
-    .login_div div {
-      flex-direction: row;
-    }
-
     .login_p {
-
+      position: absolute;
       text-align: center;
-      font-size: 3vw;
+      width: 20%;
+      top: 30%;
+      height: 5%;
+      font-size: 2.5vw;
       font-weight: bold;
-      font-family: "Open Sans";
-      color: rgb(0, 173, 181);
+      font-family: "Arial Black";
+      left: 40%;
+      color: rgb(137, 0, 250);
     }
-
     .username_label {
-      margin-top: 1vw;
+      position: absolute;
       font-weight: bold;
-      font-size: 1.5vw;
+      font-size: 1vw;
       text-align: left;
-      font-family: "Open Sans";
-      color: rgb(0, 173, 181);
+      font-family: "Arial Black";
+      color: rgb(137, 0, 250);
     }
-
     .username_input {
-
-      color: black;
-      margin-bottom: 1vw;
-      width: 30vw;
-      height: 1.5vw;
-      border: none;
-      font-size: 1.2vw;
-      padding: 0.5vw;
+      position: absolute;
+      top: 46%;
+      width: 25%;
+      left: 38%;
+      height: 4%;
     }
-
-    .username_input :focus {
-
-      color: black;
-      margin-bottom: 1.5vw;
-      width: 30vw;
-      height: 1vw;
-      border: none;
-      font-size: 1.2vw;
-      padding: 0.5vw;
-    }
-
     .pasword_input {
-      color: black;
-      margin-bottom: 0.5vw;
-      width: 30vw;
-      height: 1vw;
-      border: none;
-      font-size: 1.2vw;
-      padding: 0.5vw;
+      position: absolute;
+      top: 56%;
+      left: 38%;
+      width: 25%;
+      height: 4%;
     }
-
-    .pasword_input:focus {
-      color: black;
-      margin-bottom: 0.5vw;
-      width: 30vw;
-      height: 1vw;
-      border: none;
-      font-size: 1.2vw;
-      padding: 0.5vw;
-    }
-
     .signIn_button {
-
-
+      position: absolute;
+      left: 38.17%;
+      top: 65.33%;
       background-image: none;
       outline: none;
       border: none;
-      border-radius: 1%;
+      border-radius: 10%;
       text-align: center;
-      font-size: 1.5vw;
-      cursor: pointer;
-      padding: 0.5vw;
-      color: rgb(238, 238, 238);
-      font-family: "Open Sans";
-      width: 9vw;
-      height: 3vw;
-      background-color: rgb(0, 173, 181);
-    }
-
-
-    .signIn_button:hover {
-      background-color: rgb(0, 173, 250);
-    }
-
-    .forgot_password {
-
-
-      text-align: right;
-      color: rgb(0, 173, 181);
       font-size: 1vw;
-      background: transparent;
+      cursor: pointer;
+      padding: 0.5%;
+      color: white;
+      font-family: "Arial Black";
+      width: 8%;
+      height: 6%;
+      background-color: rgb(137, 0, 250);
     }
-
+    .pressed {
+      box-shadow: rgb(219, 237, 243) 0px 3px 4px 0px;
+      opacity: 0.5;
+    }
+    .signIn_button:active {
+      box-shadow: rgba(228, 217, 217, 0.24) 0px 12px 16px 0px, rgba(224, 219, 219, 0.19) 0px 17px 50px 0px;
+    }
+    .signIn_button:hover {
+      background-color: rgb(137, 0, 250);
+    }
+    .forgot_password {
+      position: absolute;
+      top: 62%;
+      width: 13%;
+      height: 3%;
+      left: 50%;
+      text-align: right;
+      color: rgb(137, 0, 250);
+    }
     .forgot_password:hover {
-      color: rgb(0, 173, 250);
-    }
-
-    @media(max-width:800px) {
-      .login_div {
-        width: 95vw;
-        margin-left: 2vw;
-        margin-right: 2vw;
-        height: 70vw;
-      }
-
-      .forgot_password {
-        font-size: 2.5vw;
-      }
-
-      .signIn_button {
-        width: 18vw;
-        height: 6vw;
-        padding: 0.5vw;
-        font-size: 3.5vw;
-      }
-
-      .login_p {
-
-        text-align: center;
-        font-size: 9vw;
-        font-weight: bold;
-        font-family: "Open Sans";
-        color: rgb(0, 173, 181);
-      }
-
-      .username_label {
-        margin-top: 1vw;
-        font-weight: bold;
-        font-size: 4vw;
-        text-align: left;
-        font-family: "Open Sans";
-        color: rgb(0, 173, 181);
-      }
-
-      .username_input {
-
-        color: black;
-        margin-bottom: 1vw;
-        width: 75vw;
-        height: 5vw;
-        border: none;
-        font-size: 3vw;
-        padding: 0.5vw;
-      }
-
-      .username_input :focus {
-
-        color: black;
-        margin-bottom: 1.5vw;
-        width: 75vw;
-        height: 5vw;
-        border: none;
-        font-size: 3vw;
-        padding: 0.5vw;
-      }
-
-      .pasword_input {
-        color: black;
-        margin-bottom: 1.5vw;
-        width: 75vw;
-        height: 5vw;
-        border: none;
-        font-size: 3vw;
-        padding: 0.5vw;
-      }
-
-      .pasword_input:focus {
-        color: black;
-        margin-bottom: 1.5vw;
-        width: 75vw;
-        height: 5vw;
-        border: none;
-        font-size: 3vw;
-        padding: 0.5vw;
-      }
+      color: rgb(150, 98, 241);
     }
   </style>
 </head>
 
 <body>
-  <div class="login_div" id="loginDiv">
-
-    <form id="login_form" action="http://localhost:8080/login" method="post">
-      <div>
-        <h1 class="login_p" id="loginP">Log In</h1><br>
-      </div>
-      <div><label class="username_label" id="Username-Label">Username:</label></div>
-      <div><input class="username_input" id="Username-Input" type="text" placeholder="Your Username" name="user"
-          required=""></div>
-      <div><label class="username_label" id="Password-Label">Password:</label></div>
-      <div><input class="pasword_input" id="Password-Input" type="password" placeholder="Your Password" name="pass"
-          required=""></div>
-      <div><input class="signIn_button" id="SignIn-Button" type="submit" value="Log In"></div>
-      <div><a class="forgot_password" id="Forgot-Password-a" href="http://localhost:8080/forgot-password">forgot
-          password</a></div>
-    </form>
-
-  </div>
+  <div class="login_div" id="loginDiv"></div>
+  <p class="login_p" id="loginP">LOGIN</p>
+  <form id="login_form" action="http://localhost:8080/login" method="post">
+    <label class="username_label" id="Username-Label" style="width: 12%; left: 38%; top: 43%; height: 2%;">USERNAME:</label>
+    <input class="username_input" id="Username-Input" type="text" placeholder="Your Username" name="user" required="">
+    <label class="username_label" id="Password-Label" style="width: 12%; left: 38%; top: 53%; height: 2%;">PASSWORD:</label>
+    <input class="pasword_input" id="Password-Input" type="password" placeholder="Your Password" name="pass" required="">
+    <p id="test" style="color: white;" class=""></p>
+    <input class="signIn_button" id="SignIn-Button" type="submit" value="LOG IN">
+  </form>
+  <a class="forgot_password" id="Forgot-Password-a" href="http://localhost:8080/forgot-password">forgot password</a>
 </body>
 
 </html>
