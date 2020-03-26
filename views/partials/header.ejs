@@ -6,36 +6,23 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Welcome to the Leaf Forums</title>
+    <!-- <title>Welcome to the Leaf Forums</title> -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap');
 
     * {
-        font-family: 'Open Sans' ;
-    }
-
-    body {
-        background-color: rgb(20, 20, 20);
-    }
-
-    body a {
-        background: rgb(133, 133, 133);
-        font-size: 3vw;
+        font-family: 'Open Sans';
     }
 
     nav {
         width: 100%;
-        background-color: rgb(34, 34, 34);
+        background-color: rgb(57, 62, 70);
         position: sticky;
         top: 0;
         z-index: 1000;
-    }
-
-    .logo {
-        padding: 0%;
-        width: 10vw;
     }
 
     .buttons {
@@ -43,10 +30,11 @@
         flex-direction: row;
         padding-top: 1vw;
         justify-content: space-around;
+        margin-right: 0.5vw;
     }
 
-    buttons div {
-        padding-left: 0px;
+    .buttons a {
+        border: 0.2vw solid rgb(57, 62, 70);
     }
 
     nav ul li {
@@ -55,20 +43,17 @@
     }
 
     nav ul li a:hover {
-        background: rgb(53, 53, 53);
-    }
-
-    nav ul li a:focus {
-        background: rgb(85, 85, 85);
+        background: rgb(0, 137, 144);
     }
 
     nav ul li a {
         padding: 0px 1vw;
         display: block;
-        color: rgb(133, 133, 133);
+        color: rgb(238, 238, 238);
         text-decoration: none;
-        background: rgb(44, 44, 44);
+        background: rgb(0, 173, 181);
         font-size: 2vw;
+
     }
 
     nav ul {
@@ -77,60 +62,75 @@
         justify-content: space-between;
     }
 
-    .main {
-        display: flex;
-        margin-left: 10vw;
-        margin-right: 5vw;
-    }
-
-    .main div {
-        color: rgb(133, 133, 133);
-        display: flex;
-        width: 25vw;
-        height: 25vw;
-        /* letter-spacing: 2px; */
-        border: 0.1vw solid rgb(80, 80, 80);
-        /* border-radius: 10%; */
-        background-color: rgb(71, 71, 71);
-        padding: 0%;
-        font-size: 3vw;
-        font-family: 'Open Sans', ;
-        position: relative;
-        margin-left: 1vw;
-        margin-right: 1vw;
-    }
-
-    .cicle1,
-    .cicle2,
-    .cicle3 {
-        border-radius: 50%;
-        flex-direction: column;
-        text-align: center;
-        justify-content: center;
-        border-color: rgb(71, 71, 71);
-    }
-
-    .user_details {
-        color: rgb(133, 133, 133);
-        display: flex;
-        flex-direction: column;
-        width: 70vw;
-        margin: 0 auto;
-    }
-
-    .user_details div {
-        display: flex;
-        justify-content: space-between;
-    }
-
     #composelogo img {
-        width: 9vw;
-        padding-left: 7vw;
+        width: 10vw;
+        /* margin-left: 7vw; */
     }
 
     nav ul li a img {
         box-shadow: transparent;
         background: transparent;
+        height: 4vw;
+        width: 4vw;
+    }
+
+    @media(max-width:800px) {
+        nav {
+            width: 100%;
+            background-color: rgb(57, 62, 70);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            padding-top: 1vw;
+            justify-content: space-around;
+            margin-right: 0.5vw;
+        }
+
+        .buttons a {
+            border: 0.4vw solid rgb(57, 62, 70);
+        }
+
+        nav ul li {
+            list-style: none;
+            padding-top: 0%;
+        }
+
+        nav ul li a:hover {
+            background: rgb(0, 137, 144);
+        }
+
+        nav ul li a {
+            padding: 0px 1vw;
+            display: block;
+            color: rgb(238, 238, 238);
+            text-decoration: none;
+            background: rgb(0, 173, 181);
+            font-size: 4vw;
+
+        }
+
+        nav ul {
+            display: flex;
+            padding: 0%;
+            justify-content: space-between;
+        }
+
+        #composelogo img {
+            width: 20vw;
+            /* margin-left: 7vw; */
+        }
+
+        nav ul li a img {
+            box-shadow: transparent;
+            background: transparent;
+            height: 8vw;
+            width: 8vw;
+        }
     }
 </style>
 
@@ -141,13 +141,13 @@
             <div class="logo">
                 <li>
                     <header><a href="/" style="padding: 0px 0vw; box-shadow: transparent; background: transparent;"><img
-                                src="../logo.gif" alt="Leaf Forums Logo" height="40%" width="40%"></a></header>
+                                src="../logo.gif" alt="Leaf Forums Logo"></a></header>
                 </li>
             </div>
 
 
             <% console.log(user); if(user == null ) {   %>
-            <div class="buttons" id="logggedout" >
+            <div class="buttons" id="logggedout">
                 <li>
                     <a href="/signup">Sign Up</a>
                 </li>
