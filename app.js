@@ -346,41 +346,44 @@ function home_query(req, res, sql, current_page) {
 }
 
 app.get("/cmtthanks/:idcmt", function (req, res) {
-  idcmt = req.params.idcmt;
-  var update = "UPDATE comments SET upvote = ( SELECT COUNT(user_id) FROM comment_thanks WHERE comment_thanks.idCmt = comments.idComments);";
-  con.query(update, function (err, ans) {
-    if (err) throw err;
-  });
+  if (req.cookies.userData.user != null) {
+    idcmt = req.params.idcmt;
+    var update = "UPDATE comments SET upvote = ( SELECT COUNT(user_id) FROM comment_thanks WHERE comment_thanks.idCmt = comments.idComments);";
+    con.query(update, function (err, ans) {
+      if (err) throw err;
+    });
 
-  user = req.cookies.userData.user;
-  var sql = "insert into forum.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = ? AND idCmt = ? ) LIMIT 1;";
-  conn.query(sql, [user, idcmt, user, idcmt], function (err, result) {
-    if (err) throw err;
-  });
+    user = req.cookies.userData.user;
+    var sql = "insert into forum.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = ? AND idCmt = ? ) LIMIT 1;";
+    conn.query(sql, [user, idcmt, user, idcmt], function (err, result) {
+      if (err) throw err;
+    });
 
-  var update = "UPDATE comments SET upvote = ( SELECT COUNT(user_id) FROM comment_thanks WHERE comment_thanks.idCmt = comments.idComments);";
-  con.query(update, function (err, ans) {
-    if (err) throw err;
-  });
+    var update = "UPDATE comments SET upvote = ( SELECT COUNT(user_id) FROM comment_thanks WHERE comment_thanks.idCmt = comments.idComments);";
+    con.query(update, function (err, ans) {
+      if (err) throw err;
+    });
+    res.redirect(req.get('referer'));
+  } else
+    res.redirect('/login');
 
-  res.redirect(req.get('referer'));
 });
 
 app.get("/dscthanks/:dscid", function (req, res) {
-  dscid = req.params.dscid;
-
-  user = req.cookies.userData.user;
-  var sql = "insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
-  conn.query(sql, [user, dscid], function (err, result) {
-    if (err) throw err;
-  });
-
-  var update = "UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);";
-  con.query(update, function (err, ans) {
-    if (err) throw err;
-  });
-
-  res.redirect(req.get('referer'));
+  if (req.cookies.userData.user != null) {
+    dscid = req.params.dscid;
+    user = req.cookies.userData.user;
+    var sql = "insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
+    conn.query(sql, [user, dscid], function (err, result) {
+      if (err) throw err;
+    });
+    var update = "UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);";
+    con.query(update, function (err, ans) {
+      if (err) throw err;
+    });
+    res.redirect(req.get('referer'));
+  } else
+    res.redirect('/login');
 });
 
 app.get("/home", function (req, res) {
@@ -580,12 +583,12 @@ app.get('/dashboard', function (req, res) {
 
 
 app.get('/compose', function (req, res) {
-  if (req.cookies.userData.user != "NULL")
+  if (req.cookies.userData.user != null)
     res.render('compose', {
       'user': req.cookies.userData.user
     });
   else
-    res.redirect('http://localhost:8080/login');
+    res.redirect('/login');
 });
 
 app.post('/compose', function (req, res) {
