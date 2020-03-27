@@ -587,7 +587,7 @@ app.get('/dashboard', function (req, res) {
       }
     });
   } else
-    res.redirect('http://localhost:8080/login');
+    res.redirect('/login');
 });
 
 
@@ -641,7 +641,7 @@ app.get("/post/:title", function (req, res) {
         numberOfUpvotes: result[0].thanks,
       };
       console.log(post);
-      var sql = "select * from comments where dsc_id = ? order by upvote;";
+      var sql = "select * from comments where dsc_id = ? order by post_time desc;";
       conn.query(sql, [result[0].dsc_id], function (err, result) {
         if (err) throw err;
         console.log("hye123");
@@ -701,7 +701,6 @@ app.post("/post/:title", function (req, res) {
       body: str,
       user: req.cookies.userData.user,
     };
-
 
     var sql = "select * from discussion where dsc_name =? ;";
     conn.query(sql, [req.params.title], function (err, result) {
