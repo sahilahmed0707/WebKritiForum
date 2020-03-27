@@ -603,7 +603,7 @@ app.post('/compose', function (req, res) {
   var currTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   var sql =
     'insert into discussion (dsc_name,dsc_namekebab, usr_id, data, post_time) values(?,?,?,?,current_timestamp)';
-  conn.query(sql, [post.title, post.titlekebab, post.user, , post.body], function (err, result) {
+  conn.query(sql, [post.title, post.titlekebab, post.user, post.body], function (err, result) {
     if (err) throw err;
     console.log('discussion added successfully');
     res.redirect('/');
