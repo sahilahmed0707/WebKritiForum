@@ -325,13 +325,9 @@ function home_query(req, res, sql, current_page) {
 
     if (result.length > 0) {
       response.posts = [];
-      for (var i = 0; i < result.length; i++) {
-        var tempTitle = result[i].dsc_name;
-        var first_letter = "";
-        first_letter = tempTitle.charAt(0);
-        first_letter = first_letter.toUpperCase();
+      for (var i = 0; i < result.length; i++) { 
         var post = {
-          title: tempTitle.replaceAt(0, first_letter),
+          title: result[i].dsc_name,
           body: result[i].data,
           img: "",
           user: result[i].usr_id,
