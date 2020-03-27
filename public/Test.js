@@ -3,9 +3,13 @@ var elem = [];
 var food = document.getElementById("food");
 var elem_to_add = 0;
 var delay = 50;
-// document.getElementById("Sahil_info").innerHTML = "huun na mai chutiya 0";
-food.style.left = Math.floor(Math.random() * Math.floor(100 / parseInt(food.style.width))) * parseInt(food.style.width) + "%";
-food.style.top = Math.floor(Math.random() * Math.floor(100 / parseInt(food.style.height))) * parseInt(food.style.height) + "%";
+var windowWidth  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+var windowHeight = window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
+windowHeight /= (windowWidth / 100);
+windowHeight = Math.floor(windowHeight);
+document.getElementById("Sahil_info").innerHTML = windowHeight + " " + windowWidth;
+food.style.left = Math.floor(Math.random() * Math.floor(100 / parseInt(food.style.width))) * parseInt(food.style.width) + "vw";
+food.style.top = Math.floor(Math.random() * Math.floor(windowHeight / parseInt(food.style.height))) * parseInt(food.style.height) + "vw";
 // document.getElementById("Sahil_info").innerHTML = food.style.left + " " + food.style.top + " " + food.style.width + " " + food.style.height;
 elem.push(document.getElementById("test_player"));
 function insert_elem(){
@@ -26,8 +30,8 @@ function process_elem(){
 }
 function new_food_coord(){
   first: while(true){
-    food.style.left = Math.floor(Math.random() * Math.floor(100 / parseInt(food.style.width))) * parseInt(food.style.width) + "%";
-    food.style.top = Math.floor(Math.random() * Math.floor(100 / parseInt(food.style.height))) * parseInt(food.style.height) + "%";
+    food.style.left = Math.floor(Math.random() * Math.floor(100 / parseInt(food.style.width))) * parseInt(food.style.width) + "vw";
+    food.style.top = Math.floor(Math.random() * Math.floor(windowHeight / parseInt(food.style.height))) * parseInt(food.style.height) + "vw";
     for(i = 0; i < elem.length; i++)
       if(elem[i].style.left == food.style.left && elem[i].style.top == food.style.top)
         continue first;
@@ -61,7 +65,7 @@ setInterval(function(){
         // document.getElementById("Sahil_info").innerHTML = ((lastKeyCode - 37) % 2) + " " + i;
         lastKeyCode = event.keyCode;
         temp_left = (1 - (i % 2))*(i + -1);
-        temp_top = (i % 2)*(2 * i - 4);
+        temp_top = (i % 2)*(i - 2);
         if(elem.length < 4 && elem_to_add < 4)
           elem_to_add += 4;
       }
@@ -74,14 +78,14 @@ setInterval(function(){
   left = (left + temp_left) % 100;
   if(left < 0)
     left = 100 - width - 1;
-  top = (top + temp_top) % 100;
+  top = (top + temp_top) % windowHeight;
   if(top < 0)
-    top = 100 - height;
+    top = windowHeight - height;
   check_food();
   check_collision();
   insert_elem();
   process_elem();
 /*   document.getelem[0]entById("Sahil_info").innerHTML = temp_left + " " + temp_top + " " + left + " " + top; */
-  elem[0].style.left = left + "%";
-  elem[0].style.top = top + "%";
+  elem[0].style.left = left + "vw";
+  elem[0].style.top = top + "vw";
 }, delay);
