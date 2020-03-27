@@ -269,6 +269,11 @@ body {
         width: 2.25vw;
         margin-right: 0.5vw;
     }
+.PostEditButton {
+    background: transparent;
+    cursor: pointer;
+    border: none;
+}
   @media(max-width:900px){
     .Heading {
         text-align: center;
@@ -533,4 +538,8 @@ body {
         width: 4.5vw;
         margin-right: 0.5vw;
     }
+    .PostEditButton {
+        background: transparent;
+        cursor: pointer;
+        border: none;
   }
