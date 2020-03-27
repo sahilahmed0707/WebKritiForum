@@ -32,9 +32,6 @@ const createAccountLimiter = rateLimit({
   message: "Too many login/signup request from this IP, please try again after an hour"
 });
 
-// Data Sanitization against XSS
-// app.use(xss());
-
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
@@ -609,13 +606,6 @@ app.post('/compose', function (req, res) {
   conn.query(sql, [post.title, post.titlekebab, post.user, , post.body], function (err, result) {
     if (err) throw err;
     console.log('discussion added successfully');
-    // res.render('ForgotPassword', {
-    //   'heading': 'nothing',
-    //      'user': req.cookies.userData.user
-    //   'subheading': 'DISCUSSION ADDED SUCCESSFULLY',
-    //   'input': 'nothing',
-    //   'display': 'none'
-    // });
     res.redirect('/');
   });
 });
