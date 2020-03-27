@@ -345,6 +345,15 @@ function home_query(req, res, sql, current_page) {
   });
 }
 
+app.get("/dltpost/:idcmt", function (req, res) {
+  idcmt = req.params.idcmt;
+  var dlt = "delete from `comments` where idComments=?;";
+  con.query(dlt, [idcmt], function (err, ans) {
+    if (err) throw err;
+  });
+  res.redirect(req.get('referer'));
+});
+
 app.get("/cmtthanks/:idcmt", function (req, res) {
   if (req.cookies.userData.user != null) {
     idcmt = req.params.idcmt;

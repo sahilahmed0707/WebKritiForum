@@ -100,9 +100,9 @@
                     <span class="ProfileNameA" id="number_of_upvotes"><%= comments[i].upvote %></span>
                 </div>
             </div>
-            <% if(user == comments[i].user) { %>
+            <% if(user == comments[i].user) { console.log(comments[i].comment_id); %>
                 <div class="UpvoteDiv">
-                    <a href="" style="display: transparent">
+                    <a href="/dltpost/<%=comments[i].comment_id%>" style="display: transparent">
                         <img class="DeleteImg" src="../assets/delete_logo_white.png">
                     </a>
                 </div>
