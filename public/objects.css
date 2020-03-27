@@ -264,6 +264,11 @@ body {
     width: 2vw;
     margin-top: 0.3vw;  
   }
+.DeleteImg {
+        height: 1.75vw;
+        width: 2.25vw;
+        margin-right: 0.5vw;
+    }
   @media(max-width:900px){
     .Heading {
         text-align: center;
