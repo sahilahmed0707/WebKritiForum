@@ -106,8 +106,23 @@
                         <img class="DeleteImg" src="../assets/delete_logo_white.png">
                     </a>
                 </div>
+                <div class="UpvoteDiv">
+                    <button class="PostEditButton" onclick="postEdit('post_edit_form_<%= i %>', 'post_body_<%= i %>')">
+                        <img class="DeleteImg" src="../assets/edit_white.png">
+                    </button>
+                </div>
             <% } %>
         </div>
+
+        <!-- BHARTA add link here -->
+        <form action="" method="post" id="post_edit_form_<%= i %>" style="display: none">
+            <div class="Container" id="container_div" style="width: 80%; margin: 0; border:none; box-shadow: none;">
+                <label class="SubHeading">Edit</label>
+                <textarea id="post_body_<%= i %>" class="PostBody" name="postBody" cols="30" rows="10" required=""><%= comments[i].body %></textarea>
+                <input name="post_user" type="text" style="display: none;" value="<%= comments[i].user %>">
+                <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
+            </div>
+        </form>
     </div>
     <% } %>
 
@@ -126,6 +141,16 @@
             str = str.replace(/char10/g, "<br>")
             elem[i].innerHTML = str;
         }
+
+        function postEdit(name, name_post) {
+            var form = document.getElementById(name);
+            var str = document.getElementById(name_post).innerHTML;
+            str = str.replace(/char10/g, "\n");
+            form.style.display = "initial";
+            document.getElementById(name_post).innerHTML = str;
+        }
+
+
     </script>
     <br>
     <br>
