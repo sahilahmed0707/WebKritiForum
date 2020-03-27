@@ -27,7 +27,7 @@ app.use(express.json({
 // express-rate-limit dependency
 const createAccountLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window
-  max: 20, // start blocking after 20 requests
+  max: 5, // start blocking after 5 requests
   message: "Too many login/signup request from this IP, please try again after an hour"
 });
 
