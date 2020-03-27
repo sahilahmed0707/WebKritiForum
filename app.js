@@ -8,6 +8,7 @@ const url = require('url');
 const data = require('fs');
 const logger = require('morgan');
 const _ = require("lodash");
+const md5 = require('md5');
 const urlencodedParser = bodyParser.urlencoded({
   extended: false
 });
@@ -326,10 +327,11 @@ function home_query(req, res, sql, current_page) {
     if (result.length > 0) {
       response.posts = [];
       for (var i = 0; i < result.length; i++) {
+        var imgurl=md5(result[i].usr_id);
         var post = {
           title: result[i].dsc_name,
           body: result[i].data,
-          img: "",
+          img: imgurl,
           user: result[i].usr_id,
           date: moment(result[i].post_time).local().format('YYYY MMMM DD HH:mm'),
           disc_id: result[i].dsc_id,
@@ -438,10 +440,12 @@ app.get('/dashboard/:user', function (req, res) {
       if (result.length > 0) {
         posts = [];
         for (var i = 0; i < result.length; i++) {
+          var imgurl=md5(result[i].usr_id);
           var post = {
+            
             title: result[i].dsc_name,
             body: result[i].data,
-            img: '',
+            img: imgurl,
             user: result[i].usr_id,
             date: moment(result[i]).format('YYYY MMMM DD'),
             disc_id: result[i].dsc_id
@@ -508,10 +512,11 @@ app.get('/dashboard', function (req, res) {
       var dashdiscount = result.length;
       posts = [];
       for (var i = 0; i < result.length; i++) {
+        var imgurl=md5(result[i].usr_id);
         var post = {
           title: result[i].dsc_name,
           body: result[i].data,
-          img: '',
+          img: imgurl,
           user: result[i].usr_id,
           date: moment(result[i]).format('YYYY MMMM DD'),
           disc_id: result[i].dsc_id
@@ -623,11 +628,12 @@ app.get("/post/:title", function (req, res) {
   var sql = 'select * from discussion where dsc_namekebab = ? ;';
   conn.query(sql, [requestedTitle], function (err, result) {
     if (err) throw err;
+    var imgurl=md5(result[0].usr_id);
     if (result.length > 0) {
       var post = {
         title: result[0].dsc_name,
         body: result[0].data,
-        img: '',
+        img: imgurl,
         user: result[0].usr_id,
         date: moment(result[0].post_time).format('YYYY MMMM DD HH:mm'),
         disc_id: result[0].dsc_id,
@@ -641,9 +647,10 @@ app.get("/post/:title", function (req, res) {
         if (result.length > 0) {
           comments = [];
           for (var i = 0; i < result.length; i++) {
+            var imgurl=md5(result[i].usr_id);
             var comment = {
               body: result[i].cmt,
-              img: "",
+              img: imgurl,
               user: result[i].usr_id,
               date: moment(result[i].post_time).local().format('YYYY MMMM DD HH:mm'),
               disc_id: result[i].dsc_id,
@@ -659,6 +666,7 @@ app.get("/post/:title", function (req, res) {
             body: post.body,
             date: post.date,
             user: post.user,
+            img: post.img,
             'user': req.cookies.userData.user,
           });
         } else {
@@ -668,6 +676,7 @@ app.get("/post/:title", function (req, res) {
             body: post.body,
             date: post.date,
             user: post.user,
+            img: post.img,
             'user': req.cookies.userData.user,
           });
         }
