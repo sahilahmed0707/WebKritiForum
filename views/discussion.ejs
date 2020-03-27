@@ -101,15 +101,17 @@
                 </div>
             </div>
             <% if(user == comments[i].user) { console.log(comments[i].comment_id); %>
-                <div class="UpvoteDiv">
-                    <a href="/dltpost/<%=comments[i].comment_id%>" style="display: transparent">
-                        <img class="DeleteImg" src="../assets/delete_logo_white.png">
-                    </a>
-                </div>
-                <div class="UpvoteDiv">
-                    <button class="PostEditButton" onclick="postEdit('post_edit_form_<%= i %>', 'post_body_<%= i %>')">
-                        <img class="DeleteImg" src="../assets/edit_white.png">
-                    </button>
+                <div style="display: flex;">
+                    <div class="UpvoteDiv">
+                        <a href="/dltpost/<%=comments[i].comment_id%>" style="display: transparent">
+                            <img class="DeleteImg" src="../assets/delete_logo_white.png">
+                        </a>
+                    </div>
+                    <div class="UpvoteDiv">
+                        <button class="PostEditButton" onclick="postEdit('post_edit_form_<%= i %>', 'post_body_<%= i %>')">
+                            <img class="DeleteImg" src="../assets/edit_white.png">
+                        </button>
+                    </div>
                 </div>
             <% } %>
         </div>
