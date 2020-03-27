@@ -264,7 +264,7 @@ body {
     width: 2vw;
     margin-top: 0.3vw;  
   }
-  @media(max-width:800px){
+  @media(max-width:900px){
     .Heading {
         text-align: center;
         font-size: 5vw;
