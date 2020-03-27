@@ -77,7 +77,7 @@ conn.connect(function (err) {
   if (err) throw err;
 
   var sql =
-    'CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL auto_increment,`dsc_namekebab` VARCHAR(45) NOT NULL, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(450) NULL, `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, `total_posts` INT NOT NULL DEFAULT 0, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE);'
+    'CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL auto_increment,`dsc_namekebab` VARCHAR(45) NOT NULL, `dsc_name` VARCHAR(45) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` VARCHAR(60000) NULL, `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, `total_posts` INT NOT NULL DEFAULT 0, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE);'
   conn.query(sql, function (err, result) {
     if (err) throw err;
     if (result.length > 0) console.log('Discussion Table created');
@@ -88,7 +88,7 @@ conco.connect(function (err) {
   if (err) throw err;
 
   var sql =
-    'CREATE TABLE if not exists `forum`.`comments` ( `idComments` int NOT NULL AUTO_INCREMENT, `usr_id` varchar(45) DEFAULT NULL, `dsc_id` int DEFAULT NULL, `cmt` varchar(150) DEFAULT NULL, `post_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP, `upvote` int NOT NULL DEFAULT "0", PRIMARY KEY (`idComments`), UNIQUE KEY `idComments_UNIQUE` (`idComments`) )';
+    'CREATE TABLE if not exists `forum`.`comments` ( `idComments` int NOT NULL AUTO_INCREMENT, `usr_id` varchar(45) DEFAULT NULL, `dsc_id` int DEFAULT NULL, `cmt` varchar(60000) DEFAULT NULL, `post_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP, `upvote` int NOT NULL DEFAULT "0", PRIMARY KEY (`idComments`), UNIQUE KEY `idComments_UNIQUE` (`idComments`) )';
   conco.query(sql, function (err, result) {
     if (err) throw err;
   });
@@ -102,8 +102,6 @@ var sql = 'CREATE TABLE if not exists `forum`.`discussion_thanks` (`user_id` var
 conco.query(sql, function (err, result) {
   if (err) throw err;
 });
-
-
 
 app.get('/forgot-password', function (req, res) {
   res.render('ForgotPassword', {
@@ -324,7 +322,7 @@ function home_query(req, res, sql, current_page) {
     if (result.length > 0) {
       response.posts = [];
       for (var i = 0; i < result.length; i++) {
-        var imgurl=md5(result[i].usr_id);
+        var imgurl = md5(result[i].usr_id);
         var post = {
           title: result[i].dsc_name,
           body: result[i].data,
@@ -437,9 +435,9 @@ app.get('/dashboard/:user', function (req, res) {
       if (result.length > 0) {
         posts = [];
         for (var i = 0; i < result.length; i++) {
-          var imgurl=md5(result[i].usr_id);
+          var imgurl = md5(result[i].usr_id);
           var post = {
-            
+
             title: result[i].dsc_name,
             body: result[i].data,
             img: imgurl,
@@ -509,7 +507,7 @@ app.get('/dashboard', function (req, res) {
       var dashdiscount = result.length;
       posts = [];
       for (var i = 0; i < result.length; i++) {
-        var imgurl=md5(result[i].usr_id);
+        var imgurl = md5(result[i].usr_id);
         var post = {
           title: result[i].dsc_name,
           body: result[i].data,
@@ -618,7 +616,7 @@ app.get("/post/:title", function (req, res) {
   var sql = 'select * from discussion where dsc_namekebab = ? ;';
   conn.query(sql, [requestedTitle], function (err, result) {
     if (err) throw err;
-    var imgurl=md5(result[0].usr_id);
+    var imgurl = md5(result[0].usr_id);
     if (result.length > 0) {
       var post = {
         title: result[0].dsc_name,
@@ -637,7 +635,7 @@ app.get("/post/:title", function (req, res) {
         if (result.length > 0) {
           comments = [];
           for (var i = 0; i < result.length; i++) {
-            var imgurl=md5(result[i].usr_id);
+            var imgurl = md5(result[i].usr_id);
             var comment = {
               body: result[i].cmt,
               img: imgurl,
