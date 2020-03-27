@@ -77,11 +77,13 @@
                     <span class="ProfileNameA" id="number_of_upvotes"><%= comments[i].upvote %></span>
                 </div>
             </div>
-            <div class="UpvoteDiv">
-                <a href="" style="display: transparent">
-                    <img class="DeleteImg" src="../assets/delete_logo_white.png">
-                </a>
-            </div>
+            <% if(user == comments[i].user) { %>
+                <div class="UpvoteDiv">
+                    <a href="" style="display: transparent">
+                        <img class="DeleteImg" src="../assets/delete_logo_white.png">
+                    </a>
+                </div>
+            <% } %>
         </div>
     </div>
     <% } %>
