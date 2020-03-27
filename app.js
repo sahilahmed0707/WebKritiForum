@@ -325,7 +325,7 @@ function home_query(req, res, sql, current_page) {
 
     if (result.length > 0) {
       response.posts = [];
-      for (var i = 0; i < result.length; i++) { 
+      for (var i = 0; i < result.length; i++) {
         var post = {
           title: result[i].dsc_name,
           body: result[i].data,
@@ -357,7 +357,7 @@ app.get("/cmtthanks/:idcmt", function (req, res) {
 
   user = req.cookies.userData.user;
   var sql = "insert into forum.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = ? AND idCmt = ? ) LIMIT 1;";
-  conn.query(sql,[user,idcmt,user,idcmt], function (err, result) {
+  conn.query(sql, [user, idcmt, user, idcmt], function (err, result) {
     if (err) throw err;
   });
 
@@ -374,7 +374,7 @@ app.get("/dscthanks/:dscid", function (req, res) {
 
   user = req.cookies.userData.user;
   var sql = "insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
-  conn.query(sql,[user,dscid], function (err, result) {
+  conn.query(sql, [user, dscid], function (err, result) {
     if (err) throw err;
   });
 
@@ -423,16 +423,16 @@ app.get("/", function (req, res) {
   home_query(req, res, sql, current_page);
 });
 
-app.get('/dashboard/:user', function(req, res) {
+app.get('/dashboard/:user', function (req, res) {
   if (req.cookies.userData.user != null) {
     res.cookie('dummy', {});
     const requestedUser = req.params.user;
     console.log(requestedUser);
     var sql =
-        'select * from discussion where usr_id = ? ;';
+      'select * from discussion where usr_id = ? ;';
     var upvotes = 0;
     var posts = [];
-    conn.query(sql,[requestedUser], function(err, result) {
+    conn.query(sql, [requestedUser], function (err, result) {
       if (err) throw err;
       var dashdiscount = result.length;
       if (result.length > 0) {
@@ -449,28 +449,26 @@ app.get('/dashboard/:user', function(req, res) {
           posts.push(post);
           upvotes = upvotes + result[i].thanks;
         }
-        console.log(posts);
         var dash_name;
         var dash_user;
         var dash_email;
-        con.query('select * from users where username = ?;', [requestedUser], function(err, details) {
+        con.query('select * from users where username = ?;', [requestedUser], function (err, details) {
+          if (err) throw err;
+          console.log('userdetails read');
+          conco.query(
+            'select * from comments where usr_id = ?;', [requestedUser],
+            function (err, commentcount) {
               if (err) throw err;
-              console.log('userdetails read');
-              conco.query(
-                  'select * from comments where usr_id = ?;', [requestedUser], function(err, commentcount) {
-                    if (err) throw err;
-                    console.log('comment count read');
-                    var commentss = [];
-                    for (var j = 0; j < commentcount.length; j++) {
-                      upvotes = upvotes + commentcount[j].upvote;
-                    }
-
-                    setdashvals(
-                        details[0].name, details[0].username, details[0].email,
-                        dashdiscount, commentcount.length, upvotes);
-                  })
-            },
-        );
+              console.log('comment count read');
+              var commentss = [];
+              for (var j = 0; j < commentcount.length; j++) {
+                upvotes = upvotes + commentcount[j].upvote;
+              }
+              setdashvals(
+                details[0].name, details[0].username, details[0].email,
+                dashdiscount, commentcount.length, upvotes);
+            })
+        }, );
 
         function setdashvals(vn, vu, ve, vd, vp, vup) {
           dash_name = vn;
@@ -479,6 +477,7 @@ app.get('/dashboard/:user', function(req, res) {
           dashdiscount = vd;
           commentcount = vp;
           upvotes = vup;
+          console.log(posts.length);
           res.render('dashboard', {
             posts: posts,
             dash_name: dash_name,
@@ -497,62 +496,73 @@ app.get('/dashboard/:user', function(req, res) {
 });
 
 
-app.get('/dashboard', function(req, res) {
+app.get('/dashboard', function (req, res) {
   console.log(req.cookies);
   if (req.cookies.userData.user != null) {
     res.cookie('dummy', {});
     var sql = 'select * from discussion where usr_id = ?;';
     var upvotes = 0;
     var posts = [];
-    conn.query(sql,[req.cookies.userData.user], function(err, result) {
+    conn.query(sql, [req.cookies.userData.user], function (err, result) {
       if (err) throw err;
       var dashdiscount = result.length;
-      if (result.length > 0) {
-        posts = [];
-        for (var i = 0; i < result.length; i++) {
-          var post = {
-            title: result[i].dsc_name,
-            body: result[i].data,
-            img: '',
-            user: result[i].usr_id,
-            date: moment(result[i]).format('YYYY MMMM DD'),
-            disc_id: result[i].dsc_id
-          };
-          posts.push(post);
-          upvotes = upvotes + result[i].thanks;
-        }
-        console.log(posts);
-        var dash_name;
-        var dash_user;
-        var dash_email;
-        con.query('select * from users where username = ?;', [req.cookies.userData.user], function(err, details) {
-              if (err) throw err;
-              console.log('userdetails read');
-              conco.query(
-                  'select * from comments where usr_id = ?;', [req.cookies.userData.user], function(err, commentcount) {
-                    if (err) throw err;
-                    console.log('comment count read');
-                    var commentss = [];
-                    for (var j = 0; j < commentcount.length; j++) {
-                      upvotes = upvotes + commentcount[j].upvote;
-                    }
+      posts = [];
+      for (var i = 0; i < result.length; i++) {
+        var post = {
+          title: result[i].dsc_name,
+          body: result[i].data,
+          img: '',
+          user: result[i].usr_id,
+          date: moment(result[i]).format('YYYY MMMM DD'),
+          disc_id: result[i].dsc_id
+        };
+        posts.push(post);
+        upvotes = upvotes + result[i].thanks;
+      }
+      var dash_name;
+      var dash_user;
+      var dash_email;
+      console.log('userdetails read');
+      con.query('select * from users where username = ?;', [req.cookies.userData.user], function (err, details) {
+        if (err) throw err;
+        conco.query(
+          'select * from comments where usr_id = ?;', [req.cookies.userData.user],
+          function (err, commentcount) {
+            if (err) throw err;
+            console.log('comment count read');
+            var commentss = [];
+            for (var j = 0; j < commentcount.length; j++) {
+              upvotes = upvotes + commentcount[j].upvote;
+            }
+            setdashvals(
+              details[0].name, details[0].username, details[0].email,
+              dashdiscount, commentcount.length, upvotes);
+          })
+      });
 
-                    setdashvals(
-                        details[0].name, details[0].username, details[0].email,
-                        dashdiscount, commentcount.length, upvotes);
-                  })
-            },
-        );
+      function setdashvals(vn, vu, ve, vd, vp, vup) {
+        dash_name = vn;
+        dash_user = vu;
+        dash_email = ve;
+        dashdiscount = vd;
+        commentcount = vp;
+        upvotes = vup;
+        console.log(posts.length);
 
-        function setdashvals(vn, vu, ve, vd, vp, vup) {
-          dash_name = vn;
-          dash_user = vu;
-          dash_email = ve;
-          dashdiscount = vd;
-          commentcount = vp;
-          upvotes = vup;
+        if (posts.length > 0) {
           res.render('dashboard', {
             posts: posts,
+            dash_name: dash_name,
+            dash_email: dash_email,
+            'user': req.cookies.userData.user,
+            dash_user: dash_user,
+            dashdiscount: dashdiscount,
+            commentcount: commentcount,
+            upvotes: upvotes
+          });
+        } else {
+          res.render('dashboard', {
+            posts: 0,
             dash_name: dash_name,
             dash_email: dash_email,
             'user': req.cookies.userData.user,
@@ -591,7 +601,7 @@ app.post('/compose', function (req, res) {
   var currTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
   var sql =
     'insert into discussion (dsc_name,dsc_namekebab, usr_id, data, post_time) values(?,?,?,?,current_timestamp)';
-  conn.query(sql,[post.title,post.titlekebab,post.user,,post.body ], function (err, result) {
+  conn.query(sql, [post.title, post.titlekebab, post.user, , post.body], function (err, result) {
     if (err) throw err;
     console.log('discussion added successfully');
     // res.render('ForgotPassword', {
@@ -625,7 +635,7 @@ app.get("/post/:title", function (req, res) {
       };
       console.log(post);
       var sql = "select * from comments where dsc_id = ? order by upvote;";
-      conn.query(sql,[result[0].dsc_id], function (err, result) {
+      conn.query(sql, [result[0].dsc_id], function (err, result) {
         if (err) throw err;
         console.log("hye123");
         if (result.length > 0) {
@@ -678,16 +688,16 @@ app.post("/post/:title", function (req, res) {
 
 
     var sql = "select * from discussion where dsc_name =? ;";
-    conn.query(sql,[req.params.title], function (err, result) {
+    conn.query(sql, [req.params.title], function (err, result) {
       if (err) throw err;
 
       if (result.length > 0) {
         var sql = "UPDATE discussion SET total_posts = total_posts+1 where dsc_name =?;"
-        conn.query(sql,[req.params.title], function (err, result) {
+        conn.query(sql, [req.params.title], function (err, result) {
           if (err) throw err;
         });
         var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values(?,?,?, current_timestamp)';
-        conn.query(sql,[ post.user,result[0].dsc_id,post.body ], function (err, result) {
+        conn.query(sql, [post.user, result[0].dsc_id, post.body], function (err, result) {
           if (err) throw err;
         });
       }
