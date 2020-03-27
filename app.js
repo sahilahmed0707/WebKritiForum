@@ -28,7 +28,7 @@ app.use(express.json({
 // express-rate-limit dependency
 const createAccountLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window
-  max: 5, // start blocking after 5 requests
+  max: 50, // start blocking after 50 requests
   message: "Too many login/signup request from this IP, please try again after an hour"
 });
 
@@ -628,7 +628,8 @@ app.get("/post/:title", function (req, res) {
         user: result[0].usr_id,
         date: moment(result[0].post_time).format('YYYY MMMM DD HH:mm'),
         disc_id: result[0].dsc_id,
-
+        total_posts: result[0].total_posts,
+        numberOfUpvotes: result[0].thanks,
       };
       console.log(post);
       var sql = "select * from comments where dsc_id = ? order by upvote;";
@@ -657,7 +658,10 @@ app.get("/post/:title", function (req, res) {
             body: post.body,
             date: post.date,
             user: post.user,
+            disc_id: post.disc_id,
             img: post.img,
+            total_posts: post.total_posts,
+            numberOfUpvotes: post.numberOfUpvotes,
             'user': req.cookies.userData.user,
           });
         } else {
@@ -666,8 +670,11 @@ app.get("/post/:title", function (req, res) {
             title: post.title,
             body: post.body,
             date: post.date,
+            disc_id: post.disc_id,
             user: post.user,
             img: post.img,
+            total_posts: post.total_posts,
+            numberOfUpvotes: post.numberOfUpvotes,
             'user': req.cookies.userData.user,
           });
         }
