@@ -455,7 +455,9 @@ app.get('/dashboard/:user', function (req, res) {
             img: imgurl,
             user: result[i].usr_id,
             date: moment(result[i]).format('YYYY MMMM DD'),
-            disc_id: result[i].dsc_id
+            disc_id: result[i].dsc_id,
+            total_posts: result[i].total_posts,
+            numberOfUpvotes: result[i].thanks,
           };
           posts.push(post);
           upvotes = upvotes + result[i].thanks;
@@ -526,7 +528,9 @@ app.get('/dashboard', function (req, res) {
           img: imgurl,
           user: result[i].usr_id,
           date: moment(result[i]).format('YYYY MMMM DD'),
-          disc_id: result[i].dsc_id
+          disc_id: result[i].dsc_id,
+          total_posts: result[i].total_posts,
+          numberOfUpvotes: result[i].thanks,
         };
         posts.push(post);
         upvotes = upvotes + result[i].thanks;
@@ -630,6 +634,14 @@ app.get("/post/:title", function (req, res) {
     if (err) throw err;
     var imgurl = md5(result[0].usr_id);
     if (result.length > 0) {
+      var sql = "select dsc_id from discussion where dsc_namekebab=?;";
+      conn.query(sql, [req.params.title], function (err, result) {
+        if (err) throw err;
+      });
+      var sql = "UPDATE discussion SET total_posts = (SELECT COUNT(idComments) FROM comments WHERE comments.dsc_id =?);"
+      conn.query(sql, [result[0].dsc_id], function (err, result) {
+        if (err) throw err;
+      });
       var post = {
         title: result[0].dsc_name,
         body: result[0].data,
@@ -657,7 +669,6 @@ app.get("/post/:title", function (req, res) {
               disc_id: result[i].dsc_id,
               comment_id: result[i].idComments,
               upvote: result[i].upvote,
-
             };
             comments.push(comment);
           }
@@ -693,8 +704,8 @@ app.get("/post/:title", function (req, res) {
 });
 
 
-app.post("/post/:title", function (req, res) {
-  if (req.cookies.userData.user != "NULL") {
+app.post("/postcmt/:dscid", function (req, res) {
+  if (req.cookies.userData.user != null) {
     var str = req.body.postBody;
     str = str.replace(/\r\n/g, 'char10');
     let post = {
@@ -702,21 +713,18 @@ app.post("/post/:title", function (req, res) {
       user: req.cookies.userData.user,
     };
 
-    var sql = "select * from discussion where dsc_name =? ;";
-    conn.query(sql, [req.params.title], function (err, result) {
-      if (err) throw err;
+   
 
-      if (result.length > 0) {
-        var sql = "UPDATE discussion SET total_posts = total_posts+1 where dsc_name =?;"
-        conn.query(sql, [req.params.title], function (err, result) {
-          if (err) throw err;
-        });
         var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values(?,?,?, current_timestamp)';
-        conn.query(sql, [post.user, result[0].dsc_id, post.body], function (err, result) {
+        conn.query(sql, [post.user, req.params.dscid, post.body], function (err, result) {
           if (err) throw err;
         });
-      }
-    });
+      
+      var sql = "UPDATE discussion SET total_posts = (SELECT COUNT(idComments) FROM comments WHERE comments.dsc_id =?);"
+      conn.query(sql, [req.params.dscid], function (err, result) {
+        if (err) throw err;
+      });
+  
     res.redirect(req.get('referer'));
   } else {
     res.redirect("/login")
