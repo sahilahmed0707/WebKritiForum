@@ -345,6 +345,15 @@ function home_query(req, res, sql, current_page) {
   });
 }
 
+app.post("/editpost/:idcmt", function (req, res) {
+  idcmt = req.params.idcmt;
+  var edt = "update `comments` set cmt =? , post_time=current_timestamp where idComments=?;";
+  con.query(edt, [req.body.postBody,idcmt], function (err, ans) {
+    if (err) throw err;
+  });
+  res.redirect(req.get('referer'));
+});
+
 app.get("/dltpost/:idcmt", function (req, res) {
   idcmt = req.params.idcmt;
   var dlt = "delete from `comments` where idComments=?;";

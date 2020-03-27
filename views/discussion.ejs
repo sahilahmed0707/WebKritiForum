@@ -115,7 +115,7 @@
         </div>
 
         <!-- BHARTA add link here -->
-        <form action="" method="post" id="post_edit_form_<%= i %>" style="display: none">
+        <form action="/editpost/<%=comments[i].comment_id%>" method="post" id="post_edit_form_<%= i %>" style="display: none">
             <div class="Container" id="container_div" style="width: 80%; margin: 0; border:none; box-shadow: none;">
                 <label class="SubHeading">Edit</label>
                 <textarea id="post_body_<%= i %>" class="PostBody" name="postBody" cols="30" rows="10" required=""><%= comments[i].body %></textarea>
@@ -127,7 +127,7 @@
     <% } %>
 
     <% console.log(user);console.log("1234567890"); if(user != null ) {   %>
-    <form action="http://localhost:8080/postcmt/<%=disc_id%>" method="post">
+    <form action="/postcmt/<%=disc_id%>" method="post">
         <div class="Container" id="container_div">
             <label class="SubHeading">Post</label>
             <textarea class="PostBody" name="postBody" cols="30" rows="10" required=""></textarea>
