@@ -34,29 +34,29 @@
         </div>
         <p class="BodySpan"><%= posts[i].body %></p>
         <% if(user != "NULL"){ %>
-            <div class="ContainerFooter">
-                <div class="UpvoteDiv">
-                    <a href="/dscthanks/<%=posts[i].disc_id%>" style=" background : rgba(0,0,00,0);">
-                        <div class="UpvoteImg">
-                            <img class="UpvoteImg" src="../assets/upvote.png">
-                            <img class="UpvoteImg" src="../assets/upvotehover.png">
-                        </div>
-                    </a>
-                    <div class="NumberOfUpvoteDiv">
-                        <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].numberOfUpvotes %></span>
+        <div class="ContainerFooter">
+            <div class="UpvoteDiv">
+                <a href="/dscthanks/<%=posts[i].disc_id%>" style=" background : rgba(0,0,00,0);">
+                    <div class="UpvoteImg">
+                        <img class="UpvoteImg" alt="Upvote Button" src="../assets/upvote.png">
+                        <img class="UpvoteImg" alt="Upvote Button" src="../assets/upvotehover.png">
                     </div>
-                </div>
-
-                <div class="CommentsDiv">
-                    <div class="CommentsImg">
-                        <img class="CommentsImg" src="../assets/comments.png">
-                        <img class="CommentsImg" src="../assets/commentshover.png">
-                    </div>
-                    <div class="TotalCommentsDiv">
-                        <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].total_posts %></span>
-                    </div>
+                </a>
+                <div class="NumberOfUpvoteDiv">
+                    <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].numberOfUpvotes %></span>
                 </div>
             </div>
+
+            <div class="CommentsDiv">
+                <div class="CommentsImg">
+                    <img class="CommentsImg" alt="Comment Count" src="../assets/comments.png">
+                    <img class="CommentsImg" alt="Comment Count" src="../assets/commentshover.png">
+                </div>
+                <div class="TotalCommentsDiv">
+                    <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].total_posts %></span>
+                </div>
+            </div>
+        </div>
         <% } %>
     </div>
     <% } %>
