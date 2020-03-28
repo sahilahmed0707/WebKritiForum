@@ -40,6 +40,11 @@ login aur signup ki limit set ki hain jisse koi random request bhej kar server p
 fir edit aur delete posts ke bare mein bta ek post edit aur ek delete kar ke dikha.
 ye bhi dikha ki agar user logged in ho toh wo hi apna post edit kar sakkta hai.
 
+kisi post ko searchbar mein search karne wala part dikha. /post/post-title type karne
+par apne app post khuljayga. isme post-title ka case actual post ke case se math na ho 
+to bhi sahi post khulega. iske liye agar title "Android 10 is here" hai toh 
+"/post/Android 10 Is HERE" koi bhi random casing mein type karne par bhi wohi message 
+khulega. iske liye npm package lodash se string ko kebabcase mein convert kar dege. 
 
 Baki ye part email se copy kiya h:
 Tips for making the video:-
