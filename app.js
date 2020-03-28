@@ -79,8 +79,7 @@ conn.connect(function (err) {
   var sql =
     'CREATE TABLE IF NOT EXISTS `forum`.`Discussion` ( `dsc_id` INT NOT NULL auto_increment,`dsc_namekebab` VARCHAR(500) NOT NULL, `dsc_name` VARCHAR(500) NOT NULL, `usr_id` VARCHAR(45) NULL, `thanks` INT, `data` text(60000) NULL, `post_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP, `total_posts` INT NOT NULL DEFAULT 0, PRIMARY KEY (`dsc_id`), UNIQUE INDEX `discussion_id_UNIQUE` (`dsc_id` ASC) VISIBLE);'
   conn.query(sql, function (err, result) {
-    if (err) throw err;
-    if (result.length > 0) console.log('Discussion Table created');
+    if (err) throw err; 
   });
 });
 
@@ -130,7 +129,7 @@ app.post('/forgot-password/user', urlencodedParser, function (req, res) {
   con.query(sql, function (err, result) {
     if (err) throw err;
     if (result.length > 0) {
-      console.log(result);
+      
       res.render('ForgotPassword', {
         'heading': result[0].username,
         'subheading': result[0].question,
@@ -252,7 +251,7 @@ app.post('/signup', createAccountLimiter, urlencodedParser, function (req, res) 
     return;
   }
   var sql = 'select * from users where username = \'' + qdata.user + '\';';
-  console.log(qdata);
+  
   con.query(sql, function (err, result) {
     if (err) throw err;
     if (result.length > 0) {
@@ -264,7 +263,7 @@ app.post('/signup', createAccountLimiter, urlencodedParser, function (req, res) 
         'display': 'none'
       });
     } else {
-      console.log('here');
+      
       var query = 'insert into users values (\'' + qdata.name + '\', \'' +
         qdata.email + '\', \'' + qdata.user + '\', aes_encrypt(\'' +
         qdata.pass + '\', unhex(sha2(\'' + qdata.pass + '\', 256))), \'' +
@@ -272,7 +271,7 @@ app.post('/signup', createAccountLimiter, urlencodedParser, function (req, res) 
         '\', 256))));';
       con.query(query, function (err, result) {
         if (err) throw err;
-        console.log('added data successfully');
+       
         res.redirect('/login');
       });
     }
@@ -320,7 +319,7 @@ app.get('/about', function (req, res) {
 });
 
 function home_query(req, res, sql, current_page) {
-  console.log(req.cookies);
+  
   if (req.cookies == undefined||req.cookies==null) {
     res.cookie("userData", {
       'user': null,
@@ -339,7 +338,6 @@ function home_query(req, res, sql, current_page) {
   conn.query("select count(*) from discussion;", function (err, result) {
     if (err) throw err;
     response.total_rows = result[0]["count(*)"];
-    console.log(result[0]);
   });
   var posts = [];
   conn.query(sql, function (err, result) {
@@ -451,14 +449,12 @@ app.get("/home", function (req, res) {
   conn.query("select count(*) from discussion", function (err, result) {
     if (err) throw err;
     total_rows = result[0]["count(*)"];
-    console.log("answer: " + result[0]["count(*)"] + " " + total_rows);
     if (req.query.button == "Next") {
       change = 1;
       sql = "select * from discussion where dsc_id <= " + (total_rows - (current_page * 10)) + " and dsc_id > " + (total_rows - ((current_page + 1) * 10)) + " order by dsc_id desc;";
     } else
       sql = "select * from discussion where dsc_id > " + (total_rows - ((current_page - 1) * 10)) + " and dsc_id <= " + (total_rows - ((current_page - 2) * 10)) + " order by dsc_id desc;";
-    console.log(sql);
-    console.log("total_rows:" + total_rows);
+
     home_query(req, res, sql, current_page + change)
   });
 });
@@ -469,7 +465,6 @@ app.get("/", function (req, res) {
       'user': null,
     });
   }
-  console.log(req.cookies.userData);
   conco.query("UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);", function (err, ans) {
     if (err) throw err;
   });
@@ -483,7 +478,6 @@ app.get('/dashboard/:user', function (req, res) {
   if (req.cookies.userData.user != null) {
     res.cookie('dummy', {});
     const requestedUser = req.params.user;
-    console.log(requestedUser);
     var sql =
       'select * from discussion where usr_id = ? ;';
     var upvotes = 0;
@@ -496,7 +490,6 @@ app.get('/dashboard/:user', function (req, res) {
         for (var i = 0; i < result.length; i++) {
           var imgurl = md5(result[i].usr_id);
           var post = {
-
             title: result[i].dsc_name,
             body: result[i].data,
             img: imgurl,
@@ -514,12 +507,10 @@ app.get('/dashboard/:user', function (req, res) {
         var dash_email;
         con.query('select * from users where username = ?;', [requestedUser], function (err, details) {
           if (err) throw err;
-          console.log('userdetails read');
           conco.query(
             'select * from comments where usr_id = ?;', [requestedUser],
             function (err, commentcount) {
               if (err) throw err;
-              console.log('comment count read');
               var commentss = [];
               for (var j = 0; j < commentcount.length; j++) {
                 upvotes = upvotes + commentcount[j].upvote;
@@ -537,7 +528,6 @@ app.get('/dashboard/:user', function (req, res) {
           dashdiscount = vd;
           commentcount = vp;
           upvotes = vup;
-          console.log(posts.length);
           res.render('dashboard', {
             posts: posts,
             dash_name: dash_name,
@@ -549,15 +539,16 @@ app.get('/dashboard/:user', function (req, res) {
             upvotes: upvotes
           });
         }
-        console.log('here');
       }
     });
+  }
+  else{
+    res.redirect("/login");
   }
 });
 
 
 app.get('/dashboard', function (req, res) {
-  console.log(req.cookies);
   if (req.cookies.userData.user != null) {
     res.cookie('dummy', {});
     var sql = 'select * from discussion where usr_id = ?;';
@@ -585,14 +576,12 @@ app.get('/dashboard', function (req, res) {
       var dash_name;
       var dash_user;
       var dash_email;
-      console.log('userdetails read');
       con.query('select * from users where username = ?;', [req.cookies.userData.user], function (err, details) {
         if (err) throw err;
         conco.query(
           'select * from comments where usr_id = ?;', [req.cookies.userData.user],
           function (err, commentcount) {
             if (err) throw err;
-            console.log('comment count read');
             var commentss = [];
             for (var j = 0; j < commentcount.length; j++) {
               upvotes = upvotes + commentcount[j].upvote;
@@ -610,8 +599,6 @@ app.get('/dashboard', function (req, res) {
         dashdiscount = vd;
         commentcount = vp;
         upvotes = vup;
-        console.log(posts.length);
-
         if (posts.length > 0) {
           res.render('dashboard', {
             posts: posts,
@@ -666,7 +653,6 @@ app.post('/compose', function (req, res) {
     'insert into discussion (dsc_name,dsc_namekebab, usr_id, data, post_time) values(?,?,?,?,current_timestamp)';
   conn.query(sql, [post.title, post.titlekebab, post.user, post.body], function (err, result) {
     if (err) throw err;
-    console.log('discussion added successfully');
     res.redirect('/');
   });
 });
@@ -695,11 +681,9 @@ app.get("/post/:title", function (req, res) {
         total_posts: result[0].total_posts,
         numberOfUpvotes: result[0].thanks,
       };
-      console.log(post);
       var sql = "select * from comments where dsc_id = ? order by post_time desc;";
       conn.query(sql, [result[0].dsc_id], function (err, result) {
         if (err) throw err;
-        console.log("hye123");
         if (result.length > 0) {
           comments = [];
           for (var i = 0; i < result.length; i++) {

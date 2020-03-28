@@ -109,7 +109,7 @@
                     <span class="ProfileNameA" id="number_of_upvotes"><%= comments[i].upvote %></span>
                 </div>
             </div>
-            <% if(user == comments[i].user) { console.log(comments[i].comment_id); %>
+            <% if(user == comments[i].user) { (comments[i].comment_id); %>
             <div style="display: flex;">
                 <div class="UpvoteDiv">
                     <a href="/dltpost/<%=disc_id%>/<%=comments[i].comment_id%>" style="display: transparent">
@@ -145,7 +145,7 @@
     </div>
     <% } %>
 
-    <% console.log(user);console.log("1234567890"); if(user != null ) {   %>
+    <%  if(user != null ) {   %>
     <form action="/postcmt/<%=disc_id%>" method="post">
         <div class="Container" id="container_div">
             <label class="SubHeading">Post</label>
