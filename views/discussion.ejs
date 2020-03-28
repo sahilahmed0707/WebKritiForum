@@ -1,29 +1,30 @@
 <%- include("partials/header"); -%>
+
 <head>
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-<link href="../objects.css" rel="stylesheet" type="text/css">
-<style>
-    .PostBody {
-        margin-bottom: 1vw;
-        font-size: 1vw;
-    }
-
-    .TitleInput {
-        margin-bottom: 1vw;
-        height: 2vw;
-        font-size: 1.5vw;
-    }
-
-    @media(max-width:900px) {
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link href="../objects.css" rel="stylesheet" type="text/css">
+    <style>
         .PostBody {
-            font-size: 2vw;
+            margin-bottom: 1vw;
+            font-size: 1vw;
         }
-    }
-</style>
-<title><%= title %> - Leaf Forums</title>
 
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        .TitleInput {
+            margin-bottom: 1vw;
+            height: 2vw;
+            font-size: 1.5vw;
+        }
+
+        @media(max-width:900px) {
+            .PostBody {
+                font-size: 2vw;
+            }
+        }
+    </style>
+    <title><%= title %> - Leaf Forums</title>
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -87,7 +88,8 @@
             <div class="ProfileInfoDiv">
                 <div class="ProfileNameDiv">
                     <a class="ProfileNameA" id="profile_name_a"
-                        href="/dashboard/<%=comments[i].user%>"><%=comments[i].user%> </a>
+                        href="/dashboard/<%=comments[i].user%>"><%=comments[i].user%>
+                    </a>
                 </div>
                 <div class="ProfileNameDiv" id="date_div">
                     <span class="ProfileNameA" id="date_a"><%= comments[i].date %></span>
@@ -107,7 +109,7 @@
                     <span class="ProfileNameA" id="number_of_upvotes"><%= comments[i].upvote %></span>
                 </div>
             </div>
-            <% if(user == comments[i].user) {  %>
+            <% if(user == comments[i].user) { console.log(comments[i].comment_id); %>
             <div style="display: flex;">
                 <div class="UpvoteDiv">
                     <a href="/dltpost/<%=disc_id%>/<%=comments[i].comment_id%>" style="display: transparent">
@@ -143,7 +145,7 @@
     </div>
     <% } %>
 
-    <%  if(user != null ) {   %>
+    <% console.log(user);console.log("1234567890"); if(user != null ) {   %>
     <form action="/postcmt/<%=disc_id%>" method="post">
         <div class="Container" id="container_div">
             <label class="SubHeading">Post</label>
@@ -151,6 +153,7 @@
             <input class="ButtonSubmit" id="button_submit" type="submit" value="SUBMIT">
         </div>
     </form>
+    <% } %>
     <script>
         var elem = document.getElementsByClassName("BodySpan");
         for (var i = 0; i <= elem.length; i++) {
@@ -166,12 +169,9 @@
             form.style.display = "initial";
             document.getElementById(name_post).innerHTML = str;
         }
-
-
     </script>
     <br>
     <br>
     <br>
 </body>
-<% } %>
 <%- include("partials/footer"); -%>
