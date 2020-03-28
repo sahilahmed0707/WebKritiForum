@@ -103,10 +103,6 @@ conco.query(sql, function (err, result) {
   if (err) throw err;
 });
 
-var sql="UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);"
-conco.query(sql, function (err, result) {
-  if (err) throw err;
-});
 
 app.get('/forgot-password', function (req, res) {
   res.render('ForgotPassword', {
