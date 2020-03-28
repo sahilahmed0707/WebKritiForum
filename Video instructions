@@ -13,10 +13,17 @@ Footer me about page jo likha hua h uspe hover krke bhi dikhana
 About page dikhana thoda sa game khelke, fir mobile version me bhi khelna, game ka code jarur dikha dena
 
 Dashboard me page dikhana or fir teeno circles pe hover krke dikhana
-Niche ka part bhi dikhana with mobile version fir app.js me dashboard ka code dikhana, or ye bolna ki ye krne ke liye callbacks ke bare me discover kiya tha(us part me jaha last query h or setdashvals function call hua h) baki tu khud hi janta h back samjhana. 
+Niche ka part bhi dikhana with mobile version fir app.js me dashboard ka code dikhana, or ye bolna ki ye krne ke liye callbacks ke bare me discover kiya tha(us part me jaha last query h or 
+setdashvals function call hua h) baki tu khud hi janta h back samjhana. 
 
 
-Not mine but still, Bharat se sare security features puchke bata dena video me with code, dynamic profile picture ke bare me bhi puch lena or apna game ka code elaborate kr dena thoda, css dikhayega to time lag jayega to usko skip kr sakta h shayad, agar bohot lambi ho to 
+Not mine but still, Bharat se sare security features puchke bata dena video me with code.
+
+Dynamic profile picture ke bare dikha, isme gravtar ka img api use kiya hai jisme userid ko hash karke pic ki request bheji hai 
+login aur signup ki limit set ki hain jisse koi random request bhej kar server par load na dele 
+agar 1 hour mein specific value se jyada request aye to us ip ko block kardega
+
+apna game ka code elaborate kr dena thoda, css dikhayega to time lag jayega to usko skip kr sakta h shayad, agar bohot lambi ho to 
 Login signup forgot password ke errors dikha dena, username already/does not exists or password mismatch vagera. 
 
 Logged out rehke compose or dashboard likh ke URL me or logged out session me upvote pe click vale redirects ke bare me bata dena with code agar possible ho to
