@@ -20,6 +20,7 @@ body {
     margin: auto auto;
     padding: 1.5vw 2vw;
     margin-bottom: 1vw;
+    margin-top: 1vw;
     display: grid;
     background-color: rgb(57, 62, 70);
     border-radius: 0.2em;
@@ -146,6 +147,10 @@ body {
     border: none;
 }
 
+textarea{
+    resize: none;
+}
+
 .ContainerFooter {
     min-height: 2.25vw;
     display: flex;
@@ -180,6 +185,30 @@ body {
     margin-right: 0.5vw;  
   }
 .UpvoteImg:hover img:first-child {
+    display: none;
+    height: 1.75vw;
+    width: 2.25vw;
+    margin-right: 0.5vw;  
+  }
+.ModifierIcons img:last-child {
+    display: none;
+    height: 1.75vw;
+    width: 2.25vw;
+    margin-right: 0.5vw;
+  }
+.ModifierIcons img:first-child {
+    display: block;
+    height: 1.75vw;
+    width: 2.25vw;
+    margin-right: 0.5vw;
+  }
+.ModifierIcons:hover img:last-child {
+    display: block;
+    height: 1.75vw;
+    width: 2.25vw;
+    margin-right: 0.5vw;  
+  }
+.ModifierIcons:hover img:first-child {
     display: none;
     height: 1.75vw;
     width: 2.25vw;
@@ -281,7 +310,6 @@ body {
         font-weight: bold;
         color: rgb(0, 173, 181);
     }
-    
     .Container {
         min-height: 1%;
         width: 90%;
@@ -289,6 +317,7 @@ body {
         margin: auto auto;
         padding: 1.5vw 2vw;
         margin-bottom: 1vw;
+        margin-top: 1vw;
         display: grid;
         background-color: rgb(57, 62, 70);
         border-radius: 0.2em;
@@ -454,7 +483,31 @@ body {
         width: 5vw;
         margin-right: 0.5vw;  
       }
-    
+      .ModifierIcons img:last-child {
+        display: none;
+        height: 3.7vw;
+        width: 5vw;
+        margin-right: 0.5vw;
+      }
+    .ModifierIcons img:first-child {
+        display: block;
+        height: 3.7vw;
+        width: 5vw;
+        margin-right: 0.5vw;
+      }
+    .ModifierIcons:hover img:last-child {
+        display: block;
+        height: 3.7vw;
+        width: 5vw;
+        margin-right: 0.5vw;  
+      }
+    .ModifierIcons:hover img:first-child {
+        display: none;
+        height: 3.7vw;
+        width: 5vw;
+        margin-right: 0.5vw;  
+      }
+
     .UpvoteDiv {
         display: flex;
         min-height: 5vw;
