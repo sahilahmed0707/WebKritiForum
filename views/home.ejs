@@ -75,6 +75,10 @@
         for (var i = 0; i <= elem.length; i++) {
             var str = elem[i].innerHTML;
             str = str.replace(/char10/g, "<br>")
+            if(str.length > 500){
+                str = str.slice(0, 500);
+                str = str + ".....";
+            }
             elem[i].innerHTML = str;
         }
     </script>
