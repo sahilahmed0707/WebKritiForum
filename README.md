@@ -2,7 +2,8 @@
 
 ## PROJECT DESCRIPTION
 
-A description about what your project is.
+Leaf Forums is a fully fledged community forum, written entirely in HTML, CSS, JavaScript and Node.js for backend.
+Here you can start a new discussion, post on existing discussions, upvote existing discussions and posts, edit and delete your posts.
 
 ## FEATURES
 
