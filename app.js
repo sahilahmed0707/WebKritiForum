@@ -50,14 +50,14 @@ var conn = mysql.createConnection({
   host: 'localhost',
   user: 'webkriti',
   password: '12345',
-  database: 'Forum',
+  database: 'Forum'
 });
 
 var conco = mysql.createConnection({
   host: 'localhost',
   user: 'webkriti',
   password: '12345',
-  database: 'Forum',
+  database: 'Forum'
 });
 
 
