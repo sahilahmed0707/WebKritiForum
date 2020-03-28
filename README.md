@@ -9,7 +9,9 @@ Here you can start a new discussion, post on existing discussions, upvote existi
 
 * Forgot Password Feature - We ask for a security question at the time of signing up, so if you forget your password, no worries, you can click on forgot password on the login screen, answer the question asked and set a password you would not forget.
 * Login/Signup limit - We have limited the number of login/signup API limiting, which is also known as rate limiting, as DoS attacks can tank a server with unlimited API requests, and could be potential security threat
-* Feature 3
+* Snake Game - In about page there is snake game, which you can play with arrow keys.
+* Password Secuirty- Your password is highly secure with help of aes_256 encryption method.
+* Responsiveness - All pages are optimized for small devices with smaller screens.
 
 Make sure you give detailed description of the features
 
