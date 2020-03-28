@@ -46,6 +46,8 @@ to bhi sahi post khulega. iske liye agar title "Android 10 is here" hai toh
 "/post/Android 10 Is HERE" koi bhi random casing mein type karne par bhi wohi message 
 khulega. iske liye npm package lodash se string ko kebabcase mein convert kar dege. 
 
+bina login kiye thread pe post nahi kar sakte hain. post ka form hi nahi ayega
+
 Baki ye part email se copy kiya h:
 Tips for making the video:-
 -> Try to cover all the features, rather than spending a lot of time on a single feature.
