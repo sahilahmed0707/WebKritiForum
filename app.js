@@ -21,9 +21,7 @@
  app.use(helmet.noCache());
 
  // Preventing DOS Attacks
- app.use(express.json({
-   limit: '10kb'
- })); // Body limit is 10
+   // Body limit is 10
 
  // express-rate-limit dependency
  const createAccountLimiter = rateLimit({
