@@ -230,7 +230,7 @@
             <div class="ProfileContainer">
                 <div class="ImgDiv" overflow="hidden">
                     <img class="ProfileImg"
-                        src="https://www.gravatar.com/avatar/<%=posts[i].img%>>?s=200&d=robohash&r=x">
+                        src="https://www.gravatar.com/avatar/<%=posts[i].img%>>?s=400&d=robohash&r=x">
                 </div>
                 <div class="ProfileInfoDiv">
                     <div class="ProfileNameDiv">
@@ -255,7 +255,7 @@
                         <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].numberOfUpvotes %></span>
                     </div>
                 </div>
-    
+
                 <div class="CommentsDiv">
                     <div class="CommentsImg">
                         <img class="CommentsImg" src="../assets/comments.png">
@@ -266,6 +266,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         <% } %>
         <script>
             var elem = document.getElementsByClassName("BodySpan");
@@ -277,6 +278,7 @@
         </script>
 
     </div>
+
     <br><br><br><br>
 
     <%- include("partials/footer"); -%>
