@@ -103,6 +103,11 @@ conco.query(sql, function (err, result) {
   if (err) throw err;
 });
 
+var sql="UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);"
+conco.query(sql, function (err, result) {
+  if (err) throw err;
+});
+
 app.get('/forgot-password', function (req, res) {
   res.render('ForgotPassword', {
     'heading': 'FORGOT PASSWORD',
@@ -348,18 +353,25 @@ function home_query(req, res, sql, current_page) {
 app.post("/editpost/:idcmt", function (req, res) {
   idcmt = req.params.idcmt;
   var edt = "update `comments` set cmt =? , post_time=current_timestamp where idComments=?;";
-  con.query(edt, [req.body.postBody,idcmt], function (err, ans) {
+  con.query(edt, [req.body.postBody, idcmt], function (err, ans) {
     if (err) throw err;
   });
   res.redirect(req.get('referer'));
 });
 
-app.get("/dltpost/:idcmt", function (req, res) {
+app.get("/dltpost/:dscid/:idcmt", function (req, res) {
   idcmt = req.params.idcmt;
+  dscid = req.params.dscid;
   var dlt = "delete from `comments` where idComments=?;";
   con.query(dlt, [idcmt], function (err, ans) {
     if (err) throw err;
   });
+
+  var sql = "UPDATE discussion SET total_posts = total_posts-1 where dsc_id =?;"
+  conn.query(sql, [dscid], function (err, result) {
+    if (err) throw err;
+  });
+
   res.redirect(req.get('referer'));
 });
 
@@ -647,10 +659,6 @@ app.get("/post/:title", function (req, res) {
       conn.query(sql, [req.params.title], function (err, result) {
         if (err) throw err;
       });
-      var sql = "UPDATE discussion SET total_posts = (SELECT COUNT(idComments) FROM comments WHERE comments.dsc_id =?);"
-      conn.query(sql, [result[0].dsc_id], function (err, result) {
-        if (err) throw err;
-      });
       var post = {
         title: result[0].dsc_name,
         body: result[0].data,
@@ -722,18 +730,15 @@ app.post("/postcmt/:dscid", function (req, res) {
       user: req.cookies.userData.user,
     };
 
-   
+    var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values(?,?,?, current_timestamp)';
+    conn.query(sql, [post.user, req.params.dscid, post.body], function (err, result) {
+      if (err) throw err;
+    });
+    var sql = "UPDATE discussion SET total_posts = total_posts+1 where dsc_id =?;"
+    conn.query(sql, [req.params.dscid], function (err, result) {
+      if (err) throw err;
+    });
 
-        var sql = 'insert into comments ( usr_id,dsc_id, cmt, post_time) values(?,?,?, current_timestamp)';
-        conn.query(sql, [post.user, req.params.dscid, post.body], function (err, result) {
-          if (err) throw err;
-        });
-      
-      var sql = "UPDATE discussion SET total_posts = (SELECT COUNT(idComments) FROM comments WHERE comments.dsc_id =?);"
-      conn.query(sql, [req.params.dscid], function (err, result) {
-        if (err) throw err;
-      });
-  
     res.redirect(req.get('referer'));
   } else {
     res.redirect("/login")
