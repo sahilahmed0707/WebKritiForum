@@ -1,0 +1,36 @@
+Sahil's part for video :
+Hr page pr mobile version me sab kuch dikhana Mt bhulna
+Or uske bad ejs ka code bhi dikhana acche se agar koi thodi complicated chiz h usme thoda emphasise kr dena
+
+Divs pe hover krke jarur dikhana,
+
+Upvote, posts count, delete, edit pr hover krke dikhana fir object.css me upvoteimg img me first child or last child वाली chiz dikha dena
+
+Header footer dikha dena with code and responsiveness(mobile version)
+Bharat ka vo check bhi emphasise krna jisme vo session check krta h ki logged in ya nhi(header ka) 
+Footer me about page jo likha hua h uspe hover krke bhi dikhana
+
+About page dikhana thoda sa game khelke, fir mobile version me bhi khelna, game ka code jarur dikha dena
+
+Dashboard me page dikhana or fir teeno circles pe hover krke dikhana
+Niche ka part bhi dikhana with mobile version fir app.js me dashboard ka code dikhana, or ye bolna ki ye krne ke liye callbacks ke bare me discover kiya tha(us part me jaha last query h or setdashvals function call hua h) baki tu khud hi janta h back samjhana. 
+
+
+Not mine but still, Bharat se sare security features puchke bata dena video me with code, dynamic profile picture ke bare me bhi puch lena or apna game ka code elaborate kr dena thoda, css dikhayega to time lag jayega to usko skip kr sakta h shayad, agar bohot lambi ho to 
+Login signup forgot password ke errors dikha dena, username already/does not exists or password mismatch vagera. 
+
+Logged out rehke compose or dashboard likh ke URL me or logged out session me upvote pe click vale redirects ke bare me bata dena with code agar possible ho to
+Discussion page me bhi bina logged in वाला dikha dena, upvote, edit or delete feature bhi acche se dikha dena. 
+
+
+Baki ye part email se copy kiya h:
+Tips for making the video:-
+-> Try to cover all the features, rather than spending a lot of time on a single feature.
+-> Try to cover more unique screens rather than repeating the same screen again.
+-> Try to explain what you have explored as a part of this project, any external libraries, any special styling that you have done, any special security features that you have added etc..
+-> Don't forget to display the responsiveness of your website if you have worked on it.
+-> Try to show your code when you display an important feature to increase authenticity(both frontend and backend).
+-> Do not leave out small features, for example minor security aspects may have a significant impact on your project.
+-> Do not forget to discuss your database design.
+-> Do not beat around the bush, come straight to the point, a short 5-10 seconds intro mentioning your names and your project name would suffice.
+5. Create a README.md file in your github repository if it is not already present and give a detailed description of your project in that file. Mention all your features and highlight the points which you think can fetch you more marks. This file should also contain screenshots of your website and a Google Drive Link to the video presentation.
