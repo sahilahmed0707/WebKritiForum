@@ -11,7 +11,7 @@ Here you can start a new discussion, post on existing discussions, upvote existi
 * Login/Signup limit - We have limited the number of login/signup in one hour. API limiting, which is also known as rate limiting, as DoS attacks can tank a server with unlimited API requests, and could be potential security threat.
 * Password Secuirty- Your password is highly secure with help of aes_256 encryption method.
 * Responsiveness - All pages are optimized for devices with smaller screens.
-* Edit and Delete - Users can edit or delete their posts on a discsussion.
+* Edit and Delete - Users can edit or delete their posts on a discsussion. Whenever we try to edit post it opens a post editing section right below to that post only(without reload), with current post in the textbox.
 * Upvote Feature - You can upvote once any discussion or posts (even your own).
 * Dashboard - In the Dashboard Page you can see the number of discussions started, upvotes received, and posts done by you. You can also view you account details which are Username, Email and Name. Discussion started by you are shown below the user details sorted chronologically. Other users' dashboards can be accessed by clicking on their username on a post or discussion or through /dashboard/Username-Here.
 * You can access any discussion just by typing its title in any combination of upper and lower case through "/post/title yes"("Title yes" and "tiTLe YES" will take you to same discussion with title "Title yes").
