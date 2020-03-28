@@ -363,8 +363,9 @@ app.post("/editpost/:idcmt", function (req, res) {
   var edt = "update `comments` set cmt =? , post_time=current_timestamp where idComments=?;";
   con.query(edt, [str, idcmt], function (err, ans) {
     if (err) throw err;
+    res.redirect(req.get('referer'));
   });
-  res.redirect(req.get('referer'));
+
 });
 
 app.get("/dltpost/:dscid/:idcmt", function (req, res) {
@@ -378,9 +379,10 @@ app.get("/dltpost/:dscid/:idcmt", function (req, res) {
   var sql = "UPDATE discussion SET total_posts = total_posts-1 where dsc_id =?;"
   conn.query(sql, [dscid], function (err, result) {
     if (err) throw err;
+    res.redirect(req.get('referer'));
   });
 
-  res.redirect(req.get('referer'));
+ 
 });
 
 app.get("/cmtthanks/:idcmt", function (req, res) {
@@ -400,8 +402,9 @@ app.get("/cmtthanks/:idcmt", function (req, res) {
     var update = "UPDATE comments SET upvote = ( SELECT COUNT(user_id) FROM comment_thanks WHERE comment_thanks.idCmt = comments.idComments);";
     con.query(update, function (err, ans) {
       if (err) throw err;
+      res.redirect(req.get('referer'));
     });
-    res.redirect(req.get('referer'));
+
   } else
     res.redirect('/login');
 
@@ -418,8 +421,9 @@ app.get("/dscthanks/:dscid", function (req, res) {
     var update = "UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);";
     con.query(update, function (err, ans) {
       if (err) throw err;
+      res.redirect(req.get('referer'));
     });
-    res.redirect(req.get('referer'));
+   
   } else
     res.redirect('/login');
 });
@@ -745,9 +749,10 @@ app.post("/postcmt/:dscid", function (req, res) {
     var sql = "UPDATE discussion SET total_posts = total_posts+1 where dsc_id =?;"
     conn.query(sql, [req.params.dscid], function (err, result) {
       if (err) throw err;
+      res.redirect(req.get('referer'));
     });
 
-    res.redirect(req.get('referer'));
+  
   } else {
     res.redirect("/login")
   }
