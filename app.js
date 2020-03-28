@@ -303,6 +303,12 @@ app.get('/about', function (req, res) {
 
 function home_query(req, res, sql, current_page) {
 
+  if (req.cookies.userData == undefined) {
+    res.cookie("userData", {
+      'user': null,
+    });
+  }
+
   var response = {
     posts: [],
     total_rows: 0,
@@ -348,8 +354,10 @@ function home_query(req, res, sql, current_page) {
 
 app.post("/editpost/:idcmt", function (req, res) {
   idcmt = req.params.idcmt;
+  var str = req.body.postBody;
+  str = str.replace(/\r\n/g, 'char10');
   var edt = "update `comments` set cmt =? , post_time=current_timestamp where idComments=?;";
-  con.query(edt, [req.body.postBody, idcmt], function (err, ans) {
+  con.query(edt, [str, idcmt], function (err, ans) {
     if (err) throw err;
   });
   res.redirect(req.get('referer'));
