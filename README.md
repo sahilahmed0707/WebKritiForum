@@ -7,7 +7,7 @@ Here you can start a new discussion, post on existing discussions, upvote existi
 
 ## FEATURES
 
-* Feature 1
+* Forgot Password Feature - We ask for a security question at the time of signing up, so if you forget your password, no worries, you can click on forgot password on the login screen, answer the question asked and set a password you would not forget.
 * Feature 2
 * Feature 3
 
@@ -15,11 +15,11 @@ Make sure you give detailed description of the features
 
 ## SCREENSHOTS
 
-Attach a google drive link to a folder containing screenshots of your website. Make sure you have enabled link sharing to view the folder.
+https://drive.google.com/drive/folders/1di9jCBLKRxnFoQ_KU8PYQxLYupiaL5RM?usp=sharing
 
 ## VIDEO
 
-Attach a google drive link to a video of your website(max length : 5 mins). Make sure you have enabled link sharing to view the video.
+https://drive.google.com/open?id=1T5aDcr5Pxpj9T5gpM5pq8ifyiO3_f9QC
 
 ## HOSTED WEBSITE LINK
 
