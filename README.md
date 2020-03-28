@@ -18,6 +18,7 @@ Here you can start a new discussion, post on existing discussions, upvote existi
 * The NavBar changes according to the fact that a user is logged in or not.
 * In logged out session a user cannot access dashboards of other users, cannot upvote, access compose page or post on a discussion trying to do so redirects the user to the login page. Also in a logged in session accessing login, signup or forgot-password redirects the user to the home page.
 * Snake Game - In about page there is snake game, which you can play with arrow keys.
+* Post Edit - Whenever we try to edit post it opens a post editing section right below to that post only(without reload), with current post in the textbox.
 ## SCREENSHOTS
 
 https://drive.google.com/drive/folders/1di9jCBLKRxnFoQ_KU8PYQxLYupiaL5RM?usp=sharing
