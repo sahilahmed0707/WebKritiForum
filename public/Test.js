@@ -3,10 +3,15 @@ var elem = [];
 var food = document.getElementById('food');
 var elem_to_add = 0;
 var delay = 50;
-var windowWidth = window.innerWidth || document.documentElement.clientWidth ||
-    document.body.clientWidth;
-var windowHeight = window.innerHeight ||
-    document.documentElement.clientHeight || document.body.clientHeight;
+var windowWidth = Math.max(
+  document.body.scrollWidth, document.documentElement.scrollWidth,
+  document.body.offsetWidth, document.documentElement.offsetWidth,
+  document.body.clientWidth, document.documentElement.clientWidth);
+var windowHeight = Math.max(
+  document.body.scrollHeight, document.documentElement.scrollHeight,
+  document.body.offsetHeight, document.documentElement.offsetHeight,
+  document.body.clientHeight, document.documentElement.clientHeight
+);
 windowHeight /= (windowWidth / 100);
 windowHeight = Math.floor(windowHeight);
 // document.getElementById("Sahil_info").innerHTML = windowHeight + " " +
