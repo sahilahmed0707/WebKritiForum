@@ -210,7 +210,7 @@ app.post("/login", createAccountLimiter, urlencodedParser, function (req, res) {
         user: qdata.user
       });
 
-      res.redirect('http://localhost:8080/');
+      res.redirect('/');
 
     } else {
       res.render("ForgotPassword", {
