@@ -21,7 +21,9 @@
  app.use(helmet.noCache());
 
  // Preventing DOS Attacks
-   // Body limit is 10
+ app.use(express.json({
+   limit: '610kb'
+ })); // Body limit is 610
 
  // express-rate-limit dependency
  const createAccountLimiter = rateLimit({
@@ -405,7 +407,7 @@
      });
 
      user = req.cookies.userData.user;
-     var sql = "insert into forum.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = ? AND idCmt = ? ) LIMIT 1;";
+     var sql = "insert into sql12329168.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = ? AND idCmt = ? ) LIMIT 1;";
      conn.query(sql, [user, idcmt, user, idcmt], function (err, result) {
        if (err) throw err;
      });
@@ -425,7 +427,7 @@
    if (req.cookies.userData.user != null) {
      dscid = req.params.dscid;
      user = req.cookies.userData.user;
-     var sql = "insert into forum.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
+     var sql = "insert into sql12329168.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
      conn.query(sql, [user, dscid], function (err, result) {
        if (err) throw err;
      });
