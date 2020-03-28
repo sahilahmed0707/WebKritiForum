@@ -19,15 +19,26 @@ setdashvals function call hua h) baki tu khud hi janta h back samjhana.
 
 Not mine but still, Bharat se sare security features puchke bata dena video me with code.
 
-Dynamic profile picture ke bare dikha, isme gravtar ka img api use kiya hai jisme userid ko hash karke pic ki request bheji hai 
-login aur signup ki limit set ki hain jisse koi random request bhej kar server par load na dele 
-agar 1 hour mein specific value se jyada request aye to us ip ko block kardega
+
 
 apna game ka code elaborate kr dena thoda, css dikhayega to time lag jayega to usko skip kr sakta h shayad, agar bohot lambi ho to 
 Login signup forgot password ke errors dikha dena, username already/does not exists or password mismatch vagera. 
 
 Logged out rehke compose or dashboard likh ke URL me or logged out session me upvote pe click vale redirects ke bare me bata dena with code agar possible ho to
 Discussion page me bhi bina logged in वाला dikha dena, upvote, edit or delete feature bhi acche se dikha dena. 
+
+
+
+Dynamic profile picture ke bare dikha, isme gravtar ka img api use kiya hai jisme 
+userid ko hash karke pic ki request bheji hai 
+
+login aur signup ki limit set ki hain jisse koi random request bhej kar server par
+ load na dele agar 1 hour mein specific value se jyada request aye to us ip ko 
+ block kardega . isko dikane ke liye limit 5 set karke logged out state mein login 
+ signup button mein alternat karna.
+
+fir edit aur delete posts ke bare mein bta ek post edit aur ek delete kar ke dikha.
+ye bhi dikha ki agar user logged in ho toh wo hi apna post edit kar sakkta hai.
 
 
 Baki ye part email se copy kiya h:

@@ -28,7 +28,7 @@ app.use(express.json({
 // express-rate-limit dependency
 const createAccountLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour window
-  max: 50, // start blocking after 50 requests
+  max: 20, // start blocking after 50 requests
   message: "Too many login/signup request from this IP, please try again after an hour"
 });
 
@@ -103,19 +103,23 @@ conco.query(sql, function (err, result) {
   if (err) throw err;
 });
 
-var sql="UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);"
+var sql = "UPDATE discussion SET thanks = ( SELECT COUNT(user_id) FROM discussion_thanks WHERE discussion_thanks.dsc_id = discussion.dsc_id);"
 conco.query(sql, function (err, result) {
   if (err) throw err;
 });
 
 app.get('/forgot-password', function (req, res) {
-  res.render('ForgotPassword', {
-    'heading': 'FORGOT PASSWORD',
-    'subheading': 'USERNAME',
-    'user': req.cookies.userData.user,
-    'input': 'user',
-    'display': 'initial'
-  });
+  if (req.cookies.userData.user == null || req.cookies.userData == undefined) {
+    res.render('ForgotPassword', {
+      'heading': 'FORGOT PASSWORD',
+      'subheading': 'USERNAME',
+      'user': req.cookies.userData.user,
+      'input': 'user',
+      'display': 'initial'
+    });
+  } else {
+    home_query(res, req);
+  }
 });
 
 app.post('/forgot-password/user', urlencodedParser, function (req, res) {
@@ -145,6 +149,10 @@ app.post('/forgot-password/user', urlencodedParser, function (req, res) {
     }
   });
 });
+
+function homeredirect(res, req) {
+  res.redirect("/");
+}
 
 app.post('/forgot-password/ans', urlencodedParser, function (req, res) {
   var qdata = {
@@ -177,7 +185,7 @@ app.post('/change-password', urlencodedParser, function (req, res) {
   var qdata = {
     'user': req.body.user,
     'pass': req.body.pass,
-    'repass': req.body.repass
+    'repass': req.body.repass,
   };
   if (qdata.pass == qdata.repass) {
     var sql = 'update users set password = aes_encrypt(\'' + qdata.pass +
@@ -209,9 +217,7 @@ app.post("/login", createAccountLimiter, urlencodedParser, function (req, res) {
       res.cookie("userData", {
         user: qdata.user
       });
-
-      res.redirect('/');
-
+      homeredirect(res, req);
     } else {
       res.render("ForgotPassword", {
         "heading": "nothing",
@@ -280,16 +286,24 @@ app.get('/logout', function (req, res) {
   res.redirect('/');
 })
 
-app.get('/login', function (req, res) {
-  res.render('LoginPage', {
-    'user': req.cookies.userData.user
-  });
+app.get('/login',createAccountLimiter, function (req, res) {
+  if (req.cookies.userData.user == null || req.cookies.userData == undefined) {
+    res.render('LoginPage', {
+      'user': req.cookies.userData.user
+    });
+  } else {
+    homeredirect(res, req)
+  }
 });
 
-app.get('/signup', function (req, res) {
-  res.render('SignUp', {
-    'user': req.cookies.userData.user
-  });
+app.get('/signup', createAccountLimiter,function (req, res) {
+  if (req.cookies.userData.user == null || req.cookies.userData == undefined) {
+    res.render('SignUp', {
+      'user': req.cookies.userData.user
+    });
+  } else {
+    homeredirect(res, req);
+  }
 });
 
 app.set('view engine', 'ejs');
@@ -306,12 +320,13 @@ app.get('/about', function (req, res) {
 });
 
 function home_query(req, res, sql, current_page) {
-
-  if (req.cookies.userData == undefined) {
+  console.log(req.cookies);
+  if (req.cookies == undefined||req.cookies==null) {
     res.cookie("userData", {
       'user': null,
     });
   }
+  
 
   var response = {
     posts: [],
@@ -382,7 +397,7 @@ app.get("/dltpost/:dscid/:idcmt", function (req, res) {
     res.redirect(req.get('referer'));
   });
 
- 
+
 });
 
 app.get("/cmtthanks/:idcmt", function (req, res) {
@@ -423,7 +438,7 @@ app.get("/dscthanks/:dscid", function (req, res) {
       if (err) throw err;
       res.redirect(req.get('referer'));
     });
-   
+
   } else
     res.redirect('/login');
 });
@@ -449,8 +464,7 @@ app.get("/home", function (req, res) {
 });
 
 app.get("/", function (req, res) {
-  console.log(req.cookies.userData);
-  if (req.cookies.userData == undefined) {
+  if (req.cookies.userData == undefined || req.cookies.userData.user == null) {
     res.cookie("userData", {
       'user': null,
     });
@@ -752,7 +766,7 @@ app.post("/postcmt/:dscid", function (req, res) {
       res.redirect(req.get('referer'));
     });
 
-  
+
   } else {
     res.redirect("/login")
   }
