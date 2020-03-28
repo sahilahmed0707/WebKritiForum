@@ -15,7 +15,7 @@ Here you can start a new discussion, post on existing discussions, upvote existi
 * Upvote Feature - You can upvote once any discussion or posts (even your own).
 * Dashboard - In the Dashboard Page you can see the number of discussions started, upvotes received, and posts done by you. You can also view you account details which are Username, Email and Name. Discussion started by you are shown below the user details sorted chronologically.
 * You can access any discussion just by typing its title in any combination of upper and lower case through "/post/title yes"("Title yes" and "tiTLe YES" will take you to same discussion with title "Title yes").
-
+* A profile picture is generated for every user based on there username so every profile picture is unique(this is implemented using gravatar api)
 
 ## SCREENSHOTS
 
