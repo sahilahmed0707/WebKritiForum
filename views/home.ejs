@@ -48,10 +48,12 @@
             </div>
 
             <div class="CommentsDiv">
-                <div class="CommentsImg">
-                    <img class="CommentsImg" alt="Comment Count" src="../assets/comments.png">
-                    <img class="CommentsImg" alt="Comment Count" src="../assets/commentshover.png">
-                </div>
+                <a href="/post/<%= posts[i].title %>">
+                    <div class="CommentsImg">
+                        <img class="CommentsImg" alt="Comment Count" src="../assets/comments.png">
+                        <img class="CommentsImg" alt="Comment Count" src="../assets/commentshover.png">
+                    </div>
+                </a>
                 <div class="TotalCommentsDiv">
                     <span class="ProfileNameA" id="number_of_upvotes"><%= posts[i].total_posts %></span>
                 </div>
