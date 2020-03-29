@@ -460,7 +460,8 @@
  });
 
  app.get("/", function (req, res) {
-   if (req.cookies.userData == undefined || req.cookies.userData.user == null) {
+
+   if (req.cookies.userData == undefined || req.cookies.userData.user == null || req.cookies == undefined) {
      res.cookie("userData", {
        'user': null,
      });
