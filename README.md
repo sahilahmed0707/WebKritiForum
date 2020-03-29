@@ -25,7 +25,7 @@ https://drive.google.com/drive/folders/1di9jCBLKRxnFoQ_KU8PYQxLYupiaL5RM?usp=sha
 
 ## VIDEO
 
-https://drive.google.com/open?id=1T5aDcr5Pxpj9T5gpM5pq8ifyiO3_f9QC
+https://www.youtube.com/watch?v=8MTmbECWaFU
 
 ## HOSTED WEBSITE LINK
 
