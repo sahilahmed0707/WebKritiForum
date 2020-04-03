@@ -40,24 +40,24 @@
  }
 
  var con = mysql.createConnection({
-   host: 'sql12.freemysqlhosting.net',
-   user: 'sql12329168',
-   password: 'usNGSjvXih',
-   database: 'sql12329168'
+   host: 'sql7.freemysqlhosting.net',
+   user: 'sql7330945',
+   password: 'pRxlrrYlba',
+   database: 'sql7330945'
  });
 
  var conn = mysql.createConnection({
-   host: 'sql12.freemysqlhosting.net',
-   user: 'sql12329168',
-   password: 'usNGSjvXih',
-   database: 'sql12329168'
+   host: 'sql7.freemysqlhosting.net',
+   user: 'sql7330945',
+   password: 'pRxlrrYlba',
+   database: 'sql7330945'
  });
 
  var conco = mysql.createConnection({
-   host: 'sql12.freemysqlhosting.net',
-   user: 'sql12329168',
-   password: 'usNGSjvXih',
-   database: 'sql12329168'
+   host: 'sql7.freemysqlhosting.net',
+   user: 'sql7330945',
+   password: 'pRxlrrYlba',
+   database: 'sql7330945'
  });
 
 
@@ -407,7 +407,7 @@
      });
 
      user = req.cookies.userData.user;
-     var sql = "insert into sql12329168.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = ? AND idCmt = ? ) LIMIT 1;";
+     var sql = "insert into sql7330945.comment_thanks (user_id, idCmt) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM comment_thanks WHERE user_id = ? AND idCmt = ? ) LIMIT 1;";
      conn.query(sql, [user, idcmt, user, idcmt], function (err, result) {
        if (err) throw err;
      });
@@ -427,7 +427,7 @@
    if (req.cookies.userData.user != null) {
      dscid = req.params.dscid;
      user = req.cookies.userData.user;
-     var sql = "insert into sql12329168.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
+     var sql = "insert into sql7330945.discussion_thanks (user_id, dsc_id) SELECT * FROM ( SELECT ?,? ) AS tmp WHERE NOT EXISTS ( SELECT * FROM discussion_thanks WHERE user_id = '" + user + "' AND dsc_id = '" + dscid + "' ) LIMIT 1;";
      conn.query(sql, [user, dscid], function (err, result) {
        if (err) throw err;
      });
@@ -461,7 +461,7 @@
 
  app.get("/", function (req, res) {
 
-   if (req.cookies.userData == undefined || req.cookies.userData.user == null || req.cookies == undefined) {
+   if (req.cookies == undefined) {
      res.cookie("userData", {
        'user': null,
      });
