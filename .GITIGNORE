@@ -51,8 +51,3 @@ node_modules/
 
 # dotenv environment variables file
 .env
-Dump20200327 (1)/forum_comment_thanks.sql
-Dump20200327 (1)/forum_comments.sql
-Dump20200327 (1)/forum_discussion.sql
-Dump20200327 (1)/forum_discussion_thanks.sql
-Dump20200327 (1)/forum_users.sql
